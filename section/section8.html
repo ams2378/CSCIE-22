@@ -1,0 +1,502 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 8</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "sections", "graphviz": "true", "hash": "83f74b28c25cf042aaad5aebebd1f9a6", "title": "Section 8"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 8</h1>
+
+<h2 id="binary-trees">Binary trees</h2>
+<p>Consider the following binary tree (which is <em>not</em> a binary search tree):</p>
+<div class="viz" id="bt1"></div>
+
+<ol>
+<li>
+<p>What are the ancestors of node <em>h</em>?</p>
+<p><div class="solution"><div class="inner">
+Nodes with the keys <em>e</em>, <em>b</em>, and <em>a</em>.
+</div></div></p>
+</li>
+<li>
+<p>What are the descendants of node <em>c</em>?</p>
+<p><div class="solution"><div class="inner">
+Nodes with the keys <em>f</em>, <em>g</em>, and <em>i</em>.
+</div></div></p>
+</li>
+<li>
+<p>What is the depth of node <em>i</em>?</p>
+<p><div class="solution"><div class="inner">
+Three, because the path from <em>i</em> to the root contains three
+links (or edges).
+</div></div></p>
+</li>
+<li>
+<p>What is the height of the tree?</p>
+<p><div class="solution"><div class="inner">
+Four. This is the maximum depth of the nodes in the tree. In this
+case the node with the key <em>j</em> is the deepest, and its depth is four.
+</div></div></p>
+</li>
+<li>
+<p>Say you want to traverse the tree and print the keys in each of the nodes.
+    What will be the output if you use each of the following types of traversal?</p>
+<ul>
+<li>
+<p>pre-order</p>
+<p><div class="solution"><div class="inner">
+<em>a</em>, <em>b</em>, <em>d</em>, <em>e</em>, <em>h</em>, <em>j</em>, <em>c</em>, <em>f</em>, <em>i</em>, <em>g</em>
+</div></div></p>
+</li>
+<li>
+<p>post-order</p>
+<p><div class="solution"><div class="inner">
+<em>d</em>, <em>j</em>, <em>h</em>, <em>e</em>, <em>b</em>, <em>i</em>, <em>f</em>, <em>g</em>, <em>c</em>, <em>a</em>
+</div></div></p>
+</li>
+<li>
+<p>in-order</p>
+<p><div class="solution"><div class="inner">
+<em>d</em>, <em>b</em>, <em>j</em>, <em>h</em>, <em>e</em>, <em>a</em>, <em>f</em>, <em>i</em>, <em>c</em>, <em>g</em>
+</div></div></p>
+</li>
+<li>
+<p>level-order</p>
+<p><div class="solution"><div class="inner">
+<em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>e</em>, <em>f</em>, <em>g</em>, <em>h</em>, <em>i</em>, <em>j</em>
+</div></div></p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="implementing-an-iterator-for-a-binary-tree">Implementing an iterator for a binary tree</h2>
+<p>In this section, we will implement a <em>pre-order</em> iterator over binary trees.
+Much like a linked list iterator, a binary tree iterator gives a client access
+to the values inside nodes repeatedly. However, since there are different
+ways to traverse a binary tree, an iterator could be designed for each type
+of traversal.</p>
+<p>In any case, the Java class for the iterator should implement the following
+interface:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LinkedTreeIterator</span> <span class="o">{</span>
+    <span class="c1">// are there other nodes to see in this traversal?</span>
+    <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
+
+    <span class="c1">// return the value of the next node in the traversal, </span>
+    <span class="c1">// and advance the position of the iterator</span>
+    <span class="kt">int</span> <span class="nf">next</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>If we create a <em>pre-order</em> iterator object and repeatedly invoke its <code>next()</code>
+method, we should visit the nodes of the tree in the order taken by a preorder
+traversal. If we create an <em>in-order</em> iterator object and repeatedly invoke its
+<code>next()</code> method, we should visit the nodes of the tree in the order taken by an
+in-order traversal.</p>
+<p>Each type of iterator will be implemented as a private inner class of the
+<code>LinkedTree</code> class. If we name the class for our pre-order
+iterator <code>PreorderIterator</code>, the header of the class will look like this:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedTree</span> <span class="o">{</span>
+    <span class="o">...</span>
+    <span class="kd">private</span> <span class="kd">class</span> <span class="nc">PreorderIterator</span> <span class="kd">implements</span> <span class="n">LinkedTreeIterator</span> <span class="o">{</span>
+        <span class="o">...</span>
+</pre></div>
+
+
+<p>Before we implement this class, we need to mention a related change to
+the <code>LinkedTree</code> class that is needed to implement iterators. We need to add
+a <code>parent</code> field to each node in the tree; it will be used to hold a reference
+to the node&rsquo;s parent. Below is an example of a tree in which these references
+have been added. They are shown as arrows that have dotted lines.</p>
+<div class="viz" id="bt2"></div>
+
+<p>We will need to modify the <code>LinkedTree</code> code so that these parent references
+are correctly maintained. For the sake of this exercise, we will assume that
+these references are already fully supported.</p>
+<ol start="6">
+<li>
+<p>What instance variable or variables do we need in our <code>PreorderIterator</code>
+    class?</p>
+<p><div class="solution"><div class="inner">
+We only need a single instance variable: a reference to the
+next node to be visited.
+</div></div></p>
+</li>
+<li>
+<p>What should the constructor for the class do?</p>
+<p><div class="solution"><div class="inner">
+It needs to make <code>nextNode</code> refer to the first node to be visited by
+the iterator. Since a preorder traversal begins by visiting the root of
+the tree, the constructor is very simple:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">PreorderIterator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">nextNode</span> <span class="o">=</span> <span class="n">root</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Note that root is an instance variable of the <code>LinkedTree</code> class.
+Because <code>PreorderIterator</code> is an inner class, it has access to the
+instance variables of the tree object that was used to create it.
+</div></div></p>
+</li>
+<li>
+<p>What should the <code>hasNext()</code> method look like?</p>
+<p><div class="solution"><div class="inner">
+It&rsquo;s also quite simple. There are more nodes to visit so long
+as <code>nextNode</code> is not <code>null</code>.
+</div></div></p>
+</li>
+</ol>
+<p>The <code>next()</code> method must do two things:</p>
+<ul>
+<li>it must return the value of the next node to be visited (in this case, the
+    value of the node&rsquo;s key)</li>
+<li>it must advance the iterator so that it is ready for the next call to this
+    method</li>
+</ul>
+<p>Note that the method cannot do work after returning, so the value of the
+next node must be saved before the iterator&rsquo;s state is updated.</p>
+<ol start="9">
+<li>
+<p>If there are no additional nodes to visit, what should we do?</p>
+<p><div class="solution"><div class="inner">
+We could return <code>null</code>, or we could throw an exception
+(The Java collections framework uses
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/NoSuchElementException.html"><code>NoSuchElementException</code></a>).
+</div></div></p>
+</li>
+<li>
+<p>The second task involves updating the state of the iterator. What
+    variable or variables should be updated?</p>
+<p><div class="solution"><div class="inner">
+The <code>nextNode</code> instance variable.
+</div></div></p>
+</li>
+<li>
+<p>In order to accomplish the first task, what do we need to do <em>before</em>
+    updating the iterator&rsquo;s state?</p>
+<p><div class="solution"><div class="inner">
+We must first get the key of the node we should return as the next key.
+</div></div></p>
+</li>
+<li>
+<p>Looking at our earlier example, what are these cases, and how would you
+    advance the iterator in each case?</p>
+<p><div class="solution"><div class="inner">
+When advancing the iterator, there are several possible cases to consider,
+depending on the number and types of children of the node whose key we are
+about to return (which we will call the &ldquo;current node&rdquo;).</p>
+<p><em>Case 1</em>. The current node has a left child (e.g., if the current node
+is 15, 12, or 10). A preorder traversal visits the root, then it
+recursively traverses the left subtree, then it recursively traverses the
+right subtree. Therefore, if the current node has a left child, then the
+next node to be visited is the left child, since it is the root of the left
+subtree.</p>
+<p><em>Case 2</em>. The current node does not have a left child, but it does have
+a right child (e.g., if the current node is 6 or 18). In this case,
+because there is no left subtree, the traversal goes next to the right
+subtree, and thus the next node to be visited is the current node&rsquo;s right
+child, since it is the root of the right subtree.</p>
+<p><em>Case 3</em>. The current node is a leaf node (e.g., if the current node is 9,
+14, or 21). In this case, we need to go back up the tree, looking for nodes
+that have yet to be visited.</p>
+<p>Because a preorder traversal visits a node as soon as it encounters it
+(i.e., the root is visited first) and then visits the left subtree, the
+only unvisited nodes are in right subtrees of nodes that we&rsquo;ve already
+visited. Thus, we can trace back up using parent references until we find a
+node with a right child <em>on a different path</em> from the one that we took to
+get to the current node.</p>
+<p>The following code <em>almost</em> works:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">int</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">// warning: doesn&#39;t work in all cases!</span>
+        <span class="n">Node</span> <span class="n">p</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">parent</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">p</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">parent</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">nextNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+            <span class="n">nextNode</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>However, this code fails to distinguish between right children that are on
+the path from the root to the current node (which have already been
+visited) and right children that are <em>not</em> on that path (and have yet to be
+visited). For example, if the current node is the 9 node, the above
+code would cause the iterator to revisit the 10 node the next time the
+<code>next()</code> method is called, since 10 is the right child of its parent.
+Instead, we want the iterator to visit the 14 node next. We can get around
+this problem by using two different references as we trace back up the
+tree: one to perform the traversal, and one to stay one node &ldquo;behind&rdquo; the
+first reference. That will allow us to find previously unvisited right
+children.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">int</span> <span class="nf">next</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">nextNode</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">nextNode</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">Node</span> <span class="n">p</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">.</span><span class="na">parent</span><span class="o">;</span>
+        <span class="n">Node</span> <span class="n">c</span> <span class="o">=</span> <span class="n">nextNode</span><span class="o">;</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">p</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">p</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">p</span><span class="o">;</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">parent</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">p</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">nextNode</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> 
+            <span class="n">nextNode</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+<li>
+<p>Once the iterator has been advanced, what final thing needs to be done?</p>
+<p><div class="solution"><div class="inner">
+We return the key we saved in <code>key</code>.
+</div></div></p>
+</li>
+</ol>
+<h2 id="huffman-encoding">Huffman encoding</h2>
+<p>You are given a document in which all characters are drawn from a set of 6
+characters. The frequencies of these characters are given below:</p>
+<table>
+<thead>
+<tr>
+<th colspan="1" rowspan="1">
+<p>Character</p>
+</th>
+<th colspan="1" rowspan="1">
+<p>Frequency</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">
+<p>e</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>45</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>a</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>33</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>r</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>20</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>i</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>18</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>n</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>15</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p>d</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>10</p>
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="14">
+<li>
+<p>Create a Huffman tree for this document.</p>
+<p><div class="solution"><div class="inner">
+We&rsquo;ll start with the sorted list of nodes.</p>
+<p><div class="viz" id="huffman1"></div></p>
+<p>Then we&rsquo;ll continue to merge the lowest-frequency pair of nodes and
+reinserting their parent into the list until we are left with just the
+root of the Huffman tree.</p>
+<p>Whenever we merge a pair of nodes, we create a new inner node that does
+not correspond to a particular character in the document, but has the
+sum of the frequencies of its children. We&rsquo;ll label the left child with
+the bit <code>0</code> and the right child with the bit <code>1</code>.</p>
+<p><div class="viz" id="huffman2"></div></p>
+<p><div class="viz" id="huffman3"></div></p>
+<p><div class="viz" id="huffman4"></div></p>
+<p><div class="viz" id="huffman5"></div></p>
+<p><div class="viz" id="huffman6"></div>
+</div></div></p>
+</li>
+<li>
+<p>Use the Huffman tree to decode the following sequence of bits from the
+    compressed document:</p>
+<div class="codehilite"><pre><span></span>00101000100101
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+To decode, we start at the root of the Huffman tree and follow child links
+one bit at a time until we reach a leaf node. After reaching a leaf node,
+start again at the root of the tree with the next bit.</p>
+<p>The code supplied above assumes a tree built where the left child
+represents a <code>0</code> bit and the right child represents a <code>1</code> bit.</p>
+<p><code>0</code>, <code>0</code>, <code>1</code> encodes <em>n</em><br>
+<code>0</code>, <code>1</code> encodes <em>a</em><br>
+<code>0</code>, <code>0</code>, <code>0</code> encodes <em>d</em><br>
+<code>1</code>, <code>0</code>, <code>0</code> encodes <em>i</em><br>
+<code>1</code>, <code>0</code>, <code>1</code> encodes <em>r</em></p>
+<p>This sequence decodes to <code>nadir</code>. The <em>e</em> was not used, but it could have
+appeared if we had seen the sequence <code>11</code>.
+</div></div></p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on November  6, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+<script type="text/javascript" src="/~cscie22/js/viz.js"></script>
+
+<script type="text/javascript">
+function drawError(el, err) {
+    el.className += " error";
+    var html = '<p>An error occurred loading ';
+    html += 'this figure (HTTP error ' + err + ').</p>';
+    el.innerHTML = html;
+}
+
+function drawGraph(el, src) {
+    var graph = Viz(src, format="svg", engine="dot", options=['-Gbgcolor=transparent']);
+    el.innerHTML = graph;
+    el.className = 'viz loaded';
+}
+
+function drawViz(el) {
+    var addr = '/~cscie22/files/dot/' + el.id + '.dot';
+    var x = new XMLHttpRequest();
+
+    x.onload = function(e) {
+        if (x.readyState === 4) {
+            if (x.status === 200) {
+                drawGraph(el, x.responseText);
+            } else {
+                drawError(el, x.status);
+            }
+        }
+    };
+
+    x.open("GET", addr);
+    x.send();
+}
+
+var vs = document.getElementsByClassName("viz");
+for (var i = 0; i < vs.length; i++) {
+    drawViz(vs[i]);
+}
+</script>
+
+
+
+</body>
+</html>

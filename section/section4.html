@@ -1,0 +1,729 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 4</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"mathjax": "true", "path": "~cscie22/presto", "section": "sections", "hash": "6bebc576f86e0847bfe4746c715fb631", "title": "Section 4"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ['input/TeX', 'output/CommonHTML', 'output/NativeMML'],
+  extensions: ['tex2jax.js'],
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  showProcessingMessages: false,
+  messageStyle: 'none'
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 4</h1>
+
+<h2 id="quicksort">Quicksort</h2>
+<p>The quicksort algorithm uses a recursive &ldquo;divide-and-conquer&rdquo; approach to
+achieve a much better average-case time complexity than the <span class="mathjax">$O(n^2)$</span> sorting
+algorithms we&rsquo;ve seen thus far. The elements to be sorted are <em>partitioned</em>
+into two &ldquo;subarrays&rdquo; such that all the elements in the left subarray are less
+than or equal to all the elements in the right subarray. The subarrays
+themselves are then recursively partitioned, until we get down to subarrays
+containing just a single element (which can&rsquo;t be further partitioned). Once
+<em>all</em> the recursive invocations reach the base case of a single-element
+subarray, the entire array is sorted.</p>
+<p>Recall that partitioning is accomplished by choosing a <em>pivot</em> value, and
+repeatedly swapping elements such that the left subarray contains only values
+that are less than or equal to the pivot, and the right subarray contains only
+values that are greater than or equal to the pivot. Let&rsquo;s trace through
+quicksort on the following array:</p>
+<figure>
+    <img src="/~cscie22/files/sections/quicksort-blank.svg">
+</figure>
+
+<div class="solution"><div class="inner">
+
+<figure>
+    <img src="/~cscie22/files/sections/quicksort-solution.svg">
+</figure>
+</div>
+
+</div>
+
+<ol>
+<li>
+<p>What is the time complexity of quicksort in the best case? In the worst
+    case? In the average case?</p>
+<p><div class="solution"><div class="inner">
+<strong>Best case</strong><br>
+Each time we partition, we divide the current subarray in half. The call
+tree will then have a height of <span class="mathjax">$\log_2 n$</span>, since <span class="mathjax">$\log_2 n$</span> is an upper
+bound on the number of times we can divide <span class="mathjax">$n$</span> in half before reaching 1,
+and the recursion stops when we get down to subarrays of length 1. At each
+of the <span class="mathjax">$\log_2 n$</span> levels of the call tree, we perform <span class="mathjax">$n$</span> comparisons. The
+number of moves per level will vary, but is still <span class="mathjax">$O(n)$</span>. The overall
+best-case time complexity is therefore <span class="mathjax">$O(n \cdot \log_2 n)$</span></p>
+<p><strong>Worst case</strong><br>
+Each time we partition, we divide the current subarray into a subarray
+containing just a single element and another subarray containing all
+the remaining elements. In this case, the call tree will have a height of <span class="mathjax">$n$</span>,
+since we&rsquo;re reducing the problem size by only 1 element at a time. The number of
+comparisons we perform starts at <span class="mathjax">$n$</span> and goes down by 1 for each level, giving
+us <span class="mathjax">$O(n^2)$</span> comparisons. We perform at most 1 swap per level, so there are
+<span class="mathjax">$O(n)$</span> moves, but the overall worst-case complexity is still <span class="mathjax">$O(n^2)$</span>.</p>
+<p><strong>Average case</strong><br>
+We get a mix of balanced and unbalanced partitionings, and so the
+height of our call tree will be <span class="mathjax">$&gt; \log_2 n$</span> but <span class="mathjax">$&lt; n$</span>. It can be proved that
+quicksort is still <span class="mathjax">$O(n \cdot \log_2 n)$</span> on average, and that its average
+case is much closer to its best case than its worst case.
+</div></div></p>
+</li>
+<li>
+<p>How would you characterize the performance of quicksort in the example we
+    just stepped through? Was it an example of best-case, worst-case, or
+    average-case performance? Why?</p>
+<p><div class="solution"><div class="inner">
+Since our input size was 6 and the height of our call tree was 4, and
+<span class="mathjax">$\log_2(6) &lt; 4 &lt; 6$</span>, it is best described as an example of average-case
+performance.
+</div></div></p>
+</li>
+<li>
+<p><em>Optional</em> How many calls to the <code>partition()</code> method does quicksort
+    perform as a function of the input size <span class="mathjax">$n$</span>? Note that this will <em>not</em> be
+    the same as the overall time complexity for the algorithm, which is based
+    on the number of comparisons and moves rather than <code>partition()</code> calls.</p>
+<p><div class="solution"><div class="inner">
+The number of <code>partition()</code> calls will be equal to the number of nodes in
+the call tree, minus the nodes representing subarrays of length 1 (since we
+don&rsquo;t call <code>partition()</code> on these subarrays). The nodes representing the
+one-element subarrays are called the <em>leaf nodes</em> of the call tree, since
+they have no children (i.e., they don&rsquo;t result in further recursive calls).</p>
+<p>Although the <em>height</em> of the call tree for quicksort varies depending on
+how we end up partitioning the subarrays, it turns out that the number of
+nodes in the tree does <em>not</em> vary. The call tree for quicksort is always a
+binary tree with <span class="mathjax">$n$</span> leaves (since there are a total of <span class="mathjax">$n$</span> one-element
+subarrays) and exactly two branches at every non-leaf node. It can be
+proven by induction that such a binary tree has <span class="mathjax">$2n - 1$</span> nodes total. So if
+any call tree for quicksort has <span class="mathjax">$2n - 1$</span> nodes, and <span class="mathjax">$n$</span> of those nodes
+represent 1-element subarrays for which we don&rsquo;t call <code>partition()</code>, then
+we call <code>partition()</code> <span class="mathjax">$2n - 1 - n = n - 1 = O(n)$</span> times.
+</div></div></p>
+</li>
+</ol>
+<h2 id="merge-sort">Merge sort</h2>
+<p>Merge sort uses the same overall recursive &ldquo;divide-and-conquer&rdquo; strategy as
+quicksort, whereas quicksort does all the work of sorting the array in the
+process of dividing (i.e., partitioning) it, merge sort performs <em>no</em> sorting
+during the division phase of the algorithm, and instead does all the work of
+sorting the array in the process of <em>merging</em> the subarrays formed during the
+division phase.</p>
+<p>Let&rsquo;s trace through mergesort on the following array:</p>
+<div class="codehilite"><pre><span></span>                    -----------------------------------------
+                    |  7 | 39 | 20 | 11 | 16 |  5 |  9 | 28 |
+                    -----------------------------------------
+                                      split
+                                /               \
+                ---------------------       ---------------------
+                |    |    |    |    |       |    |    |    |    |
+                ---------------------       ---------------------
+                      split                           split
+                  /           \                   /           \
+          -----------     -----------       -----------     -----------
+          |    |    |     |    |    |       |    |    |     |    |    |
+          -----------     -----------       -----------     -----------
+        split               split               split               split
+      /       \           /       \           /       \           /       \
+   ------   ------     ------   ------     ------   ------     ------   ------
+   |    |   |    |     |    |   |    |     |    |   |    |     |    |   |    |
+   ------   ------     ------   ------     ------   ------     ------   ------
+      \       /           \       /           \       /           \       /
+        merge               merge               merge               merge
+     -----------         -----------         -----------         -----------
+     |    |    |         |    |    |         |    |    |         |    |    |
+     -----------         -----------         -----------         -----------
+               \         /                             \         /
+                  merge                                   merge  
+          ---------------------                   ---------------------
+          |    |    |    |    |                   |    |    |    |    |
+          ---------------------                   ---------------------
+                    \                                       /
+                    -----------------------------------------
+                    |    |    |    |    |    |    |    |    |
+                    -----------------------------------------
+</pre></div>
+
+
+<ol start="4">
+<li>
+<p>What major advantage does merge sort have over quicksort with respect to
+    time complexity?</p>
+<p><div class="solution"><div class="inner">
+Unlike quicksort, merge sort <em>always</em> divides the current subarray evenly
+in half, and so its call tree is always perfectly balanced, with height
+proportional to <span class="mathjax">$\log_2 n$</span>. Therefore, merge sort gives <span class="mathjax">$O(n \cdot \log_2 n)$</span>
+performance even in the worst case, whereas quicksort can degenerate into
+<span class="mathjax">$O(n^2)$</span> performance if it does not partition evenly and its call tree
+approaches a height of <span class="mathjax">$n$</span>.
+</div></div></p>
+</li>
+<li>
+<p>What major disadvantage does merge sort have compared to quicksort with
+    respect to space complexity?</p>
+<p><div class="solution"><div class="inner">
+Merge sort requires <span class="mathjax">$O(n)$</span> additional memory on top of the array itself,
+while quicksort uses only <span class="mathjax">$O(1)$</span> additional memory.
+</div></div></p>
+</li>
+</ol>
+<h2 id="deriving-an-expression-for-runtime-from-experimental-data">Deriving an expression for runtime from experimental data</h2>
+<p>In Problem Set 2, we will ask you to take some experimental data and infer the
+big O time complexity from the experimental data. Here is an example of this
+process.</p>
+<p>The main method for the <code>SortCount</code> class we&rsquo;ve given you runs the various sort
+algorithms on either a random or almost-sorted array and returns the number of
+comparisons and moves involved in each algorithm.</p>
+<p>Here is a sample output from <code>SortCount</code> for one of the sorting algorithms on
+random arrays:</p>
+<table>
+<thead>
+<tr>
+<th>n (size of array)</th>
+<th>comparisons</th>
+<th>moves</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 (run 1)</td>
+<td>4,950</td>
+<td>297</td>
+</tr>
+<tr>
+<td>100 (run 2)</td>
+<td>4,950</td>
+<td>297</td>
+</tr>
+<tr>
+<td>100 (run 3)</td>
+<td>4,950</td>
+<td>297</td>
+</tr>
+<tr>
+<td>200 (run 1)</td>
+<td>19,900</td>
+<td>597</td>
+</tr>
+<tr>
+<td>200 (run 2)</td>
+<td>19,900</td>
+<td>597</td>
+</tr>
+<tr>
+<td>200 (run 3)</td>
+<td>19,900</td>
+<td>597</td>
+</tr>
+<tr>
+<td>800 (run 1)</td>
+<td>319,600</td>
+<td>2,397</td>
+</tr>
+<tr>
+<td>800 (run 2)</td>
+<td>319,600</td>
+<td>2,397</td>
+</tr>
+<tr>
+<td>800 (run 3)</td>
+<td>319,600</td>
+<td>2,397</td>
+</tr>
+</tbody>
+</table>
+<ol start="6">
+<li>
+<p>What can we say about the number of comparisons and moves for different
+    inputs?</p>
+<p><div class="solution"><div class="inner">
+They appear to be the same.
+</div></div></p>
+</li>
+<li>
+<p>What can we infer about the comparisons and moves needed by this algorithm?</p>
+<p><div class="solution"><div class="inner"></p>
+<ul>
+<li>
+<p>First, we notice that the number of comparisons and moves does not vary
+    with the input, even though the input is random.</p>
+</li>
+<li>
+<p>When <span class="mathjax">$n$</span> doubles from 100 to 200, the comparisons quadruple from ~5,000
+    to ~20,000. Similarly, when <span class="mathjax">$n$</span> quadruples from 200 to 800, the
+    comparisons increase 16-fold to ~32,000. Thus, the number of
+    comparisons seems to be growing proportionally to <span class="mathjax">$n^2$</span>.</p>
+</li>
+<li>
+<p>When <span class="mathjax">$n$</span> doubles from 100 to 200, the number of moves doubles from ~300
+    to ~600. Similarly, when <span class="mathjax">$n$</span> quadruples from 200 to 800, the number of
+    moves quadruples from ~600 to ~2,400. Thus, the number of moves seems to
+    be growing proportionally to <span class="mathjax">$n$</span>.</p>
+</li>
+</ul>
+<p></div></div></p>
+</li>
+<li>
+<p>Given these observations, what sorting algorithm do we think this is?</p>
+<p><div class="solution"><div class="inner">
+Selection sort.
+</div></div></p>
+</li>
+<li>
+<p>Does it make sense that the number of comparisons and moves is the same
+    regardless of the sortedness of the input?</p>
+<p><div class="solution"><div class="inner">
+Yes. Selection sort always makes the same number of comparisons regardless
+of whether the input is nearly sorted or completely random. The number of
+moves also does not vary because on each iteration, we find the next
+smallest element and swap it into place. Notice that the number of moves is
+actually around <span class="mathjax">$3n$</span>, which corresponds with our analysis, since each swap
+necessitates three moves.
+</div></div></p>
+</li>
+<li>
+<p>However, this is not the case for all of our sorthing algorithms. What are
+    some examples of sorting algorithms whose comparisons vary with the input?</p>
+<p><div class="solution"><div class="inner">
+With insertion sort: Number of comparisons depend on the input. For
+example, if we have the input <code>{1, 2, 3}</code>, we only make two comparisons:</p>
+<ul>
+<li>compare 1 and 2</li>
+<li>compare 2 and 3</li>
+</ul>
+<p>However, if we have the input <code>{3, 2, 1}</code>, we make three:</p>
+<ul>
+<li>compare 3 and 2 giving <code>{2, 3, 1}</code></li>
+<li>compare 3 and 1</li>
+<li>compare 1 and 2 giving <code>{1, 2, 3}</code></li>
+</ul>
+<p></div></div></p>
+</li>
+</ol>
+<p>Here is some sample output from <code>SortCount</code> showing comparisons while
+running <strong>insertion sort</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>comparisons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100 (run 1)</td>
+<td>2,926</td>
+</tr>
+<tr>
+<td>100 (run 2)</td>
+<td>2,483</td>
+</tr>
+<tr>
+<td>100 (run 3)</td>
+<td>2,735</td>
+</tr>
+<tr>
+<td>200 (run 1)</td>
+<td>10,815</td>
+</tr>
+<tr>
+<td>200 (run 2)</td>
+<td>10,098</td>
+</tr>
+<tr>
+<td>200 (run 3)</td>
+<td>10,239</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the average number of comparsions is 2,721 for an input size of
+100, and 10,384 for an input size of 200.</p>
+<ol start="11">
+<li>
+<p>What do we notice about the number of comparisons?</p>
+<p><div class="solution"><div class="inner"></p>
+<ul>
+<li>
+<p>The number of comparisons varies with the input.</p>
+</li>
+<li>
+<p>As <span class="mathjax">$n$</span> doubles from 100 to 200, the average number of comparisons
+    increases by a factor of 3.81. Though this is not the 4-fold
+    increase we expect for an <span class="mathjax">$O(n^2)$</span> algorithm, this is closer to
+    <span class="mathjax">$O(n^2)$</span> than <span class="mathjax">$O(n \cdot \log n)$</span>. The math for calculating the factor
+    that would be present if this were an <span class="mathjax">$O(n \cdot \log n)$</span> algorithm is
+    below:</p>
+<p><span class="mathjax">$$
+\frac{n \cdot \log n}{(n / 2) \cdot \log(n / 2)} =
+\frac{2 \cdot \log n}{\log(n / 2)} = \frac{2 \cdot \log(200)}{\log(100)} &lt;
+\frac{2 \cdot 8}{6} = \frac{8}{3} = 2.66
+$$</span></p>
+</li>
+</ul>
+<p></div></div></p>
+</li>
+</ol>
+<h2 id="radix-sort">Radix sort</h2>
+<p>Radix sort is a stable, distributive sorting algorithm that works by processing
+the individual digits of each element according to their significant position. 
+The version we worked with in lecture begins by evaluating the least
+significant digit of each element in the array (i.e., the rightmost digit of
+each element), and moves from left to right over the array of elements at each
+stage, depositing each value into a &ldquo;bucket&rdquo; according to the value of its
+least significant digit. It then repeats this process for each successive
+digit, stopping once it has evaluated each element according to the most
+significant position of the largest element in the array. </p>
+<p>We can break down radix sort into the following procedure:</p>
+<ul>
+<li>
+<p>Start at the beginning of our array and iterate over each element</p>
+</li>
+<li>
+<p>For each element, place it into a &ldquo;bucket&rdquo; according to the value of its
+    least significant digit, but otherwise maintain the order of the elements
+    (this is achieved by moving from left to right over the array)</p>
+</li>
+<li>
+<p>When you reach the end of the array, repeat the process of the next
+    most-significant digit</p>
+</li>
+<li>
+<p>Stop when you&rsquo;ve evaluated all the elements according to the
+    most-significant position of the largest element in the array.</p>
+</li>
+</ul>
+<p>An example:</p>
+<p>Original Unsorted Array, n = 12:</p>
+<table>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">
+<p>41</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>326</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>18</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>1</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>117</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>56</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>86</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>7</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>14</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>221</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>19</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>30</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>1<sup>st</sup> Pass (&lsquo;Buckets&rsquo; for the 1&rsquo;s digit):</p>
+<table>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Sig. Digit</strong></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>0</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>1</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>2</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>3</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>4</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>5</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>6</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>7</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>8</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>9</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Elements</strong></p>
+</td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+</tr>
+</tbody>
+</table>
+<p>2<sup>nd</sup> Pass (&lsquo;Buckets&rsquo; for the 10&rsquo;s digit):</p>
+<table>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Sig. Digit</strong></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>0</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>1</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>2</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>3</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>4</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>5</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>6</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>7</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>8</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>9</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Elements</strong></p>
+</td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+</tr>
+</tbody>
+</table>
+<p>3<sup>rd</sup> Pass (&lsquo;Buckets&rsquo; for the 100&rsquo;s digit):</p>
+<table>
+<tbody>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Sig. Digit</strong></p>
+</td>
+<td colspan="1" rowspan="1">
+<p>0</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>1</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>2</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>3</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>4</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>5</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>6</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>7</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>8</p>
+</td>
+<td colspan="1" rowspan="1">
+<p>9</p>
+</td>
+</tr>
+<tr>
+<td colspan="1" rowspan="1">
+<p><strong>Elements</strong></p>
+</td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+<td colspan="1" rowspan="1"></td>
+</tr>
+</tbody>
+</table>
+<ol start="12">
+<li>
+<p>Thinking about the example above and keeping in mind that radix sort
+    processes its data as a sequence of <span class="mathjax">$m$</span> quantities with <span class="mathjax">$k$</span> possible
+    values, what do <span class="mathjax">$m$</span> and <span class="mathjax">$k$</span> represent in the example above?</p>
+<p><div class="solution"><div class="inner">
+In the example, <span class="mathjax">$m = 3$</span>, because there are 3 positions we&rsquo;re looking at:
+the 1&rsquo;s position, the 10&rsquo;s position, and the 100&rsquo;s position. In general, if
+we have one bucket for each value of our given radix, <span class="mathjax">$m$</span> is equal to the
+positional index of the most significant digit of the largest element.
+here, since we&rsquo;re sorting integers in base 10, and we&rsquo;ll have one bucket
+for each digit 0&ndash;9.</p>
+<p>We can think of <span class="mathjax">$k$</span> as the number of buckets we have&mdash;that is, it
+represents the number of possible values we could have for each of <span class="mathjax">$m$</span>
+quantities. So, as we just mentioned, <span class="mathjax">$k = 10$</span> in the above example, and in
+any case in which we&rsquo;re using radix sort to sort integers by significant
+digit.
+</div></div></p>
+</li>
+<li>
+<p>How many operations did our example above require? How many operations would
+    the example above have required if the elements were already in sorted
+    order? If they were in reverse order?</p>
+<p><div class="solution"><div class="inner">
+In general radix sort takes <span class="mathjax">$n \cdot m$</span> steps for an array with <span class="mathjax">$n$</span>
+elements, since it iterates over all <span class="mathjax">$n$</span> elements of the array a total of <span class="mathjax">$m$</span>
+times. So the example above required <span class="mathjax">$12 \cdot 3 = 36$</span> steps.</p>
+<p>It would also require 36 steps if it had already been in sorted order, or
+reverse-sorted order. That is, the number of steps performed by radix sort
+is dependent only on the values of <span class="mathjax">$n$</span> and <span class="mathjax">$m$</span>, and not on the order of the
+original array.
+</div></div></p>
+</li>
+<li>
+<p>Which sorting method would have been more efficient for sorting the above
+    array: radix sort, or merge sort?</p>
+<p><div class="solution"><div class="inner">
+As discussed in lecture, radix sort is <span class="mathjax">$O(n \cdot m)$</span>, whereas mergesort
+is <span class="mathjax">$O(n \cdot \log n)$</span>. So radix sort is more efficient than mergesort
+(and other comparison-based sorting algorithms in <span class="mathjax">$O(n \cdot \log n)$</span>, such
+as quicksort) when <span class="mathjax">$m &lt; \log n$</span>.</p>
+<p>Here, <span class="mathjax">$m = 3$</span> and <span class="mathjax">$\log_2 n = 3.585 \dots$</span>, so radix sort would sort the
+above example in fewer steps than mergesort.
+</div></div></p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

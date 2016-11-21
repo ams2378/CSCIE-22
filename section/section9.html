@@ -1,0 +1,553 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 9</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "sections", "graphviz": "true", "hash": "6908bce4a0424188964fda1cd38a7787", "title": "Section 9"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 9</h1>
+
+<h2 id="binary-search-trees">Binary Search Trees</h2>
+<p>Recall that a <em>binary search tree</em> is a special binary tree in which the keys
+are kept in order. In particular, we call a tree a binary search tree if it
+satisfies the <em>binary search tree property</em>.</p>
+<blockquote>
+<p>A tree satisfies the <em>binary search tree</em> property if, for a
+root node with key <em>k</em>, all nodes in the left subtree have
+keys less than <em>k</em>, and all nodes in the right subtree have
+keys greater than or equal to <em>k</em>.</p>
+</blockquote>
+<ol>
+<li>
+<p>Insert the following sequence of keys into an empty binary search tree:</p>
+<div class="codehilite"><pre><span></span>15, 23, 20, 10, 13, 6, 18, 35, 23 (a duplicate), 9, 24
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+<div class="viz" id="bst11"></div>
+</div></div></p>
+</li>
+<li>
+<p>Is the resulting tree balanced?</p>
+<p><div class="solution"><div class="inner">
+Yes. For each node, the heights of the subtrees differ by at most one.
+</div></div></p>
+</li>
+<li>
+<p>What will the tree look like after deleting the following items?</p>
+<div class="codehilite"><pre><span></span>6, 15, 20
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+First we delete the node containing 6:</p>
+<div class="codehilite"><pre><span></span>                +----+                                  +----+
+               /| 15 |\                                /| 15 |\
+              / +----+ \                              / +----+ \
+             /          \                            /          \
+            /            \                          /            \
+        +----+          +----+                  +----+          +----+
+        | 10 |          | 23 |                  | 10 |          | 23 |
+        +----+          +----+                  +----+          +----+
+ (old   x |  \          /    \      ----\       /    \          /    \
+  left)x      \        /      \     ====/      /      \        /      \
+    +----+| +----+  +----+  +----+          +----+  +----+  +----+  +----+
+    |  6 |  | 13 |  | 20 |  | 35 |          |  9 |  | 13 |  | 20 |  | 35 |
+    +----+| +----+  +----+  +----+          +----+  +----+  +----+  +----+
+        \  (new      /       /                               /       /
+         \|left)    /       /                               /       /
+        +----+  +----+  +----+                          +----+  +----+
+        |  9 |  | 18 |  | 24 |                          | 18 |  | 24 |
+        +----+  +----+  +----+                          +----+  +----+
+</pre></div>
+
+
+<p>Then we delete the node containing 15. We begin by replacing the 15 with
+the smallest key in its right subtree (the 18), then we delete the node
+containing 18:</p>
+<div class="codehilite"><pre><span></span>                +----+                                  +----+
+               /| 15 |\                                /| 18 |\
+              / +----+ \                              / +----+ \
+             /          \                            /          \
+            /            \                          /            \
+        +----+          +----+                  +----+          +----+
+        | 10 |          | 23 |                  | 10 |          | 23 |
+        +----+          +----+                  +----+          +----+
+        /    \          /    \      ----\       /    \          /    \
+       /      \        /      \     ====/      /      \        /      \
+    +----+  +----+  +----+  +----+          +----+  +----+  +----+  +----+
+    |  9 |  | 13 |  | 20 |  | 35 |          |  9 |  | 13 |  | 20 |  | 35 |
+    +----+  +----+  +----+  +----+          +----+  +----+  +----+  +----+
+                     x       /                                       /
+                    x       /                                       /
+                +----+  +----+                                  +----+
+                | 18 |  | 24 |                                  | 24 |
+                +----+  +----+                                  +----+
+</pre></div>
+
+
+<p>Then we delete the node containing 20:</p>
+<div class="codehilite"><pre><span></span>                +----+                                  +----+
+               /| 18 |\                                /| 18 |\
+              / +----+ \                              / +----+ \
+             /          \                            /          \
+            /            \                          /            \
+        +----+          +----+                  +----+          +----+
+        | 10 |          | 23 |                  | 10 |          | 23 |
+        +----+          +----+                  +----+          +----+
+ (old   /    \          x    \      ----\       /    \               \
+  left)/      \        x      \     ====/      /      \               \
+    +----+  +----+  +----+  +----+          +----+  +----+          +----+
+    |  9 |  | 13 |  | 20 |  | 35 |          |  6 |  | 13 |          | 35 |
+    +----+  +----+  +----+  +----+          +----+  +----+          +----+
+                             /                                       /
+                            /                                       /
+                        +----+                                  +----+
+                        | 24 |                                  | 24 |
+                        +----+                                  +----+
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+<li>
+<p>Is this tree balanced?</p>
+<p><div class="solution"><div class="inner">
+No. The 23 has an empty left subtree (which can be thought of as having a
+height of -1) but its right subtree has a height of 1 - so the heights of
+its subtrees differ by more than 1.
+</div></div></p>
+</li>
+</ol>
+<h2 id="binary-tree-methods">Binary Tree Methods</h2>
+<p>We want to write a method which counts the number of leaf nodes in a given tree.
+Leaf nodes are defined as nodes which have no children.</p>
+<ol start="5">
+<li>
+<p>What parts of the tree will we need to process in order to accomplish this?</p>
+<p><div class="solution"><div class="inner">
+We must process the entire tree, and cannot leave any nodes out, because 
+all of the leaves are at the bottom of the tree.
+</div></div></p>
+</li>
+<li>
+<p>Assume we have a node <code>root</code> which is the root node of a tree. How can we
+    recursively define the number of leaf nodes in that tree?</p>
+<p><div class="solution"><div class="inner">
+The number of leaves in a tree for which <code>root</code> is the root node is the sum
+of the number of leaves in <code>root</code>&lsquo;s left subtree and the number of leaves 
+in <code>root</code>&lsquo;s right subtree. In other words, we can say that</p>
+<blockquote>
+<p>numberOfLeaves(root) = numberOfLeaves(root.left) + numberOfLeaves(root.right)
+</div></div></p>
+</blockquote>
+</li>
+<li>
+<p>What will be our base cases?</p>
+<p><div class="solution"><div class="inner">
+We need to terminate the recursion if we are either at a leaf or if we are
+given an empty tree.
+</div></div></p>
+</li>
+<li>
+<p>What will our function return?</p>
+<p><div class="solution"><div class="inner">
+An integer value.</p>
+<p>Here&rsquo;s one possible solution:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">int</span> <span class="nf">numLeaves</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// we&#39;re given an empty tree (no nodes)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// we&#39;re given a leaf node</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">leafCount</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">)</span> <span class="o">+</span> <span class="n">leafCount</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+<li>
+<p>What would we need to do if we wanted to write this method iteratively?
+    What sort of data structures would we need?</p>
+<p><div class="solution"><div class="inner">
+We would need to maintain a stack onto which we could push the left and 
+right subtree&rsquo;s root nodes as we iterated.
+</div></div></p>
+</li>
+<li>
+<p>Notice we could also implement this algorithm iteratively using a
+    level-order traversal of the binary tree. Would this implementation be less
+    efficient for balanced trees? Why or why not?</p>
+<p><div class="solution"><div class="inner">
+No, it would not be less efficient, because we would still need to touch
+every node in the tree once, just like we do in our depth-first recursive
+traversal above.
+</div></div></p>
+</li>
+</ol>
+<h2 id="2-3-trees">2-3 Trees</h2>
+<ol start="11">
+<li>
+<p>Insert the following sequence of keys into an empty 2-3 tree:</p>
+<div class="codehilite"><pre><span></span>15, 23, 20, 10, 13, 6, 18, 35, 27, 9
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+The first two insertions are straightforward:</p>
+<div class="codehilite"><pre><span></span>    +----+                  +---------+
+    | 15 |                  | 15 | 23 |
+    +----+                  +---------+
+</pre></div>
+
+
+<p>The next one requires a split, which creates a new root node containing the
+middle item.</p>
+<div class="codehilite"><pre><span></span>    +---------+
+    |   20    |     ----\   +----+
+    | 15 | 23 |     ====/   | 20 |
+    +---------+             +----+
+                            /    \
+                           /      \
+                        +----+  +----+
+                        | 15 |  | 23 |
+                        +----+  +----+
+</pre></div>
+
+
+<p>Here are the remaining steps:</p>
+<div class="codehilite"><pre><span></span>                +----+
+                | 20 |
+                +----+
+                /    \
+        +----+----+ +----+
+        | 10 | 15 | | 23 |
+        +----+----+ +----+
+
+          +----+                        +----+----+
+          | 20 |                        | 13 | 20 |
+          +----+                        +----+----+
+          /    \                        /    |    \
+  +----+----+ +----+    ----\       +----+ +----+ +----+
+  |   13    | |    |    ====/       | 10 | | 15 | | 23 |
+  | 10 | 15 | | 23 |                +----+ +----+ +----+
+  +----+----+ +----+
+
+              +----+----+
+              | 13 | 20 |
+              +----+----+
+              /    |    \
+     +----+----+ +----+ +----+
+     |  6 | 10 | | 15 | | 23 |
+     +----+----+ +----+ +----+
+
+              +----+----+
+             /| 13 | 20 |\
+            / +----+----+ \
+           /       |       \
+  +----+----+ +----+----+ +----+
+  |  6 | 10 | | 15 | 18 | | 23 |
+  +----+----+ +----+----+ +----+
+
+              +----+----+
+             /| 13 | 20 |\
+            / +----+----+ \
+           /       |       \
+  +----+----+ +----+----+ +----+----+
+  |  6 | 10 | | 15 | 18 | | 23 | 35 |
+  +----+----+ +----+----+ +----+----+
+
+              +----+----+                                   +----+----+
+             /| 13 | 20 |\                                 /| 13 | 20 | 27 
+            / +----+----+ \                               / +----+----+     \
+           /       |       \                             /       |     \     \ 
+  +----+----+ +----+----+ +----+----+   ----\   +----+----+ +----+----+ +----+\+----+
+  |    |    | |    |    | |    27   |   ====/   |  6 | 10 | | 15 | 18 | | 23 | | 35 |
+  |  6 | 10 | | 15 | 18 | | 23 | 35 |           +----+----+ +----+----+ +----+ +----+
+  +----+----+ +----+----+ +----+----+
+
+                                +----+
+                                | 20 |
+                                +----+
+                              /        \
+                             /          \
+                      +----+              +----+
+                      | 13 |              | 27 |
+                      +----+              +----+
+                      /    \              /    \
+ ----\        +----+----+ +----+----+ +----+ +----+
+ ====/        |  6 | 10 | | 15 | 18 | | 23 | | 35 |
+              +----+----+ +----+----+ +----+ +----+
+
+                            +----+
+                            | 20 |
+                            +----+
+                          /        \
+                         /          \
+                  +----+              +----+
+                  | 13 |              | 27 |
+                  +----+              +----+
+                  /    \              /    \
+          +----+----+ +----+----+ +----+ +----+
+          |    9    | |    |    | |    | |    |
+          |  6 | 10 | | 15 | 18 | | 23 | | 35 |
+          +----+----+ +----+----+ +----+ +----+
+
+                                +----+
+                                | 20 |
+                                +----+
+                              /        \
+                             /          \
+                 +----+----+              +----+
+                 |  9 | 13 |              | 27 |
+                 +----+----+              +----+
+                /    |     \              /    \
+ ----\      +----+ +----+ +----+----+ +----+ +----+
+ ====/      |  6 | | 10 | | 15 | 18 | | 23 | | 35 |
+            +----+ +----+ +----+----+ +----+ +----+
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+</ol>
+<h2 id="constructing-a-b-tree">Constructing a B-tree</h2>
+<ol start="12">
+<li>
+<p>We want to construct a B-tree where <em>m</em> = 2 for the following keys, in the
+    specified order, from left to right:</p>
+<div class="codehilite"><pre><span></span>51, 3, 10, 77, 20, 40, 34, 28, 61, 80, 68, 93, 90, 97, 14
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+The solution is presented step-by-step below:</p>
+<div class="codehilite"><pre><span></span>           ------
+           | 51 |
+           ------
+
+           -----------
+           |  3 | 51 |
+           -----------
+
+           ----------------
+           |  3 | 10 | 51 |
+           ----------------
+
+           ---------------------
+           |  3 | 10 | 51 | 77 |
+           ---------------------
+
+                     ------
+                     | 20 |
+                     ------
+                    /      \
+           -----------    -----------
+           |  3 | 10 |    | 51 | 77 |
+           -----------    -----------
+
+                     ------
+                     | 20 |
+                     ------
+                    /      \
+           -----------    ----------------
+           |  3 | 10 |    | 40 | 51 | 77 |
+           -----------    ----------------
+
+                     ------
+                     | 20 |
+                     ------
+                    /      \
+           -----------    ---------------------
+           |  3 | 10 |    | 34 | 40 | 51 | 77 |
+           -----------    ---------------------
+
+                        -----------
+                        | 20 | 40 |
+                        -----------
+                      /      |      \
+           -----------  -----------  -----------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 77 |
+           -----------  -----------  -----------
+
+                        -----------
+                        | 20 | 40 |
+                        -----------
+                      /      |     \
+           -----------  -----------  ----------------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 61 | 77 |
+           -----------  -----------  ----------------
+
+                        -----------
+                        | 20 | 40 |
+                        -----------
+                      /      |     \
+           -----------  -----------  ---------------------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 61 | 77 | 80 |
+           -----------  -----------  ---------------------
+
+                          ----------------
+                          | 20 | 40 | 68 |
+                          ----------------
+                       __/    /      \    \_______
+                      /       |       |           \
+           -----------  -----------  -----------  -----------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 61 |  | 77 | 80 |
+           -----------  -----------  -----------  -----------
+
+                          ----------------
+                          | 20 | 40 | 68 |
+                          ----------------
+                       __/    /      \    \_______
+                      /       |       |           \
+           -----------  -----------  -----------  ----------------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 61 |  | 77 | 80 | 93 |
+           -----------  -----------  -----------  ----------------
+
+                          ----------------
+                          | 20 | 40 | 68 |
+                          ----------------
+                       __/    /      \    \_______
+                      /       |       |           \
+           -----------  -----------  -----------  ---------------------
+           |  3 | 10 |  | 28 | 34 |  | 51 | 61 |  | 77 | 80 | 90 | 93 |
+           -----------  -----------  -----------  ---------------------
+
+                              ---------------------
+                              | 20 | 40 | 68 | 90 |
+                              ---------------------
+                      _______/    /     |     \    \_______
+                     /           /      |      \           \
+           ----------- ----------- ----------- ----------- -----------
+           |  3 | 10 | | 28 | 34 | | 51 | 61 | | 77 | 80 | | 93 | 97 |
+           ----------- ----------- ----------- ----------- -----------
+
+                              ---------------------
+                              | 20 | 40 | 68 | 90 |
+                              ---------------------____
+                      _______/    /      \_   \_______ \_____________
+                     /           /         \          \              \
+           ----------------  -----------  -----------  -----------  -----------
+           |  3 | 10 | 14 |  | 28 | 34 |  | 51 | 61 |  | 77 | 80 |  | 93 | 97 |
+           ----------------  -----------  -----------  -----------  -----------
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on November 10, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+<script type="text/javascript" src="/~cscie22/js/viz.js"></script>
+
+<script type="text/javascript">
+function drawError(el, err) {
+    el.className += " error";
+    var html = '<p>An error occurred loading ';
+    html += 'this figure (HTTP error ' + err + ').</p>';
+    el.innerHTML = html;
+}
+
+function drawGraph(el, src) {
+    var graph = Viz(src, format="svg", engine="dot", options=['-Gbgcolor=transparent']);
+    el.innerHTML = graph;
+    el.className = 'viz loaded';
+}
+
+function drawViz(el) {
+    var addr = '/~cscie22/files/dot/' + el.id + '.dot';
+    var x = new XMLHttpRequest();
+
+    x.onload = function(e) {
+        if (x.readyState === 4) {
+            if (x.status === 200) {
+                drawGraph(el, x.responseText);
+            } else {
+                drawError(el, x.status);
+            }
+        }
+    };
+
+    x.open("GET", addr);
+    x.send();
+}
+
+var vs = document.getElementsByClassName("viz");
+for (var i = 0; i < vs.length; i++) {
+    drawViz(vs[i]);
+}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 10</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "sections", "hash": "64a28031b83f28ce30575179e49819af", "title": "Section 10"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 10</h1>
+
+<h2 id="heaps">Heaps</h2>
+<ol>
+<li>
+<p>We will now convert the following 6-element array into a valid max-heap. We
+    start by taking our array and representing it as a heap in the usual manner,
+    with the first element as the root.</p>
+<div class="codehilite"><pre><span></span>  0    1    2    3    4    5
++----+----+----+----+----+----+
+|  7 | 11 |  5 | 39 | 16 | 20 |
++----+----+----+----+----+----+
+</pre></div>
+
+
+</li>
+<li>
+<p>How long does it take to create a heap from an array?</p>
+</li>
+</ol>
+<h2 id="heapsort">Heapsort</h2>
+<p>Here we will run through an example of heapsort. Suppose we have the following
+numbers in an array: <code>[5, 3, 12, 8, 7, 4, 6]</code>. We want to sort the array in
+ascending order.</p>
+<p>If we interpret the array as a complete tree, it looks like this:</p>
+<div class="codehilite"><pre><span></span>         5 
+      /     \
+    3        12
+  /   \     /  \
+ 8     7   4    6
+</pre></div>
+
+
+<ol start="3">
+<li>
+<p>What is the first step of heapsort?</p>
+</li>
+<li>
+<p>Should we create a min-at-top heap or a max-at-top heap?</p>
+</li>
+<li>
+<p>Let&rsquo;s step through turning our array into an actual heap.</p>
+</li>
+<li>
+<p>Now that we have made the array into a valid heap, what are the next
+    steps in heapsort?</p>
+</li>
+<li>
+<p>Let&rsquo;s complete the trace of heapsort.</p>
+</li>
+</ol>
+<h2 id="a42-and-greedy-search">A* and Greedy Search</h2>
+<p>Suppose we have the following original configuration of the eight puzzle. We
+would like to compare the first few iterations of A* search and greedy search:</p>
+<div class="codehilite"><pre><span></span>+---+---+---+
+|   | 2 | 5 |
++---+---+---+
+| 4 | 1 | 6 |
++---+---+---+
+| 8 | 7 | 3 |
++---+---+---+
+</pre></div>
+
+
+<ol start="8">
+<li>
+<p>What is the <code>h(x)</code> for this configuration (the Manhattan distance)?</p>
+</li>
+<li>
+<p>What are the successors of this configuration and their <code>h(x)</code> values?
+    What are the priorities assigned in A* and greedy to each of these
+    configurations?</p>
+</li>
+<li>
+<p>What are the successors of successor 1?</p>
+</li>
+<li>
+<p>After choosing successor 1, what is the next state greedy search looks
+    at?  What about A* search?</p>
+</li>
+</ol>
+<h2 id="hashing">Hashing</h2>
+<p>Suppose we have a 7-element hash table, and we wish to insert following
+words:</p>
+<div class="codehilite"><pre><span></span>apple, cat, anvil, boy, bag, dog, cup, down
+</pre></div>
+
+
+<p>We&rsquo;ll use the following hash function:</p>
+<blockquote>
+<p><code>h(key)</code>: index related to first letter of the word (<em>a</em> = 0, <em>b</em> = 1, ...)</p>
+</blockquote>
+<ol start="12">
+<li>
+<p>Let&rsquo;s go through inserting elements using linear probing and count the
+    total length of the probes.</p>
+</li>
+<li>
+<p>Now let&rsquo;s try quadratic probing.</p>
+</li>
+</ol>
+<h2 id="the-probe-method-in-our-hashtable-class">The <code>probe()</code> method in our HashTable class</h2>
+<p>The return value of the <code>probe()</code> method is an integer. In some cases, it
+represents the index of the key that we&rsquo;re searching for. In other cases, it
+represents the index of the first empty or removed cell encountered during the
+search for the specified key.</p>
+<table class="plain">
+<tr>
+    <th>0</th>
+    <td>aardvark</td>
+</tr>
+<tr>
+    <th>1</th>
+    <td style="background-color: lightgray"></td>
+</tr>
+<tr>
+    <th>2</th>
+    <td>cat</td>
+</tr>
+<tr>
+    <th>3</th>
+    <td>bear</td>
+</tr>
+<tr>
+    <th>4</th>
+    <td></td>
+</tr>
+<tr>
+    <th>5</th>
+    <td>dog</td>
+</tr>
+<tr>
+    <th>6</th>
+    <td style="background-color: lightgray"></td>
+</tr>
+</table>
+
+<p>The hash table above has been partially filled using linear probing and the
+hash function <code>h</code> from problem 1.  A gray cell indicates that an item has
+been removed.</p>
+<ol start="14">
+<li>
+<p>One of the items in the table has been inserted incorrectly. Which one, and
+    how do you know?</p>
+</li>
+<li>
+<p>For each of the keys below, determine:</p>
+<ol>
+<li>the probe length</li>
+<li>the return value of the <code>probe()</code> method</li>
+</ol>
+<p>Assume that none of these keys are actually inserted in the table.</p>
+<ul>
+<li><code>bear</code></li>
+<li><code>cow</code></li>
+<li><code>buffalo</code></li>
+<li><code>giraffe</code></li>
+</ul>
+</li>
+<li>
+<p>What is the largest probe length that we could have for this table,
+    regardless of its contents?</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on November 14, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

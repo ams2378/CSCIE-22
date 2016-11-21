@@ -1,0 +1,483 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 2</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"path": "~cscie22/presto", "section": "sections", "hash": "e4e3538845b705ad6d625c0659f65d1d", "title": "Section 2"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 2</h1>
+
+<h2 id="practice-with-recursion">Practice With Recursion</h2>
+<p>The following Java method should use recursion to remove all capital
+letters from a string. Some of the code has been omitted and we will
+need to fill it in:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">removeCapitals</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;string cannot be null&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/*</span>
+<span class="cm">     * One base case. The other is when the string has only</span>
+<span class="cm">     * one character (see below).</span>
+<span class="cm">     */</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/*</span>
+<span class="cm">     * Recursively process the rest of the string. Note that we don&#39;t</span>
+<span class="cm">     * bother making the recursive call when the current string has only</span>
+<span class="cm">     * one character. This optimization is not strictly necessary.</span>
+<span class="cm">     */</span>
+
+    <span class="n">String</span> <span class="n">removedFromRest</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">removedFromRest</span> <span class="o">=</span> <span class="n">_______________</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">removedFromRest</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Now decide what to return and return it...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+Note that we&rsquo;re using the ASCII value of <code>s.charAt(0)</code> to determine whether the
+first character is uppercase. You could also use the <code>Character</code> class&rsquo;
+<code>isUpperCase()</code> static method instead (i.e.,
+<code>Character.isUpperCase(s.charAt(0))</code> will return <code>true</code> when the first
+character is uppercase). For more, see the
+<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Character.html">Java API documentation for <code>Character</code></a>.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">removeCapitals</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;string cannot be null&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">String</span> <span class="n">removedFromRest</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">removedFromRest</span> <span class="o">=</span> <span class="n">removeCapitals</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">removedFromRest</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">&gt;=</span> <span class="sc">&#39;A&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="sc">&#39;Z&#39;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">removedFromRest</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">removedFromRest</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+<p>When analyzing a recursive method like the one shown above, we might be
+interested in determining the number of times that the method is invoked for a
+problem of a given size. By looking at the above definition of the
+<code>removeCapitals()</code> method, we can come up with a formula for the total number of
+times that the method is invoked in the process of removing all the capitals from
+a string of length <em>n</em>.</p>
+<ol>
+<li>
+<p>How many calls of this method are needed...</p>
+<ol>
+<li>
+<p>when <em>n</em> is 0?
+    <div class="solution"><div class="inner">
+    One. The string is the empty string, and the first call reaches the first
+    base case.
+    </div></div></p>
+</li>
+<li>
+<p>when <em>n</em> is 1?
+    <div class="solution"><div class="inner">
+    Also one. The first call reaches the second base case (since <code>s.length()</code>
+    is not equal to 1) and <code>removedFromRest</code> gets set to <code>""</code>.
+    </div></div></p>
+</li>
+<li>
+<p>when <em>n</em> is 2?
+    <div class="solution"><div class="inner">
+    Two.
+    </div></div></p>
+</li>
+<li>
+<p>when <em>n</em> is 3?
+    <div class="solution"><div class="inner">
+    Three.
+    </div></div></p>
+</li>
+</ol>
+</li>
+<li>
+<p>What is the general formula for the number of calls needed to process a string
+    of length <em>n</em> &gt;= 1?</p>
+<p><div class="solution"><div class="inner">
+For a string of length <em>n</em>, there will be <em>n</em> calls to <code>removeCapitals()</code>.
+</div></div></p>
+</li>
+</ol>
+<h2 id="the-fibonacci-sequence">The Fibonacci Sequence</h2>
+<p>The Fibonacci sequence is a well-known number series in which each number in the
+series is the sum of the two previous numbers. Specifically, we define the first
+two numbers as F<sub>0</sub> = 0, F<sub>1</sub> = 1, and all successive numbers
+as F<sub><i>n</i></sub> = F<sub><i>n</i>-1</sub> + F<sub><i>n</i>-2</sub>.
+Since the sequence is defined recursively, using recursion to calculate
+Fibonacci numbers is straightforward. Finish the following code to write such
+an algorithm that calculates the <em>n</em>th Fibonacci number.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">long</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// base case</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">__________</span><span class="o">)</span> <span class="o">{</span>
+
+
+    <span class="o">}</span>
+
+    <span class="c1">// recursive case</span>
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner"></p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">long</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// base case</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">n</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// recursive case</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+<ul>
+<li>
+<p>Draw a diagram that shows the number of times <code>fib()</code> is called with an initial
+    value of 4. It has been started for you:</p>
+<p><img alt="starting Fibonacci call graph" src="/~cscie22/files/sections/fib1.svg"></p>
+<p><div class="solution"><div class="inner">
+This kind of diagram is called a <em>call graph</em> (in this case, it&rsquo;s really a
+<em>call tree</em>).</p>
+<p><img alt="complete Fibonacci call graph" src="/~cscie22/files/sections/fib2.svg">
+</div></div></p>
+<ol>
+<li>
+<p>How many times did we call <code>fib()</code> to find the fourth Fibonnaci number?</p>
+<p><div class="solution"><div class="inner">
+Nine.
+</div></div></p>
+</li>
+<li>
+<p>Do you see a problem with this? What if we tried larger numbers, like 50?</p>
+<p><div class="solution"><div class="inner">
+The number of calls increases exponentially for the initial value of
+<em>n</em>. This means that we would have to make about 10 billion method
+calls to calculate <code>fib(50)</code>!
+</div></div></p>
+</li>
+<li>
+<p><strong>Challenge:</strong> How would you rewrite <code>fib()</code> to be more efficient,
+    either still as a recursive method or iteratively?</p>
+<p><div class="solution"><div class="inner">
+Here&rsquo;s an iterative version:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">long</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">long</span> <span class="n">previous</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>      <span class="c1">// at the start, previous = F_0</span>
+    <span class="kt">long</span> <span class="n">current</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>       <span class="c1">// at the start, current = F_1</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">previous</span> <span class="o">+</span> <span class="n">current</span><span class="o">;</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">current</span><span class="o">;</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="n">tmp</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">current</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>The recursive method actually does the recursion in a helper method,
+carrying the last two values on as parameters:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">long</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">fibHelper</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">long</span> <span class="nf">fibHelper</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">long</span> <span class="n">oneBack</span><span class="o">,</span> <span class="kt">long</span> <span class="n">twoBack</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">oneBack</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">fibHelper</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">,</span> <span class="n">oneBack</span> <span class="o">+</span> <span class="n">twoBack</span><span class="o">,</span> <span class="n">oneBack</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>In both cases, the calculation time is linear in <em>n</em>.
+</div></div></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="recursive-backtracking">Recursive backtracking</h2>
+<p>We consider another problem that can be solved with recursive backtracking.
+Given a list of words that are to be filled into a crossword puzzle, how do we
+find a solution that satisfies the rules of the conventional crossword?</p>
+<figure>
+<img src="/~cscie22/files/sections/crossword.svg">
+</figure>
+
+<p>Use the following possible words: <em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em>,
+<em>hoses</em>, <em>keel</em>, <em>laser</em>, <em>lee</em>, <em>line</em>, <em>sails</em>, <em>sheet</em>, <em>steer</em>, <em>tie</em></p>
+<ol>
+<li>
+<p>First, identify the constraints on our problem.</p>
+<p><div class="solution"><div class="inner"></p>
+<ul>
+<li>The letters that occur where words intersect must be the same for both
+    intersecting words.</li>
+<li>The length of the words must fit the slot.</li>
+<li>The word we are currently assigning to a location must not have been
+    previously assigned to a different location.</li>
+</ul>
+<p></div></div></p>
+</li>
+<li>
+<p>Next, identify what kind of solution we are looking for (what are the
+    variables and to what values are they assigned?).</p>
+<p><div class="solution"><div class="inner">
+The variables are the slots in the crossword puzzle, and they are assigned
+to a word in the word list.
+</div></div></p>
+</li>
+<li>
+<p>Recall the template for finding a single solution to a problem using
+    recursive backtracking:</p>
+<div class="codehilite"><pre><span></span>boolean findSolution(n, other params) {
+    if (we found a solution) {
+        displaySolution();
+        return true;
+    }
+
+    for (val = first to last) {
+        if (isValid(val)) {
+            applyValue(val);
+            if (findSolution(n + 1, other params)) {
+                return true;
+            }
+            removeValue(val);
+        }
+    }
+
+    return false;
+}
+</pre></div>
+
+
+</li>
+<li>
+<p>We need a number of different helper functions to perform the
+    recursion. What are they, and what should they do?</p>
+<p><div class="solution"><div class="inner"></p>
+<ul>
+<li>
+<p><code>isValid(val)</code></p>
+<ul>
+<li>given a possible assignment, we have to decide if it is valid</li>
+<li>in this case, we check the length of the word and the intersections
+    with already assigned words, and whether the word has already been
+    assigned elsewhere</li>
+</ul>
+</li>
+<li>
+<p><code>isSolution()</code> function which tells us whether we have a valid solution</p>
+<ul>
+<li>in this case, we check which variable we are assigning</li>
+<li>if <code>n</code> &gt;= number of slots in the crossword then we can return <code>true</code>
+    since we check for validity along the way</li>
+</ul>
+</li>
+<li>
+<p><code>applyValue(val)</code></p>
+<ul>
+<li>make a variable assignment</li>
+</ul>
+</li>
+<li>
+<p><code>removeValue(val)</code></p>
+<ul>
+<li>undo a variable assignment</li>
+</ul>
+</li>
+</ul>
+<p></div></div></p>
+</li>
+<li>
+<p>Once we have these three functions, we can follow the template. We now
+    trace through an example run of the algorithm using the indented notation
+    used in lecture. Each level of indentation shows a call to <code>findSolution()</code>.</p>
+<p>Notice that, in order to do a sample run, we need to assign an arbitrary order
+in which to assign the spaces in the crossword puzzle. We use the following order
+for this run: <code>1ACROSS</code>, <code>2DOWN</code>, <code>3DOWN</code>, <code>4ACROSS</code>, <code>7ACROSS</code>, <code>5DOWN</code>,
+<code>8ACROSS</code>, <code>6DOWN</code>.</p>
+<p><div class="solution"><div class="inner"></p>
+<ol>
+<li>
+<p><code>1ACROSS</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em> fail the <code>isValid()</code> test,
+    since they are the wrong length</li>
+<li><em>hoses</em> assigned to <code>1ACROSS</code></li>
+</ul>
+</li>
+<li>
+<p><code>2DOWN</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em> fail (wrong length)</li>
+<li><em>hoses</em> fails (already assigned, and <code>1ACROSS</code>[3] != <code>2DOWN</code>[1])</li>
+<li><em>keel</em>, <em>knot</em> fail (wrong length), <em>laser</em> fails (L != S),
+    <em>lee</em>, <em>line</em> fail (wrong length)</li>
+<li><em>sails</em> assigned to <code>2DOWN</code></li>
+</ul>
+</li>
+<li>
+<p><code>3DOWN</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em> fail (wrong length)</li>
+<li><em>hoses</em> fails (already assigned)</li>
+<li><em>keel</em>, <em>knot</em> fail (wrong length), <em>laser</em> fails (L != S),
+    <em>lee</em>, <em>line</em> fail (wrong length), <em>sails</em> fails (already assigned)</li>
+<li><em>sheet</em> assigned to <code>3DOWN</code></li>
+</ul>
+</li>
+<li>
+<p><code>4ACROSS</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em> fail (wrong length)</li>
+<li><em>heel</em> fails (E != I, L != E)</li>
+<li><em>hike</em> assigned to <code>4ACROSS</code></li>
+</ul>
+</li>
+<li>
+<p><code>7ACROSS</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em>, <em>hoses</em>, <em>keel</em>, <em>knot</em>, <em>laser</em>
+    all fail <code>isValid()</code></li>
+<li><em>lee</em> assigned to <code>7ACROSS</code></li>
+</ul>
+</li>
+<li>
+<p><code>5DOWN</code></p>
+<ul>
+<li><em>aft</em>, <em>ale</em>, <em>eel</em>, <em>heel</em>, <em>hike</em>, <em>hoses</em> fail</li>
+<li><em>keel</em> assigned to <code>5DOWN</code></li>
+</ul>
+</li>
+<li>
+<p><code>8ACROSS</code></p>
+<ul>
+<li>need a 5-letter word ending in &ldquo;set&rdquo;, but
+    there are none, so all words fail the test, and we backtrack</li>
+</ul>
+</li>
+<li>
+<p><code>5DOWN</code></p>
+<ul>
+<li>remove <em>keel</em> from <code>5DOWN</code>, look for a 4-letter word with 2nd
+    letter E after <em>keel</em> in the list &mdash; there are none, so backtrack
+    again</li>
+</ul>
+</li>
+<li>
+<p>...</p>
+</li>
+</ol>
+<p></div></div></p>
+</li>
+</ol>
+<p><em>This crossword puzzle example is based on an example provided by Giogio
+Ingargiola at Temple University.</em></p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 7</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"mathjax": "true", "path": "~cscie22/presto", "section": "sections", "hash": "ad179c6050294ed11660b0a07a60f424", "title": "Section 7"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ['input/TeX', 'output/CommonHTML', 'output/NativeMML'],
+  extensions: ['tex2jax.js'],
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  showProcessingMessages: false,
+  messageStyle: 'none'
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 7</h1>
+
+<h2 id="searching-a-list">Searching a list</h2>
+<p>Suppose we have a list of items <em>in sorted order</em>, in both the
+<code>ArrayList</code> implementation and the <code>LLList</code> implementation.</p>
+<p>If we want to find a single item in the list, what can we do?
+We could make a linear pass through the list, checking whether
+each item in the list is the one we want. Or we could try to
+take advantage of the fact that the list is sorted by using
+binary search.</p>
+<ol>
+<li>
+<p>What is the efficiency if we use binary search on the array
+    implementation? How about the linked list implementation?</p>
+<p><div class="solution"><div class="inner">
+For the array implementation, our efficiency will be <span class="mathjax">$O(\log n)$</span>. However,
+for the linked list implementation, our efficiency will be <span class="mathjax">$O(n \log n)$</span>
+since we may need to traverse the list <span class="mathjax">$O(n)$</span> on each of the <span class="mathjax">$\log n$</span>
+iterations of binary search.
+</div></div></p>
+</li>
+<li>
+<p>What would be a better way to search if we knew we were using the
+    linked list implementation?</p>
+<p><div class="solution"><div class="inner">
+A better way to search would be to just use linear search and traverse the
+linked list once. This would yield <span class="mathjax">$O(n)$</span> efficiency.
+</div></div></p>
+</li>
+</ol>
+<p>However, implementing a linear search with an <code>LLList</code> is not as
+straightforward as it might seem. Let&rsquo;s say that we are using an
+instance of our <code>LLList</code> class in which the items are in sorted order,
+and that our <code>search()</code> method is <em>external</em> to the <code>LLList</code> class.
+Let&rsquo;s also assume that the objects in the <code>LLList</code> implement the
+<code>Comparable</code> interface.<sup id="fnref-1"><a class="footnote-ref" href="#fn-1">1</a></sup></p>
+<p>Here&rsquo;s one way that we could implement the <code>search()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">search</span><span class="o">(</span><span class="n">Comparable</span> <span class="n">item</span><span class="o">,</span> <span class="n">LLList</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">list</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">list</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">Comparable</span> <span class="n">listItem</span> <span class="o">=</span> <span class="o">(</span><span class="n">Comparable</span><span class="o">)</span><span class="n">list</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">listItem</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">listItem</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol start="3">
+<li>
+<p>There&rsquo;s a problem with this version of the <code>search()</code> method that
+    makes it very inefficient. What&rsquo;s the problem?</p>
+<p><div class="solution"><div class="inner">
+Every call to <code>getItem()</code> begins at the first node of the list and
+traverses the list until it reaches node <code>i</code>. As a result, this method has
+a time efficiency of <span class="mathjax">$O(n^2)$</span>, rather than the desired <span class="mathjax">$O(n)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>How could we fix this problem?</p>
+<p><div class="solution"><div class="inner">
+If we use an iterator, our <code>search()</code> method will be able to complete its
+task using only a single pass down the underlying linked list.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">search</span><span class="o">(</span><span class="n">Comparable</span> <span class="n">item</span><span class="o">,</span> <span class="n">LLList</span> <span class="n">list</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">list</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">ListIterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">Comparable</span> <span class="n">listItem</span> <span class="o">=</span> <span class="o">(</span><span class="n">Comparable</span><span class="o">)</span><span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">listItem</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">listItem</span><span class="o">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// we went past what we&#39;re looking for</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+</ol>
+<h2 id="breadth-first-search">Breadth-first search</h2>
+<p>Consider the 8-puzzle with the following initial state:</p>
+<div class="codehilite"><pre><span></span>+---+---+---+
+| 1 | 4 | 2 |
++---+---+---+
+| 3 | 7 | 5 |
++---+---+---+
+| 6 |   | 8 |
++---+---+---+
+</pre></div>
+
+
+<ol start="5">
+<li>
+<p>Trace the breadth-first search (BFS) through the <em>first three nodes
+    that it tests for a goal state</em>. Show the evolution of the queue and
+    the state-space search tree.</p>
+</li>
+<li>
+<p>What will BFS do next?</p>
+</li>
+</ol>
+<h2 id="depth-first-search">Depth-first search</h2>
+<p>Consider the 8-puzzle with the same initial state as in 5 and 6:</p>
+<div class="codehilite"><pre><span></span>+---+---+---+
+| 1 | 4 | 2 |
++---+---+---+
+| 3 | 7 | 5 |
++---+---+---+
+| 6 |   | 8 |
++---+---+---+
+</pre></div>
+
+
+<ol start="7">
+<li>
+<p>Trace depth-first search (DFS) through the <em>first three nodes that
+    it tests for a goal state</em>. Show the evolution of the stack and the
+    state-space search tree.</p>
+</li>
+<li>
+<p>What will DFS do next?</p>
+</li>
+</ol>
+<h2 id="iterative-deepening-search">Iterative deepening search</h2>
+<p>Consider the state-space search tree shown below, with the initial
+state at the root of the tree. Give the labels of the first 10 states
+visited by IDS. You can assume that the nodes in a given level of the
+tree are tested in alphabetical order.</p>
+<div class="codehilite"><pre><span></span>                                          a.
+                                    +---+---+---+
+                                    | 1 | 4 | 2 |
+                                    +---+---+---+
+                                    | 3 | 7 | 5 |
+                                    +---+---+---+
+                                    | 6 |   | 8 |
+                                    +---+---+---+
+                                  /       |       \
+                          b.     /        |c.      \      d.
+                    +---+---+---+   +---+---+---+   +---+---+---+
+                    | 1 | 4 | 2 |   | 1 | 4 | 2 |   | 1 | 4 | 2 |
+                    +---+---+---+   +---+---+---+   +---+---+---+
+                    | 3 |   | 5 |   | 3 | 7 | 5 |   | 3 | 7 | 5 |
+                    +---+---+---+   +---+---+---+   +---+---+---+
+                  / | 6 | 7 | 8 |   |   | 6 | 8 |   | 6 | 8 |   |
+                 /  +---+---+---+   +---+---+---+   +---+---+---+
+                /    /      \   \   
+               /    /        \   ------------\
++---+---+---+ / +---+---+---+ \ +---+---+---+ \ +---+---+---+
+| 1 |   | 2 |/  | 1 | 4 | 2 |  \| 1 | 4 | 2 |  \| 1 | 4 | 2 |
++---+---+---+   +---+---+---+   +---+---+---+   +---+---+---+
+| 3 | 4 | 5 |   | 3 | 7 | 5 |   |   | 3 | 5 |   | 3 | 5 |   |
++---+---+---+   +---+---+---+   +---+---+---+   +---+---+---+
+| 6 | 7 | 8 |   | 6 |   | 8 |   | 6 | 7 | 8 |   | 6 | 7 | 8 |
++---+---+---+   +---+---+---+   +---+---+---+   +---+---+---+
+      e.              f.              g.              h.
+</pre></div>
+
+
+<p>By trying all the depths one by one, IDS resolves the issue of
+selecting the correct depth limit so that DFS goes deep enough to find
+the solution, yet does not get stuck going down a long path that
+doesn&rsquo;t lead to a goal state. In this way IDS combines the benefits of
+DFS and BFS &mdash; linear space complexity and optimality and completeness.
+However, IDS seems wasteful because as it deepens the search, many of
+the nodes that were tested in the previous iteration get tested again.
+Looking at the above example, node <span class="mathjax">$a$</span> is tested at every iteration as
+IDS increases the depth. </p>
+<p>Let&rsquo;s try to get a feel for how wasteful IDS really is. </p>
+<ol start="9">
+<li>
+<p>First consider using depth-limited DFS with no iterative deepening.
+    If each node has <span class="mathjax">$B$</span> successors in the worst case and <span class="mathjax">$D$</span> is the
+    depth limit, what is the maximum number of nodes that will be tested?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$$1 + B + B^2 + \ldots + B^{D-1} + B^D$$</span></p>
+<p>In the worst case we would consider every node at every level once. With
+<span class="mathjax">$B$</span> successors for each node, there are <span class="mathjax">$B^N$</span> nodes at depth <span class="mathjax">$N$</span> (<span class="mathjax">$N$</span> goes
+between 0 and <span class="mathjax">$D$</span>). Summing this up over the depths 0 though <span class="mathjax">$D$</span> gives the
+above result. 
+</div></div></p>
+</li>
+<li>
+<p>Now consider IDS which we run up to (and including) depth <span class="mathjax">$D$</span>.
+    Again assuming each node has <span class="mathjax">$B$</span> successors in the worst case,
+    what is the maximum number of nodes that will be tested?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$$(D + 1)1 + DB + (D - 1)B^2 + \ldots + 2B^{D - 1} + 1B^D$$</span></p>
+<p>In the worst case, we would test each node at level <span class="mathjax">$N$</span> (<span class="mathjax">$N$</span> between 0 and
+<span class="mathjax">$D$</span>) once for every level starting with <span class="mathjax">$N$</span> and increasing to <span class="mathjax">$D$</span> &mdash; that
+is <span class="mathjax">$D - N + 1$</span> times. Since there are <span class="mathjax">$B^N$</span> nodes at level <span class="mathjax">$N$</span> we get the
+above sum. 
+</div></div></p>
+</li>
+<li>
+<p>If we take <span class="mathjax">$B = 10$</span> and <span class="mathjax">$D = 6$</span> what is the maximum number of nodes
+    tested by the depth-limited DFS?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$$1 + B + B^2 + \ldots + B^{D - 1} + B^D =\\
+1 + 10 + 100 + 1,000 + 10,000 + 100,000 + 1,000,000 = 1,111,111$$</span>
+</div></div></p>
+</li>
+<li>
+<p>And testing up to and including depth <span class="mathjax">$D = 6$</span>, assuming <span class="mathjax">$B = 10$</span>,
+    how many nodes are tested by IDS in the worst case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$$(D + 1)1 + DB + (D - 1)B^2 + \ldots + 2B^{D - 1} + 1B^D =\\
+7\cdot1 + 6\cdot10 + 5\cdot100 + 4\cdot1,000 + 3\cdot10,000 +
+2\cdot100,000 + 1\cdot1,000,000 = 1,234,567$$</span></p>
+<p>With <span class="mathjax">$B$</span> = 10, in testing to depth <span class="mathjax">$D$</span>, IDS tests only about 11% more nodes
+than BFS that tests up to level <span class="mathjax">$D$</span> and DFS that is depth-limited with
+depth <span class="mathjax">$D$</span>. The intuition behind the above calculation is that in a tree in
+which each node has <span class="mathjax">$B$</span> successors, most of the nodes are at the greatest
+depth. Thus the majority of the nodes only get tested once. For example,
+with <span class="mathjax">$B$</span> = 10, the number of nodes at the greatest depth level represents
+about 90% of the total number of nodes in the tree. 
+</div></div></p>
+</li>
+</ol>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn-1">
+<p>When classes implement the <code>Comparable</code> interface, they must
+  provide an instance method <code>compareTo()</code> that allows two objects
+  to be compared (i.e., to determine which object &ldquo;comes before&rdquo;
+  another when sorting). <code>a.compareTo(b)</code> returns a negative integer
+  when <code>a</code> comes before <code>b</code>, zero if they are equal, and a positive
+  integer when <code>a</code> comes after <code>b</code>.&#160;<a class="footnote-backref" href="#fnref-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 30, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 1</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"path": "~cscie22/presto", "section": "sections", "hash": "9c5f7954d90ad703522a0b6098cb3e12", "title": "Section 1"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 1</h1>
+
+<h2 id="the-arraybag-class">The <code>ArrayBag</code> Class</h2>
+<p>In lecture, we used an interface to specify the operations supported by the
+Bag abstract data type:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Bag</span> <span class="o">{</span>
+    <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">);</span>
+    <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="nf">numItems</span><span class="o">();</span>
+    <span class="n">Object</span> <span class="nf">grab</span><span class="o">();</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="nf">toArray</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Note that there is no <code>getItem()</code> method for accessing a particular item in the
+bag. Instead, there is a method called <code>grab()</code> that accesses a random item in
+the bag.</p>
+<ul>
+<li>
+<p>Why does this make sense, given the characteristics of the Bag ADT?</p>
+<p><div class="solution"><div class="inner">
+Because the items in a Bag are not ordered or given a position, so you
+can&rsquo;t request an item at a given location in the Bag.
+</div></div></p>
+</li>
+</ul>
+<p>If you want to process all of the items in the bag, you can use the <code>toArray()</code>
+method, which creates and returns an array containing all of the items.</p>
+<p>We then created one implementation of the Bag ADT. To do so, we created a class
+called <code>ArrayBag</code> that implements the Bag interface:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayBag</span> <span class="kd">implements</span> <span class="n">Bag</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</pre></div>
+
+
+<p>Because we make this claim in the class header, the compiler checks to make
+sure that the <code>ArrayBag</code> class has method definitions for all of the methods
+whose headers are listed in the definition of the <code>Bag</code> interface. If it
+doesn&rsquo;t, the compiler will produce an error.</p>
+<p>Recall that an <code>ArrayBag</code> object has two fields:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ArrayBag</span> <span class="kd">implements</span> <span class="n">Bag</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">items</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">numItems</span><span class="o">;</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h2 id="arraybag-methods"><code>ArrayBag</code> Methods</h2>
+<p>In lecture, we looked at the <code>ArrayBag</code> implementation of the <code>add()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">add</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&quot;item must be non-null&quot;</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">numItems</span> <span class="o">==</span> <span class="n">items</span><span class="o">.</span><span class="na">length</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// no more room!</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">items</span><span class="o">[</span><span class="n">numItems</span><span class="o">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
+        <span class="n">numItems</span><span class="o">++;</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>It returns <code>true</code> if it is able to add the item, and <code>false</code> if it cannot add
+the item (because the bag is full).</p>
+<p>Now let&rsquo;s look at the <code>ArrayBag</code> implementation of the <code>contains()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numItems</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">item</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>It returns <code>true</code> if the bag contains an occurrence of the specified item, and
+<code>false</code> if it does not contain any occurrences of that item.</p>
+<p>Note that we are using the <code>equals()</code> method, rather than <code>==</code>, because we&rsquo;re
+comparing reference types.</p>
+<ul>
+<li>
+<p>Why is the loop bound by the <code>numItems</code> field and not <code>items.length</code>?</p>
+<p><div class="solution"><div class="inner">
+If the Bag is not full, there will be some elements towards the end of <code>items</code>
+that are <code>null</code>. We don&rsquo;t need to consider these elements. Therefore, we want
+to loop for each non-<code>null</code> element in <code>items</code>. There are <code>numItems</code> many such
+elements.
+</div></div></p>
+</li>
+<li>
+<p>Why can the method safely return <code>true</code> inside the loop?</p>
+<p><div class="solution"><div class="inner">
+All we need to know is that the Bag contains <em>at least one</em> occurrence of
+the item. As soon as we see an occurrence, we are done.
+</div></div></p>
+</li>
+<li>
+<p>Why can&rsquo;t the method return <code>false</code> inside the loop, as shown below?</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">contains</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numItems</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">item</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+This method returns during the first iteration of the loop. It will only
+ever consider at most one element of <code>items</code>. But what if the item appears
+later in the array?
+</div></div></p>
+</li>
+</ul>
+<p>Let&rsquo;s now write the <code>ArrayBag</code> implementation of the <code>remove()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * remove - removes the first occurrence of the specified item (if any)</span>
+<span class="cm"> * from the Bag. Returns true on success and false if an object equal to</span>
+<span class="cm"> * the specified item is not in the Bag.</span>
+<span class="cm"> */</span>
+<span class="n">______________________</span> <span class="nf">remove</span><span class="o">(</span><span class="n">____________</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+
+
+
+
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner"></p>
+<p>Here&rsquo;s one possible solution:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">remove</span><span class="o">(</span><span class="n">Object</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numItems</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">items</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">equals</span><span class="o">(</span><span class="n">item</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// Shift the remaining items left by one.</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">items</span><span class="o">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">,</span> <span class="n">items</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">numItems</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+
+            <span class="n">items</span><span class="o">[</span><span class="n">numItems</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">numItems</span><span class="o">--;</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>  <span class="c1">// item not found</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+<p>Now let&rsquo;s look at the <code>containsAll()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * containsAll - does this ArrayBag contain all of the items in otherBag?</span>
+<span class="cm"> * Returns true if it does, and false if it does not, or if otherBag is</span>
+<span class="cm"> * null or empty.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsAll</span><span class="o">(</span><span class="n">Bag</span> <span class="n">otherBag</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">otherBag</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">otherBag</span><span class="o">.</span><span class="na">numItems</span><span class="o">()</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">otherItems</span> <span class="o">=</span> <span class="n">otherBag</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">otherItems</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">contains</span><span class="o">(</span><span class="n">otherItems</span><span class="o">[</span><span class="n">i</span><span class="o">]))</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>Why is the type of the parameter <code>Bag</code> rather than <code>ArrayBag</code>?</p>
+<p><div class="solution"><div class="inner">
+Because we want it to work with any implementation of the Bag ADT.
+</div></div></p>
+</li>
+<li>
+<p>Why does it use the <code>numItems()</code> and <code>toArray()</code> methods, rather than using
+    the <code>numItems</code> and <code>items</code> fields?</p>
+<p><div class="solution"><div class="inner">
+Because those fields are not part of the interface, and thus the code would
+not compile. Other implementations may use different fields, so we need to
+rely instead on methods that we know are supported by all implementations
+of the interface.
+</div></div></p>
+</li>
+</ul>
+<h2 id="copying-objects">Copying Objects</h2>
+<p>Recall that variables that represent objects or arrays actually store a
+<em>reference</em> to the object or array&mdash;i.e., the memory address of the object or
+array on the heap.</p>
+<ul>
+<li>
+<p>What would things look like in memory after the following lines are
+    executed?</p>
+<div class="codehilite"><pre><span></span><span class="n">ArrayBag</span> <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayBag</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="n">b1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;hello&quot;</span><span class="o">);</span>
+<span class="n">b1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;world&quot;</span><span class="o">);</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner">
+<img alt="memory diagram" src="/~cscie22/files/sections/ArrayBag1.svg">
+</div></div></p>
+</li>
+<li>
+<p>If you want to create a copy of an object, you <strong>can&rsquo;t</strong> just do a simple
+    assignment like the following:</p>
+<div class="codehilite"><pre><span></span><span class="n">ArrayBag</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b1</span><span class="o">;</span>
+</pre></div>
+
+
+<p>What would our memory diagram look like after this assignment?</p>
+<p><div class="solution"><div class="inner">
+We <strong>do not</strong> get another <code>ArrayBag</code>; instead, we copy what&rsquo;s held by <code>b1</code>
+(which is a <em>reference</em>) into <code>b2</code>, making <code>b2</code> reference the same object.</p>
+<p><img alt="memory diagram" src="/~cscie22/files/sections/ArrayBag2.svg">
+</div></div></p>
+</li>
+</ul>
+<p>To create a true copy, we need to create a new object and make it equivalent to
+the original object. Let&rsquo;s write an <code>ArrayBag</code> constructor that does this.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">ArrayBag</span><span class="o">(</span><span class="n">Bag</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+
+
+
+
+
+
+<span class="o">}</span>
+</pre></div>
+
+
+<p><div class="solution"><div class="inner"></p>
+<p>Here&rsquo;s one possible solution:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">ArrayBag</span><span class="o">(</span><span class="n">Bag</span> <span class="n">other</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">other</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// We could also throw an exception in this case.</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">DEFAULT_MAX_SIZE</span><span class="o">];</span>
+        <span class="n">numItems</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Note: We create an array that allows room for</span>
+    <span class="c1">// additional items. There&#39;s no way to determine the</span>
+    <span class="c1">// max size of the other bag!</span>
+
+    <span class="kt">int</span> <span class="n">maxSize</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="na">numItems</span><span class="o">()</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">maxSize</span> <span class="o">&lt;</span> <span class="n">DEFAULT_MAX_SIZE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">maxSize</span> <span class="o">=</span> <span class="n">DEFAULT_MAX_SIZE</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">maxSize</span><span class="o">];</span>
+    <span class="n">numItems</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// Add the items in the other bag to this bag.</span>
+    <span class="c1">// Note: using add() allows us to avoid updating</span>
+    <span class="c1">// numItems, since add() does it for us.</span>
+    <span class="n">Object</span><span class="o">[]</span> <span class="n">otherItems</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="na">toArray</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">otherItems</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">otherItems</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+<h2 id="interfaces">Interfaces</h2>
+<p>In addition to specifying a full ADT, an interface in Java can also be used to
+specify that one or more classes support some type of functionality.</p>
+<p>For example, let&rsquo;s say that we&rsquo;re writing a video game, and that we want to
+write a method that draws all of the objects that are visible in the game. The
+method will look something like this:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawAll</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">gameObjects</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gameObjects</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">gameObjects</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">draw</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>The objects in the <code>gameObjects</code> array could belong to many different classes,
+not all of which are subclasses of each other. For the purposes of our
+<code>drawAll()</code> method, all that we care is that all of the objects have some type of
+<code>draw()</code> method.</p>
+<ul>
+<li>
+<p>Unfortunately, the method as written above will produce an error at
+    compilation. Why?</p>
+<p><div class="solution"><div class="inner">
+Because the array is declared to contain things of type <code>Object</code>, and the
+<code>Object</code> class does not have a <code>draw()</code> method.
+</div></div></p>
+</li>
+</ul>
+<p>We can use an interface to assure the compiler that the objects in the array
+all have a <code>draw()</code> method, without restricting the array to hold only objects
+of a given type.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Drawable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">draw</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Given this interface, we&rsquo;d do the following:</p>
+<ol>
+<li>
+<p>Specify that all components of the game are classes that implement this
+    interface:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="kd">implements</span> <span class="n">Drawable</span><span class="o">,</span> <span class="n">Controllable</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Alien</span> <span class="kd">implements</span> <span class="n">Drawable</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Spaceship</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="kd">implements</span> <span class="n">Drawable</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AlienUFO</span> <span class="kd">extends</span> <span class="n">Vehicle</span> <span class="kd">implements</span> <span class="n">Drawable</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>Rewrite the method so that the argument uses the interface as the type:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">drawAll</span><span class="o">(</span><span class="n">Drawable</span><span class="o">[]</span> <span class="n">gameObjects</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</pre></div>
+
+
+</li>
+<li>
+<p>The <code>gameObjects</code> array can now hold references to objects of <em>any</em> type
+    that implements the <code>Drawable</code> interface. What principle of object-oriented
+    programming is at work here?</p>
+<p><div class="solution"><div class="inner">
+Polymorphism, because the same code is operating on objects of different types.
+</div></div></p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

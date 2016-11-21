@@ -1,0 +1,576 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 3</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"mathjax": "true", "path": "~cscie22/presto", "section": "sections", "hash": "42eaf77dafac6fb920e53e97bbcfbe12", "title": "Section 3"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  jax: ['input/TeX', 'output/CommonHTML', 'output/NativeMML'],
+  extensions: ['tex2jax.js'],
+  tex2jax: {
+    inlineMath: [['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  showProcessingMessages: false,
+  messageStyle: 'none'
+});
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+
+
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 3</h1>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The mathematical formulas on this page may take a few seconds to load,
+especially on slow connections. If the formulas don&rsquo;t load, or you have
+other issues seeing them, make sure your operating system and web browser
+are up-to-date.</p>
+</div>
+<h2 id="big-o-notation">Big O notation</h2>
+<p>Let&rsquo;s first review the basic concepts of big O notation.</p>
+<ul>
+<li>Constant multipliers do not &ldquo;affect&rdquo; big O; for example, 
+  <span class="mathjax">$600n^2$</span> and <span class="mathjax">$0.00005n^2$</span> are both in <span class="mathjax">$O(n^2)$</span>.</li>
+<li>Lower order terms do not &ldquo;affect&rdquo; big O; for example, <span class="mathjax">$2^n + n^{100}$</span>
+  is still in <span class="mathjax">$O(2^n)$</span>.</li>
+<li>Recall the general ordering of functions, from slowest-growing to fastest-growing:</li>
+</ul>
+<p><span class="mathjax">$$
+O(1) &lt; O(\log n) &lt; O(n \log n) &lt; O(n^2) &lt; O(n^k) &lt; O(c^n) \\
+\text{$c &gt; 1$, $k &gt; 2$ constant}
+$$</span></p>
+<h2 id="time-analysis-example-matrix-multiplication">Time analysis example: matrix multiplication</h2>
+<p>For two <span class="mathjax">$n \times n$</span> matrices <span class="mathjax">$A$</span> and <span class="mathjax">$B$</span>, the product <span class="mathjax">$AB$</span> (another matrix) is
+defined as</p>
+<p><span class="mathjax">$$
+AB = \begin{bmatrix}
+x_{0, 0} &amp; x_{0, 1} &amp; \cdots &amp; x_{0, n - 1} \\
+x_{1, 0} &amp; x_{1, 1} &amp; \cdots &amp; x_{1, n - 1} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+x_{n - 1, 0} &amp; x_{n - 1, 1} &amp; \cdots &amp; x_{n - 1, n - 1} \\
+\end{bmatrix}
+$$</span></p>
+<p>where each <span class="mathjax">$x$</span> in the new matrix above is identified by a zero-based row and
+column index (e.g., <span class="mathjax">$x_{2, 0}$</span> would be the matrix element at row 2 and column
+0). Each such <span class="mathjax">$x$</span> is computed using the following summation:</p>
+<p><span class="mathjax">$$
+x_{i, j} = \sum_{k = 0}^{n - 1} A_{ik} \cdot B_{kj}
+$$</span></p>
+<p>In Java, if we represent a matrix as a two-dimensional array, we can determine
+the entries of the matrix <span class="mathjax">$AB$</span> using nested <code>for</code> loops in the following way:</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span><span class="o">[][]</span> <span class="n">matrixA</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>    <span class="c1">// A is an n-by-n matrix</span>
+<span class="kt">int</span><span class="o">[][]</span> <span class="n">matrixB</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>    <span class="c1">// B is another n-by-n matrix</span>
+<span class="kt">int</span><span class="o">[][]</span> <span class="n">matrixC</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">n</span><span class="o">][</span><span class="n">n</span><span class="o">];</span>    <span class="c1">// C will hold the matrix product A * B</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">total</span> <span class="o">+=</span> <span class="n">matrixA</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">k</span><span class="o">]</span> <span class="o">*</span> <span class="n">matrixB</span><span class="o">[</span><span class="n">k</span><span class="o">][</span><span class="n">j</span><span class="o">];</span>
+        <span class="o">}</span>
+
+        <span class="n">matrixC</span><span class="o">[</span><span class="n">i</span><span class="o">][</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">total</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>What is the number of multiplications needed by matrix multiplication?</p>
+<p><div class="solution"><div class="inner">
+To obtain each of the <span class="mathjax">$n^2$</span> entries in the matrix <span class="mathjax">$AB$</span>, we perform <span class="mathjax">$n$</span>
+multiplications. Thus, the total number of multiplications performed is
+<span class="mathjax">$n^3$</span>. This algorithm is <span class="mathjax">$O(n^3)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>What is the complexity of this method in terms of the number of
+    multiplications being performed?</p>
+<p><div class="solution"><div class="inner">
+More generally, if you have nested loops, and the outer loop performs
+<span class="mathjax">$O(m)$</span> iterations and the inner loop performs <span class="mathjax">$O(n)$</span> iterations, the number
+of operations performed by the code inside the inner loop is <span class="mathjax">$O(m \cdot
+n)$</span>. In the case of matrix multiplication, we have three nested loops, each
+of which performs <span class="mathjax">$O(n)$</span> iterations, and thus the number of operations
+performed is <span class="mathjax">$O(n \cdot n \cdot n)$</span> or <span class="mathjax">$O(n^3)$</span>.</p>
+<p>We can also apply this rule of thumb for nested loops to selection sort. In
+that case, the number of operations performed by the outer loop is <span class="mathjax">$n - 1 =
+O(n)$</span>, and the number of operations performed by the inner loop (the loop
+that finds the smallest remaining element) ranges from <span class="mathjax">$n - 1$</span> down to <span class="mathjax">$1$</span>,
+but that is still <span class="mathjax">$O(n)$</span> on average. Thus, we can conclude that selection
+sort performs <span class="mathjax">$O(n \cdot n) = O(n^2)$</span> operations. While it is possible to
+perform a more formal mathematical derivation of the number of operations
+performed, as we did in lecture, this more informal type of analysis is
+often sufficient.
+</div></div></p>
+</li>
+</ol>
+<h2 id="time-complexity-of-iterative-algorithms">Time complexity of iterative algorithms</h2>
+<p>Here are several examples of how to analyze the time complexity of iterative
+algorithms that employ nested loops.</p>
+<p>If you have nested loops, and the outer loop iterates <span class="mathjax">$i$</span> times and the inner
+loop iterates <span class="mathjax">$j$</span> times, the statements inside the inner loop will be executed a
+total of <span class="mathjax">$i \cdot j$</span> times. This is because the inner loop will iterate <span class="mathjax">$j$</span> times
+for each of the <span class="mathjax">$i$</span> iterations of the outer loop.</p>
+<p>This means that if <em>both</em> the outer and inner loop are dependent on the problem
+size <span class="mathjax">$n$</span>, the statements in the inner loop will be executed <span class="mathjax">$O(n^2)$</span> times:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">// these statements are executed O(n^2) times</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Likewise, if you have triply-nested loops, all of which are dependent on the
+problem size <span class="mathjax">$n$</span>, the statements in the innermost loop will be executed 
+<span class="mathjax">$O(n^3)$</span> times:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">k</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// these statements are executed O(n^3) times</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>However, imagine a case with doubly-nested loops where <em>only</em> the outer loop is
+dependent on the problem size <span class="mathjax">$n$</span>, and the inner loop always executes a
+<em>constant</em> number of times, say 3 times:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">// these statements are executed O(n) times</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>In this particular case, the inner loop will execute exactly 3 times for each of
+the <span class="mathjax">$n$</span> iterations of the outer loop, and so the total number of times the
+statements in the innermost loop will be executed is <span class="mathjax">$3n$</span> or <span class="mathjax">$O(n)$</span> times,
+not <span class="mathjax">$O(n^2)$</span> times.</p>
+<p>Now, imagine a third case: you have doubly nested loops, and the outer loop is
+dependent on the problem size <span class="mathjax">$n$</span>, but the inner loop is dependent on the
+current value of the index variable of the outer loop:</p>
+<div class="codehilite"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="c1">// these statements are executed O(n^2) times</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Let&rsquo;s analyze this code one step at a time.</p>
+<ul>
+<li>On the 1st iteration of the outer loop (when <code>i</code> equals 0), the inner loop will
+    iterate 0 times.</li>
+<li>On the 2nd iteration of the outer loop (when <code>i</code> equals 1), the inner loop will
+    iterate 1 times.</li>
+<li>On the 3rd iteration of the outer loop (when <code>i</code> equals 2), the inner loop will
+    iterate 2 times.</li>
+<li>On the <em>final</em> iteration of the outer loop (when <code>i</code> equals <span class="mathjax">$n - 1$</span>), the inner 
+    loop will iterate <span class="mathjax">$n - 1$</span> times.</li>
+</ul>
+<p>Therefore the <em>total</em> number of times the statements in the inner loop will be
+executed will be equal to the sum of the integers from 1 to <span class="mathjax">$n - 1$</span>, or</p>
+<p><span class="mathjax">$$
+1 + 2 + \ldots + (n - 1) = \frac{n(n - 1)}{2} = \frac{n^{2}}{2} - \frac{n}{2} = O(n^{2})
+$$</span></p>
+<h2 id="sorting-algorithms">Sorting algorithms</h2>
+<p>Let&rsquo;s step through some of the sorting algorithms we have seen so far by filling
+in what our array will look like after each pass through the algorithm.</p>
+<h3 id="selection-sort">Selection sort</h3>
+<div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">indexSmallest</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lower</span><span class="o">,</span> <span class="kt">int</span> <span class="n">upper</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">indexMin</span> <span class="o">=</span> <span class="n">lower</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">lower</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">upper</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">indexMin</span><span class="o">])</span> <span class="o">{</span>
+            <span class="n">indexMin</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">indexMin</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">selectionSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">indexSmallest</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+</table>
+
+<div class="solution"><div class="inner">
+
+<table class="array">
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">39</td>
+        <td class="unsorted">20</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted">5</td>
+    </tr>
+    <tr>
+        <td class="changed">5</td>
+        <td class="unsorted">39</td>
+        <td class="unsorted">20</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted changed">7</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td class="changed">7</td>
+        <td class="unsorted changed">20</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted changed">39</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>7</td>
+        <td class="changed">11</td>
+        <td class="unsorted changed">20</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted">39</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>7</td>
+        <td>11</td>
+        <td class="changed">16</td>
+        <td class="unsorted changed">20</td>
+        <td class="unsorted">39</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>7</td>
+        <td>11</td>
+        <td>16</td>
+        <td>20</td>
+        <td>39</td>
+    <tr>
+</table>
+</div>
+
+</div>
+
+<p>What is the big O time complexity of selection sort in...</p>
+<ul>
+<li>
+<p>the best case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>the worst case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>the average case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+</ul>
+<h3 id="insertion-sort">Insertion sort</h3>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">insertionSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="o">])</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">toInsert</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+
+            <span class="k">do</span> <span class="o">{</span>
+                <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">];</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">toInsert</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]);</span>
+
+            <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">toInsert</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+</table>
+
+<div class="solution"><div class="inner">
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td class="changed">20</td><td class="changed">39</td><td>11</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td class="changed">11</td><td class="changed">20</td><td class="changed">39</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td>11</td><td class="changed">16</td><td class="changed">20</td><td class="changed">39</td><td>5</td></tr>
+    <tr><td class="changed">5</td><td class="changed">7</td><td class="changed">11</td><td class="changed">16</td><td class="changed">20</td><td class="changed">39</td></tr>
+</table>
+</div>
+
+</div>
+
+<p>What is the big O time complexity of insertion sort in...</p>
+<ul>
+<li>
+<p>the best case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n)$</span>, when the data is nearly sorted.
+</div></div></p>
+</li>
+<li>
+<p>the worst case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>the average case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+</ul>
+<h3 id="bubble-sort">Bubble sort</h3>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">bubbleSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">])</span>
+                <span class="n">swap</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="n">j</span><span class="o">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td><tr>
+</table>
+
+<div class="solution"><div class="inner">
+
+<p>
+Keep in mind bubble sort's useful invariant: from right to left, bubble sort
+finds the final position of a value in the array.
+</p>
+
+<table class="array">
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">39</td>
+        <td class="unsorted">20</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted">5</td>
+    </tr>
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">20</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted">5</td>
+        <td>39</td>
+    </tr>
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">16</td>
+        <td class="unsorted">5</td>
+        <td>20</td>
+        <td>39</td>
+    </tr>
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">11</td>
+        <td class="unsorted">5</td>
+        <td>16</td>
+        <td>20</td>
+        <td>39</td>
+    </tr>
+    <tr>
+        <td class="unsorted">7</td>
+        <td class="unsorted">5</td>
+        <td>11</td>
+        <td>16</td>
+        <td>20</td>
+        <td>39</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>7</td>
+        <td>11</td>
+        <td>16</td>
+        <td>20</td>
+        <td>39</td>
+    </tr>
+</table>
+
+<p>
+By tracing, we can see that bubble sort makes 10 swaps on this array, which
+means (since each swap is <strong>three</strong> moves) it does 30 moves.
+</p>
+
+<p>
+We can reason about the code to see that bubble sort's worst case number of
+swaps is $O(n^2)$. Note that the outer loop will always run $O(n)$ times. Each
+time the outer loop runs, the inner loop could make a number of swaps equal to
+the current value of <code>i</code>, the outer loop's iterator variable. This
+means our number of swaps will be equal to $1 + 2 + \ldots + (n - 1) = O(n^2)$.
+</p>
+</div>
+
+</div>
+
+<p>What is the big O time complexity of bubble sort in...</p>
+<ul>
+<li>
+<p>the best case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>the worst case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+<li>
+<p>the average case?</p>
+<p><div class="solution"><div class="inner">
+<span class="mathjax">$O(n^2)$</span>.
+</div></div></p>
+</li>
+</ul>
+<h3 id="shell-sort">Shell sort</h3>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">shellSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">incr</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">incr</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">)</span>
+        <span class="n">incr</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">incr</span><span class="o">;</span>
+
+    <span class="n">incr</span><span class="o">--;</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">incr</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">incr</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">incr</span><span class="o">])</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">toInsert</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+
+                <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">j</span> <span class="o">&gt;</span> <span class="n">incr</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">toInsert</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">incr</span><span class="o">])</span> <span class="o">{</span>
+                    <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">incr</span><span class="o">];</span>
+                    <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">-</span> <span class="n">incr</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="n">arr</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="n">toInsert</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="n">incr</span> <span class="o">=</span> <span class="n">incr</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+</table>
+
+<div class="solution"><div class="inner">
+
+<table class="array">
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td>39</td><td>20</td><td>11</td><td>16</td><td>5</td></tr>
+    <tr><td>7</td><td class="changed">16</td><td>20</td><td>11</td><td class="changed">39</td><td>5</td></tr>
+    <tr><td>7</td><td>16</td><td class="changed">5</td><td>11</td><td>39</td><td class="changed">20</td></tr>
+    <tr><td class="changed">5</td><td class="changed">7</td><td class="changed">16</td><td>11</td><td>39</td><td>20</td></tr>
+    <tr><td>5</td><td>7</td><td class="changed">11</td><td class="changed">16</td><td>39</td><td>20</td></tr>
+    <tr><td>5</td><td>7</td><td>11</td><td>16</td><td class="changed">20</td><td class="changed">39</td></tr>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 5</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"path": "~cscie22/presto", "section": "sections", "graphviz": "true", "hash": "0c83a7b7a7f3b25b409839d409164e0f", "title": "Section 5"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 5</h1>
+
+<h2 id="tracing-through-stringnodeprint">Tracing through <code>StringNode.print()</code></h2>
+<p>Let&rsquo;s take a look at the execution of the <code>StringNode.print()</code> method where the
+input list looks like this (the hexadecimal number next to each node is the
+memory location of that node):</p>
+<div class="viz" id="list1"></div>
+
+<p>We&rsquo;ve reproduced the <code>print()</code> method from the <code>StringNode</code> class below:</p>
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Recursively process each node of a linked list formed by</span>
+<span class="cm"> * StringNodes, printing each one.</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">(</span><span class="n">StringNode</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">ch</span><span class="o">);</span>
+        <span class="n">print</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>We want to draw a diagram which shows how the stack evolves with each
+    subsequent call, like we did on the written portion of Problem Set 1. The
+    important things to track are the output so far, and the address the
+    current <code>str</code> variable holds in each frame.</p>
+<p><div class="solution"><div class="inner">
+Here is what the stack looks like when we reach a base case. Note that the
+topmost stack frame has a <code>null</code> reference.</p>
+<p><div class="viz" id="trace"></div></p>
+<p>Note that we still need to pop all the frames off the stack, one by one,
+starting at the top.
+</div></div></p>
+</li>
+</ol>
+<h2 id="more-practice-with-variable-expressions-and-references">More practice with variable expressions and references</h2>
+<div class="viz" id="list2"></div>
+
+<ol start="2">
+<li>
+<p>Specify how the following expressions evaluate:</p>
+<ol>
+<li>
+<p>What is the value of <code>temp.next</code>?</p>
+<p><div class="solution"><div class="inner">
+<code>0x6c3</code>.
+</div></div></p>
+</li>
+<li>
+<p>What does <code>temp.next.ch</code> evaluate to?</p>
+<p><div class="solution"><div class="inner">
+The character <code>'l'</code>.
+</div></div></p>
+</li>
+<li>
+<p>What does <code>inputStr.next.next == temp</code> evaluate to?</p>
+<p><div class="solution"><div class="inner">
+<code>false</code>.
+</div></div></p>
+</li>
+<li>
+<p>What are some ways we can access the character <code>'o'</code>?</p>
+<p><div class="solution"><div class="inner">
+<code>temp2.next.ch</code> or <code>temp.next.next.next.ch</code>.
+</div></div></p>
+</li>
+</ol>
+</li>
+<li>
+<p>How do the following statements change our diagram?</p>
+<ol>
+<li>
+<p><code>temp.next = temp2;</code></p>
+<p><div class="solution"><div class="inner">
+The node containing <code>'e'</code> now points to the second <code>'l'</code>-node, and
+we lose a reference to the first <code>'l'</code>-node.</p>
+<p><div class="viz" id="list3"></div>
+</div></div></p>
+</li>
+<li>
+<p><code>temp = temp2.next.next;</code></p>
+<p><div class="solution"><div class="inner">
+The <code>temp</code> variable now has <code>null</code>.</p>
+<p><div class="viz" id="list4"></div>
+</div></div></p>
+</li>
+<li>
+<p><code>inputStr = inputStr.next</code>;</p>
+<p><div class="solution"><div class="inner">
+We lose a reference to the node at <code>0x704</code>, and <code>inputStr</code> now
+holds a reference to the node containing <code>'e'</code>.</p>
+<p><div class="viz" id="list5"></div>
+</div></div></p>
+</li>
+<li>
+<p><code>temp2 = null;</code></p>
+<p><div class="solution"><div class="inner">
+<code>temp2</code> now holds <code>null</code>.</p>
+<p><div class="viz" id="list6"></div>
+</div></div></p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="converting-a-simple-recursive-method-to-an-iterative-one">Converting a simple recursive method to an iterative one</h2>
+<p>This is the recursive version of the <code>numOccurrences()</code> method which finds the
+number of occurrences of a specified character in our linked list.</p>
+<div class="codehilite"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * numOccurrences - find the number of occurrences of the</span>
+<span class="cm"> * character ch in the linked list to which str refers</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numOccurrences</span><span class="o">(</span><span class="n">StringNode</span> <span class="n">str</span><span class="o">,</span> <span class="kt">char</span> <span class="n">ch</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="kt">int</span> <span class="n">occurInRest</span> <span class="o">=</span> <span class="n">numOccurrences</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">next</span><span class="o">,</span> <span class="n">ch</span><span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">ch</span> <span class="o">==</span> <span class="n">ch</span><span class="o">)</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">occurInRest</span><span class="o">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">occurInRest</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol start="4">
+<li>
+<p>We want to convert this method into an iterative one. Think back to our
+    trace through the <code>StringNode.print()</code> method. Do you see any similarities?
+    What do you think the stack looks like when this method is executed? What
+    does it return?</p>
+<p><div class="solution"><div class="inner">
+The stack will look almost identical &mdash; one recursive call per node,
+plus one for the base case when that stack frame holds a reference to <code>null</code>.
+Also, each stack frame will store a variable <code>occurInRest</code> that
+will keep the value of its recursive call, and will return either <code>occurInRest</code>
+or <code>occurInRest + 1</code>, depending on the reference held
+by <code>str</code> in that call.
+</div></div></p>
+</li>
+<li>
+<p>Think about what we need to track in our iterative version. What variables
+    will the iterative version need?</p>
+<p><div class="solution"><div class="inner">
+We&rsquo;ll need a to the current <code>StringNode</code> we&rsquo;re looking at, and a counter
+for the number of occurrences.
+</div></div></p>
+</li>
+<li>
+<p>We&rsquo;re going to need a loop. What kind of terminating condition should
+    we have?</p>
+<p><div class="solution"><div class="inner">
+It&rsquo;s probably a good idea to make the terminating condition somehow depend
+on reaching a <code>null</code> reference. Our extra variable that we keep updating
+will eventually get the value of <code>null</code> after we move it past the last
+node.
+</div></div></p>
+</li>
+<li>
+<p>What will be in the body of our loop?</p>
+<p><div class="solution"><div class="inner">
+We&rsquo;ll need to look at the character in the current <code>StringNode</code>, and if the
+character is equal to the one we&rsquo;re counting, we&rsquo;ll need to increment the
+counter.
+</div></div></p>
+</li>
+<li>
+<p>How will you advance through the list?</p>
+<p><div class="solution"><div class="inner">
+We can use the <code>next</code> field of each <code>StringNode</code> to advance to the next
+<code>StringNode</code> in the list.</p>
+<p>Here&rsquo;s one way to implement an iterative version:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numOccurrences</span><span class="o">(</span><span class="n">StringNode</span> <span class="n">str</span><span class="o">,</span> <span class="kt">char</span> <span class="n">ch</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">numOccur</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="n">StringNode</span> <span class="n">trav</span> <span class="o">=</span> <span class="n">str</span><span class="o">;</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="n">trav</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">trav</span><span class="o">.</span><span class="na">ch</span> <span class="o">==</span> <span class="n">ch</span><span class="o">)</span>
+            <span class="n">numOccur</span><span class="o">++;</span>
+
+        <span class="n">trav</span> <span class="o">=</span> <span class="n">trav</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">numOccur</span><span class="o">;</span> 
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+</ol>
+<h2 id="converting-the-stringnoderead-method">Converting the <code>StringNode.read()</code> method</h2>
+<p>The read method takes an <code>InputStream</code> object, which can represent any input
+source which is processed as a sequence of bytes (such as the <code>System.in</code>
+input stream which allows us to read from the keyboard, or a file or
+network resource). The <code>IOException</code> isn&rsquo;t important; it&rsquo;s simply there in
+case the input stream goes down when the method is executed.
+<code>StringNode.read(System.in)</code> will read any string the user enters one
+character at a time and return a reference to a linked list which it
+constructs as the user types each character. Here is the original,
+recursive <code>read()</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * read - reads a string from an input stream and returns a</span>
+<span class="cm"> * reference to a linked list containing the characters in the string</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">StringNode</span> <span class="nf">read</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">StringNode</span> <span class="n">str</span><span class="o">;</span> 
+    <span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">ch</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="o">)</span>    <span class="c1">// base case</span>
+        <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>         
+    <span class="k">else</span>
+        <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringNode</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="n">read</span><span class="o">(</span><span class="n">in</span><span class="o">));</span>
+
+    <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol start="9">
+<li>
+<p>If we&rsquo;re going to convert the <code>read()</code> method into an iterative one 
+    successfully, we should first trace what happens in the recursive method
+    when it is invoked. If the <code>read()</code> method is called, and a character is fed 
+    into the stream, what happens?</p>
+<p><div class="solution"><div class="inner">
+A new node is created with the character from the stream in the <code>ch</code> field
+and the method is called recursively.
+</div></div></p>
+</li>
+<li>
+<p>What does the method return? How does this fit into the creation of a new
+    node?</p>
+<p><div class="solution"><div class="inner">
+The method returns a reference to the node with the next character, which
+is inserted straight into the declaration of the new node as soon as <code>read()</code>
+returns its reference.
+</div></div></p>
+</li>
+<li>
+<p>In what order does the <code>read()</code> method construct the linked list? Will this
+    work as well in our iterative implementation? Why or why not?</p>
+<p><div class="solution"><div class="inner">
+The <code>read()</code> method creates a new stack frame for each character that is
+taken from the input stream, which contains the new <code>StringNode</code>. Once the
+base case is hit, the stack frames are popped off and the list is built
+from the back, in reverse order.</p>
+<p>For example:</p>
+<div class="codehilite"><pre><span></span>read of &#39;a&#39; =&gt; return StringNode(&#39;a&#39;, read of &#39;b&#39;)
+    read of &#39;b&#39; =&gt; return StringNode(&#39;b&#39;, read of &#39;c&#39;)
+        read of &#39;c&#39; =&gt; return StringNode(&#39;c&#39;, read of &#39;d&#39;)
+            read of &#39;d&#39; =&gt; return StringNode(&#39;d&#39;, read of &#39;\n&#39;)
+                read of &#39;\n&#39; =&gt; return null
+</pre></div>
+
+
+<p>If we inline the above recursive tree of calls, we can see how the method
+constructs the new string:</p>
+<div class="codehilite"><pre><span></span>return StringNode(&#39;a&#39;, StringNode(&#39;b&#39;, StringNode(&#39;c&#39;, StringNode(&#39;d&#39;, null))))
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+<li>
+<p>Clearly we&rsquo;ll need a different strategy in the iterative implementation,
+    since we&rsquo;ll need to start at the front of the list if we want to keep the
+    input in the order in which it is read from the input stream. How many
+    pointers will we need if we want the iterative method to add new elements
+    to the back and then return the reference to the first node of the list?</p>
+<p><div class="solution"><div class="inner">
+We&rsquo;ll need two, one that points to the beginning of our list, and one that
+points to the last node we added.
+</div></div></p>
+</li>
+<li>
+<p>What should we do before our loop starts? Should we initialize anything
+    beforehand?</p>
+<p><div class="solution"><div class="inner">
+We should declare our variables, and read the first character. We should
+initialize the pointer we&rsquo;re going to return to <code>null</code> in case the first
+character is a newline.
+</div></div></p>
+</li>
+<li>
+<p>What should we do if the first character is a newline?</p>
+<p><div class="solution"><div class="inner">
+We should return <code>null</code>.
+</div></div></p>
+</li>
+<li>
+<p>What if the first character isn&rsquo;t a newline?</p>
+<p><div class="solution"><div class="inner">
+We should create a new node, leave a reference to it so we have something
+to return, and then start our input loop.
+</div></div></p>
+</li>
+<li>
+<p>What should the terminating condition for our loop be? (Think about the
+    base case in the method above.)</p>
+<p><div class="solution"><div class="inner">
+Our terminating condition should be a newline character.
+</div></div></p>
+</li>
+<li>
+<p>What should the body of our input loop look like?</p>
+<p><div class="solution"><div class="inner">
+It should create a new <code>StringNode</code> which contains the last character read
+and a <code>null</code> reference in the next field. We should then change our current
+reference to point to the last node in our list. We should also remember to
+read the next character of input.</p>
+<p>Here&rsquo;s one possible implementation:</p>
+<div class="codehilite"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * read - reads a string from an input stream and returns a</span>
+<span class="cm"> * reference to a linked list containing the characters in the string</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">StringNode</span> <span class="nf">readIter</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">in</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">StringNode</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">StringNode</span> <span class="n">current</span><span class="o">;</span>
+    <span class="kt">char</span> <span class="n">ch</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringNode</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span> <span class="c1">// create the initial node</span>
+        <span class="n">str</span> <span class="o">=</span> <span class="n">current</span><span class="o">;</span>                      <span class="c1">// we will return it</span>
+
+        <span class="n">ch</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">()</span>                <span class="c1">// read next character</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">ch</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringNode</span><span class="o">(</span><span class="n">ch</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+
+            <span class="n">ch</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">in</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p></div></div></p>
+</li>
+<li>
+<p>Why do you think this method was originally implemented recursively? Which
+    implementation do you think looks more elegant?</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+<script type="text/javascript" src="/~cscie22/js/viz.js"></script>
+
+<script type="text/javascript">
+function drawError(el, err) {
+    el.className += " error";
+    var html = '<p>An error occurred loading ';
+    html += 'this figure (HTTP error ' + err + ').</p>';
+    el.innerHTML = html;
+}
+
+function drawGraph(el, src) {
+    var graph = Viz(src, format="svg", engine="dot", options=['-Gbgcolor=transparent']);
+    el.innerHTML = graph;
+    el.className = 'viz loaded';
+}
+
+function drawViz(el) {
+    var addr = '/~cscie22/files/dot/' + el.id + '.dot';
+    var x = new XMLHttpRequest();
+
+    x.onload = function(e) {
+        if (x.readyState === 4) {
+            if (x.status === 200) {
+                drawGraph(el, x.responseText);
+            } else {
+                drawError(el, x.status);
+            }
+        }
+    };
+
+    x.open("GET", addr);
+    x.send();
+}
+
+var vs = document.getElementsByClassName("viz");
+for (var i = 0; i < vs.length; i++) {
+    drawViz(vs[i]);
+}
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Section 6</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "sections", "hash": "c30d61db5b165de54cbb1acc46fcc39e", "title": "Section 6"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="current
+" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Section 6</h1>
+
+<h2 id="midterm-exam">Midterm exam</h2>
+<p>The midterm exam will be held on <strong>October 19</strong> during the first half of lecture
+in <a href="http://www.map.harvard.edu/?ctrx=759334.5&amp;ctry=2961858&amp;level=9&amp;layers=Campus%20Base%20and%20Buildings,Map%20Text">Harvard Hall 104</a> (our usual classroom).</p>
+<p><strong>If you are a distance student</strong>, review <a href="/~cscie22/distance.shtml#exam-policy">the distance exam policy</a>.
+In short:</p>
+<ul>
+<li>Students from the six New England states must come to campus to
+    take the exam.</li>
+<li>Students from outside New England must arrange for a 
+    proctored exam. See <a href="/~cscie22/distance.shtml#exam-policy">the exam policy</a> for more details.</li>
+</ul>
+<h3 id="exam-details">Exam details</h3>
+<ul>
+<li>You will have <strong>60</strong> minutes to complete the exam.</li>
+<li>The exam is &ldquo;open book&rdquo;, that is, you may use any notes, textbooks,
+    and the coursepack. <strong>However</strong>, you may <em>not</em> use a personal computer
+    or any other computing device.</li>
+<li>The questions are worth a total of <strong>50</strong> points. In order to properly
+    budget your time, plan on spending approximately one minute per point.</li>
+<li>The exam consists of <strong>two parts</strong>:<ul>
+<li>Part I has 5 multiple-choice questions, each 3 points.</li>
+<li>Part II has 3 short-answer questions.</li>
+</ul>
+</li>
+</ul>
+<p>These details will be printed on the first page of the exam itself.</p>
+<h3 id="practice-exam">Practice exam</h3>
+<p>We will now go through the <a href="/~cscie22/files/sections/practice_midterm.pdf">practice midterm exam</a>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>
