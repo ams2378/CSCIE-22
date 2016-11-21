@@ -1,0 +1,592 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 4</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"layout": "assignment", "section": "problem_sets", "hash": "47f708f181c8ad9c5cbc8eb34bc84cb9", "title": "Problem Set 4"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer title-colored"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="locator">
+<div class="inner js-stops-parent">
+</div>
+</div>
+
+<div class="title">
+<div class="inner">
+
+<div class="title-content-spacer"></div>
+<div class="title-content">
+
+<h1>Problem Set 4</h1>
+
+</div>
+
+</div>
+</div>
+
+<div class="title-spacer"></div>
+
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+
+<div class="admonition date">
+<p class="admonition-title">Due dates</p>
+<p>This assignment is due before the start of lecture on <strong>Wednesday,
+November 16, 2016</strong>. There will be a 10% late penalty for late
+submissions made by 11:59 p.m. on Sunday, November 20, and a 20%
+late penalty for submissions made after that Sunday and by 11:59 p.m. 
+on Wednesday, November 23 (the day before Thanksgiving). <strong><em>We will not
+accept any homework that is more than seven days late.</em></strong></p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#part-i">Part I</a><ul>
+<li><a href="#problem-1-uninformed-state-space-search">Problem 1: Uninformed state-space search</a></li>
+<li><a href="#problem-2-finding-the-largest-key-in-a-binary-tree">Problem 2: Finding the largest key in a binary tree</a></li>
+<li><a href="#problem-3-tree-traversal-puzzles">Problem 3: Tree traversal puzzles</a></li>
+<li><a href="#problem-4-huffman-encoding">Problem 4: Huffman encoding</a></li>
+<li><a href="#problem-5-binary-search-trees">Problem 5: Binary search trees</a></li>
+<li><a href="#problem-6-2-3-trees-and-b-trees">Problem 6: 2-3 Trees and B-trees</a></li>
+</ul>
+</li>
+<li><a href="#part-ii">Part II</a><ul>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#problem-7-counting-the-number-of-even-keys">Problem 7: Counting the number of even keys</a></li>
+<li><a href="#problem-8-range-search">Problem 8: Range search</a></li>
+<li><a href="#problem-9-binary-tree-iterator">Problem 9: Binary tree iterator</a></li>
+<li><a href="#problem-10-recursive-sifting">Problem 10: Recursive sifting</a></li>
+</ul>
+</li>
+<li><a href="#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</div>
+<p>In your work on this assignment, make sure to abide by the policies on academic
+conduct described in the <a href="/~cscie22/files/syllabus.pdf">syllabus</a>.</p>
+<p>If you have questions while working on this assignment, please attend office
+hours, post them on Piazza, or email <code>cscie22@fas.harvard.edu</code>.</p>
+<hr>
+<h2 id="part-i">Part I</h2>
+<p><em>55 points total</em></p>
+<p>Because we are asking you to draw diagrams, you may
+submit <em>either</em> a plain-text file or a PDF file. Give it the name 
+<code>ps4_partI.txt</code> or <code>ps4_partI.pdf</code>.</p>
+<h3 id="problem-1-uninformed-state-space-search">Problem 1: Uninformed state-space search</h3>
+<p><em>6 points total; 2 points each part</em>  </p>
+<p>Below is a portion of the state-space search tree for an Eight Puzzle
+whose the initial configuration is shown at the root of the tree. This
+tree reflects an assumption that the search algorithms will discard
+successor states that are already present on the path from the current
+state to the root of the tree.</p>
+<p><img alt="problem1" src="/~cscie22/files/ps4/prob1.gif">  </p>
+<ol>
+<li>
+<p>What are the first six states to which breadth-first search (BFS)
+    would apply the goal test? Please follow the guidelines given
+    below.  <em>Hint:</em> The first state to be tested is the initial state.</p>
+</li>
+<li>
+<p>What are the first six states to which depth-first search (DFS)
+    would apply the goal test if it uses a depth limit of 3? See the
+    hint from part 1, and follow the guidelines given below.</p>
+</li>
+<li>
+<p>What are the first <strong>eight</strong> states to which iterative-deepening
+    search (IDS) would apply the goal test? Don&rsquo;t forget that IDS
+    starts over at the initial state for each new value of the depth
+    limit. Therefore, it is possible for a given state to appear more
+    than once among the first eight states to be tested. Don&rsquo;t forget to 
+    follow the guidelines below.</p>
+</li>
+</ol>
+<p><em>Guidelines:</em>  </p>
+<ul>
+<li>
+<p>In the diagram, each state is labeled with a lower-case letter that 
+    appears above the state. You should use these labels to identify the 
+    states in your answers.</p>
+</li>
+<li>
+<p><strong><em>When an algorithm needs to choose among multiple states at the 
+    same depth, you should assume that it will select the one whose
+    lower-case letter comes first alphabetically.</em></strong> However, you should 
+    also take into account the fact that the tree is generated gradually 
+    over the course of a given algorithm, and you shouldn&rsquo;t attempt to 
+    test a state that wouldn&rsquo;t have been generated yet at that point 
+    in the algorithm.</p>
+</li>
+<li>
+<p>Your answers should list the requested number of states in the
+    order in which they would be tested by the algorithm.</p>
+</li>
+</ul>
+<h3 id="problem-2-finding-the-largest-key-in-a-binary-tree">Problem 2: Finding the largest key in a binary tree</h3>
+<p><em>12 points total; 4 points each part</em></p>
+<p>The following algorithm represents one way that we could add methods to 
+our <code>LinkedTree</code> class for the purpose of finding the largest key in
+an instance of that class. The <code>maxKeyTree()</code> method returns the
+largest key in the tree/subtree whose root node is specified by the
+parameter of the method, and the <code>maxKey()</code> method returns the largest key
+in the entire tree represented by the <code>LinkedTree</code> object on which the
+method is invoked.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kt">int</span> <span class="nf">maxKey</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>      <span class="c1">// root is the root of the entire tree</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="err">“</span><span class="n">the</span> <span class="n">tree</span> <span class="n">is</span> <span class="n">empty</span><span class="err">”</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">maxKeyTree</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxKeyTree</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">maxLeft</span> <span class="o">=</span> <span class="n">maxKeyTree</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">maxLeft</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">)</span>
+            <span class="n">max</span> <span class="o">=</span> <span class="n">maxLeft</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">maxRight</span> <span class="o">=</span> <span class="n">maxKeyTree</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">maxRight</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">)</span>
+            <span class="n">max</span> <span class="o">=</span> <span class="n">maxRight</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>For a binary tree with <em>n</em> nodes, what is the time complexity of
+    this algorithm in the best case? In the worst case? Give your
+    answers using big-O notation, and explain them briefly.</p>
+</li>
+<li>
+<p>If the tree is a binary <em>search</em> tree, we can revise the algorithm
+    to take advantage of the ways in which the keys are arranged in
+    the tree.  Write a revised version of <code>maxKeyTree</code> that
+    does so. Your new method should avoid visiting nodes
+    unnecessarily. In the same way that the search for a key doesn’t
+    consider every node in the tree, your method should avoid
+    considering subtrees that couldn’t contain the maximum value.
+    Your new method may be either recursive or iterative; the choice
+    is up to you.</p>
+</li>
+<li>
+<p>For a binary search tree with <em>n</em> nodes, what is the time
+    complexity of your revised algorithm in the best case? In the
+    worst case? Give your answers using big-O notation, and explain
+    them briefly.</p>
+</li>
+</ol>
+<h3 id="problem-3-tree-traversal-puzzles">Problem 3: Tree traversal puzzles</h3>
+<p><em>10 points total; 5 points each part</em></p>
+<ol>
+<li>
+<p>When a binary tree of characters (which is <em>not</em> a binary <em>search</em>
+    tree) is listed in postorder, the result is IKHAFLMBCQ. Inorder 
+    traversal gives IAKHQCFLBM. Construct the tree.</p>
+</li>
+<li>
+<p>When a binary tree of characters (which is <em>not</em> a binary <em>search</em>
+    tree) is listed in preorder, the result is BAFCIDGEHJ. Postorder 
+    traversal gives FICAHJEGDB. Construct the tree. (There is more than one
+    possible answer in this case.)</p>
+</li>
+</ol>
+<h3 id="problem-4-huffman-encoding">Problem 4: Huffman encoding</h3>
+<p><em>7 points total</em></p>
+<p>Consider the following table of character frequencies:
+<table>
+<tr><td><b>Character</b></td>   <td><b>Frequency</b></td></tr>
+<tr><td>  <tt>l</tt>  </td>   <td>  <tt>8</tt>  </td></tr>
+<tr><td>  <tt>f</tt>  </td>   <td>  <tt>10</tt>  </td></tr>
+<tr><td>  <tt>e</tt>  </td>   <td>  <tt>17</tt> </td></tr>
+<tr><td>  <tt>d</tt>  </td>   <td>  <tt>20</tt> </td></tr>
+<tr><td>  <tt>i</tt>  </td>   <td>  <tt>40</tt> </td></tr>
+</table></p>
+<ol>
+<li>
+<p>(5 points) Show the Huffman tree that would be constructed from
+    these character frequencies.</p>
+</li>
+<li>
+<p>(2 points) Using the Huffman tree from part 1, what will be the 
+    encoding of the string <em>field</em>?</p>
+</li>
+</ol>
+<h3 id="problem-5-binary-search-trees">Problem 5: Binary search trees</h3>
+<p><em>10 points; 2 points each part</em></p>
+<p>Consider the following binary search tree, in which the nodes have
+the specified integers as keys:</p>
+<p><img alt="problem5" src="/~cscie22/files/ps4/prob5.gif"></p>
+<ol>
+<li>
+<p>If a <em>preorder</em> traversal were used to print
+    the keys, what would the output be?</p>
+</li>
+<li>
+<p>What would be the output of a <em>postorder</em> traversal?</p>
+</li>
+<li>
+<p>Show the tree as it will appear if 50 is inserted, followed by 10.</p>
+</li>
+<li>
+<p>Suppose we have the original tree and that 37 is deleted and then 26
+    is deleted, using the algorithm from the lecture notes. Show the final
+    tree.</p>
+</li>
+<li>
+<p>Is the original tree balanced? Explain briefly why or why not.</p>
+</li>
+</ol>
+<h3 id="problem-6-2-3-trees-and-b-trees">Problem 6: 2-3 Trees and B-trees</h3>
+<p><em>10 points; 5 points each part</em></p>
+<p>Illustrate the process of inserting the key sequence  </p>
+<div class="codehilite"><pre><span></span>J, E, I, H, C, F, B, G, D, A
+</pre></div>
+
+
+<p>into:</p>
+<ol>
+<li>
+<p>an initially empty 2-3 tree</p>
+</li>
+<li>
+<p>an initially empty B-tree of order 2</p>
+</li>
+</ol>
+<p>In both cases, show the tree before and after each split, and the final
+tree.</p>
+<hr>
+<h2 id="part-ii">Part II</h2>
+<p><em>45-55 points total</em></p>
+<h3 id="getting-started">Getting started</h3>
+<p>Begin by downloading the following zip file: <a href="../files/ps4/ps4.zip">ps4.zip</a></p>
+<p>Unzip this archive, and you should find a folder named <code>ps4</code> that
+contains all of the files that you will need for this assignment.
+<strong>You should <em>not</em> move any of the files out of the <code>ps4</code> folder.</strong>
+Keeping everything together in that folder will ensure that you are
+able to compile and run the work that you complete for the problems
+below.</p>
+<h3 id="problem-7-counting-the-number-of-even-keys">Problem 7: Counting the number of even keys</h3>
+<p><em>10 points</em></p>
+<p>In the file <code>LinkedTree.java</code> (see the <em>Getting Started</em> section above for 
+how to obtain this file), implement the <code>numEvenKeysTree()</code>
+method, which has the following header:</p>
+<div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">numEvenKeysTree</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">)</span>
+</pre></div>
+
+
+<p>The method should return the number of even-numbered keys in the binary
+search tree or subtree whose root node is specified by the parameter.
+(Don&rsquo;t forget that you can test if a value <code>x</code> is even by checking if 
+<code>x % 2 == 0</code>.) Make sure that your method correctly handles empty
+trees/subtrees&mdash;i.e., cases in which the value of the parameter <code>root</code> is
+<code>null</code>.</p>
+<p>We have given you a public method named <code>numEvenKeys()</code> that takes no
+parameters and that makes the initial call to <code>numEvenKeysTree()</code>, passing
+in the root of the entire tree. Add test code to the <code>main()</code> method that
+calls <code>numEvenKeys()</code> to test your implementation of <code>numEvenKeysTree()</code>.</p>
+<h3 id="problem-8-range-search">Problem 8: Range search</h3>
+<p><em>10 points</em></p>
+<p>In the file <code>LinkedTree.java</code>, implement the <code>rangeSearchTree()</code> method,
+which has the following header:</p>
+<div class="codehilite"><pre><span></span><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">rangeSearchTree</span><span class="o">(</span><span class="n">Node</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">lower</span><span class="o">,</span> <span class="kt">int</span> <span class="n">upper</span><span class="o">)</span>
+</pre></div>
+
+
+<p>This method should perform a <em>range search</em> in the binary search tree or
+subtree whose root node is specified by the first parameter. This means
+that it should search for and print all keys in the tree that fall
+within the specified range&ndash;greater than or equal to the value of the
+parameter called <code>lower</code> and less than or equal to the value of the
+parameter called <code>upper</code>. The relevant keys should be printed in
+increasing order, separated by spaces.</p>
+<p><strong><em>Your method should use recursion to search through the tree, and it
+should avoid visiting nodes unnecessarily.</em></strong> In the same way that the
+search for a single item doesn’t consider every node in the tree, your
+range search method should also avoid considering portions of the tree
+that couldn’t fall within the specified range.</p>
+<p>We have given you a public method named <code>rangeSearch()</code> that performs
+error checking on the parameters and then makes the initial call to
+<code>rangeSearchTree()</code>, passing in the root of the entire tree. Add test code
+to the <code>main()</code> method that calls <code>rangeSearch()</code> to test your
+implementation of <code>rangeSearchTree()</code>.</p>
+<h3 id="problem-9-binary-tree-iterator">Problem 9: Binary tree iterator</h3>
+<p><em>25 points</em></p>
+<p>The traversal methods that are part of the <code>LinkedTree</code> class are limited
+in two significant ways: (1) they always traverse the entire tree; and
+(2) the only functionality that they support is printing the keys in the
+nodes. Ideally, we would like to allow the users of the class to
+traverse only a portion of the tree, and to perform different types of
+functionality during the traversal. For example, users might want to
+compute the sum of all of the keys in the tree. In this problem, you
+will add support for more flexible tree traversals by implementing an
+iterator for our <code>LinkedTree</code> class.</p>
+<p>You should use an inner class to implement the iterator, and it should
+implement the following interface:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">LinkedTreeIterator</span> <span class="o">{</span>
+    <span class="c1">// Are there other nodes to see in this traversal?</span>
+    <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">();</span>
+
+    <span class="c1">// Return the value of the key in the next node in the</span>
+    <span class="c1">// traversal, and advance the position of the iterator.</span>
+    <span class="kt">int</span> <span class="nf">next</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>There are a number of types of binary-tree iterators that we could
+implement, including ones that perform preorder, inorder, and postorder
+traversals. We have given you the implementation of a preorder iterator
+that we will go over in section (the inner class <code>PreorderIterator</code>), and
+you will implement a <strong>postorder</strong> iterator for this problem. In
+addition to implementing an inner class for your iterator, you should
+also modify the <code>postorderIterator()</code> method of the <code>LinkedTree</code> class so
+that it returns an instance of your new class.</p>
+<p>Your postorder iterator class should implement the <code>hasNext()</code> and <code>next()</code>
+methods so that, given a reference named tree to an arbitrary <code>LinkedTree</code>
+object, the following code will perform a complete postorder traversal
+of the corresponding tree:</p>
+<div class="codehilite"><pre><span></span><span class="n">LinkedTreeIterator</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="na">postorderIterator</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">key</span> <span class="o">=</span> <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+
+    <span class="c1">// do something with key</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>You may assume that the tree will not be modified during the course of a
+given traversal. If the user calls the <code>next()</code> method when there are no
+remaining nodes to visit, the method should throw a
+<code>NoSuchElementException</code>.</p>
+<p>One approach to implementing a tree iterator would be to perform a full
+recursive traversal of the tree when the iterator is first created and
+to insert the visited nodes in an auxiliary data structure (e.g., a
+list). The iterator would then iterate over that data structure to
+perform the traversal. <strong>You should <em>not</em> use this approach.</strong> One
+problem with using an auxiliary data structure is that it gives your
+iterator a space complexity of <em>O</em>(n), where n is the number of nodes in
+the tree. Your postorder iterator class should have a space complexity
+of <em>O</em>(1).</p>
+<p>Because you won’t be using an auxiliary data structure, your <code>next()</code>
+method will need to follow links in the trees when advancing the
+position of the iterator. In order for this approach to work, it’s
+necessary for each node to maintain a reference to its parent in the
+tree, in addition to the references that it already maintains to its
+left and right children. <strong>We have added a <code>parent</code> field to the <code>Node</code>
+class, but we have <em>not</em> updated the <code>LinkedTree</code> code to properly
+maintain this field in the nodes as the tree is updated over time. You
+will need to make the necessary changes to the <code>LinkedTree</code> methods as
+part of your work on this problem.</strong> The root of the entire tree should
+have a <code>parent</code> value of <code>null</code>.</p>
+<p>Your iterator’s <code>hasNext()</code> method should have a time efficiency of
+<em>O</em>(1). Your iterator’s constructor and <code>next()</code> methods should be as
+efficient as possible, given the time efficiency requirement for
+<code>hasNext()</code> and the requirement that you use no more than <em>O</em>(1) space.</p>
+<p>Here is our suggested approach to completing this problem:</p>
+<ol>
+<li>
+<p>Begin by updating the <code>LinkedTree</code> methods so that they properly
+    maintain the <code>parent</code> field in the <code>Node</code> objects in the tree. Think
+    about when the <code>parent</code> field should be initially set, and when (if
+    ever) it needs to be updated.</p>
+</li>
+<li>
+<p>Next, choose a name for the inner class that you’re using for your
+    postorder iterator, and add a skeleton for this class within the
+    <code>LinkedTree</code> class. Include whatever private instance variables will
+    be needed to keep track of the location of the iterator.</p>
+</li>
+<li>
+<p>Implement the constructor for your iterator class. Make sure that it
+    performs whatever initialization is necessary to prepare for the
+    initial calls to <code>hasNext()</code> and <code>next()</code>.</p>
+</li>
+<li>
+<p>Implement the <code>hasNext()</code> method. Make sure that it executes in <em>O</em>(1)
+    time.</p>
+</li>
+<li>
+<p>Implement the <code>next()</code> method. Make sure it includes support for
+    situations in which it is necessary to follow one or more <code>parent</code>
+    links back up the tree, as well as situations in which there are
+    no additional nodes to visit.</p>
+</li>
+<li>
+<p>Modify the <code>postorderIterator()</code> method in the <code>LinkedTree</code> class so
+    that it returns an instance of your new class.</p>
+</li>
+<li>
+<p>Test everything! One good thing to do is to find the places in the
+    <code>main()</code> method that print an postorder traversal using the
+    <code>postorderPrint()</code> method. After each invocation of this method, add
+    code that prints out the keys visited during a traversal by your
+    postorder iterator, and make sure that you get the same result
+    from both traversals. You may also want to add code that tests
+    your iterator’s performance on trees other than the one hard-coded
+    into the <code>main()</code> method.</p>
+</li>
+</ol>
+<p>We encourage you to consult our implementation of the <code>PreorderIterator</code>
+class when designing your class. It can also help to draw diagrams of
+example trees and use them to figure out what you need to do to go from
+one node to the next.</p>
+<h3 id="problem-10-recursive-sifting">Problem 10: Recursive sifting</h3>
+<p><em>10 points; required for grad credit; partial extra credit for others</em></p>
+<p>In <code>Heap.java</code>, the <code>siftDown()</code> method uses iteration to sift an element
+into place. Rewrite <code>siftDown()</code> so that it uses recursion instead. As
+you may recall from lecture, the existing method waits until the final
+location of the sifted node is determined before putting it into
+place. For the recursive version, we recommend swapping the sifted
+node with its larger child when the node needs to move down a level in
+the heap. (Note that this swap-based approach is the one that we
+illustrated in the initial diagrams for sifting in the lecture notes.)
+Make the swap, and then call the method recursively to continue the
+sifting process. You should <strong><em>not</em></strong> change the header of <code>siftDown()</code>
+in any way. You can use the existing test code in <code>main()</code> to test your
+recursive version of the method.</p>
+<hr>
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+<p>You should use <a href="https://canvas.harvard.edu/courses/18366/assignments"
+target="top">Canvas</a> to submit the following files:</p>
+<ul>
+<li><strong>for part I:</strong> your <code>ps4_partI.txt</code> or <code>ps4_partI.pdf</code> file.</li>
+<li><strong>for part II:</strong><ul>
+<li>your modified <code>LinkedTree.java</code> file</li>
+<li>your modified <code>Heap.java</code> file (if you completed the last problem)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Make sure to use these exact file names for your files.</strong> If you need
+to change the name of a Java file so that it corresponds to the name we
+have specified, make sure to also change the name of your class and
+check that it still compiles.</p>
+<p>Here are the steps you should take to submit your work:</p>
+<ul>
+<li>
+<p>Go to the <a href="https://canvas.harvard.edu/courses/18366/assignments"
+    target="top">page for submitting assignments</a>
+    (logging in as needed)</p>
+</li>
+<li>
+<p>Click on the appropriate link: either <em>ps4, part I</em> or
+    <em>ps4, part II</em>.</p>
+</li>
+<li>
+<p>Click on the <em>Submit Assignment</em> link near the upper-right corner of
+    the screen. (If you have already submitted something for this
+    assignment, click on <em>Re-submit Assignment</em> instead.)</p>
+</li>
+<li>
+<p>Use the <em>Choose File</em> button to select a file to be submitted. If
+    you have multiple files to submit, click <em>Add Another File</em> as needed,
+    and repeat the process for each file. <strong><em>Important:</em></strong> You must
+    submit all of the files for a given part of the assignment
+    (Part I or Part II) at the same time. If you need to resubmit a
+    file for some reason, you should also resubmit any other files from
+    that part of the assignment.</p>
+</li>
+<li>
+<p>Once you have chosen all of the files that you need to submit, click
+    on the <em>Submit Assignment</em> button.  </p>
+</li>
+<li>
+<p>After submitting the assignment, you should check your submission
+    carefully. In particular, you should:</p>
+<ul>
+<li>
+<p>Check to make sure that you have a green checkmark symbol
+    labeled <em>Turned In!</em> in the upper-right corner of the submission
+    page (where the <em>Submit Assignment</em> link used to be), along
+with the names of all of the files from the part of the
+assignment that you are submitting.</p>
+</li>
+<li>
+<p><strong>Click on the link for each file to download it, and view the
+    downloaded file so that you can ensure that you submitted the
+    correct file.</strong></p>
+</li>
+</ul>
+<p>We will not accept any files after the fact, so please check your
+submission carefully.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> If you encounter problems submitting your files, close your
+browser and start again, or try again later if you still have time. If
+you are unable to submit and it is close to the deadline, email your
+homework before the deadline to <code>cscie22@fas.harvard.edu</code>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+<i class="icon material-icons">&#xe5ca;</i>
+<p class="phrase">That&rsquo;s all!</p>
+
+
+
+<p class="updated">Last updated on October 27, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

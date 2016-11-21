@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 3 FAQ</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "problem_sets", "hash": "8a514d457d0f4bf0397eb5281aa70b65", "title": "Problem Set 3 FAQ"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Problem Set 3 FAQ</h1>
+
+<p><a href="/~cscie22/problem_sets/">&larr; Back to Problem Sets</a><br>
+<a href="/~cscie22/problem_sets/ps3.shtml">&larr; To Problem Set 3</a></p>
+<ol>
+<li>
+<p><strong>In problems 2 and 3, do the linked lists have a dummy head node?</strong></p>
+<p>No. In both cases, we are taking an approach similar to the one that
+we take with the <code>StringNode</code> linked lists. There is no object that
+represents the list as a whole, and there is no dummy head node. The
+methods that you write will take a reference to one of the nodes in
+the linked list, and the method will need to use that node as the
+basis of whatever operations that it wants to perform.</p>
+<p>Your methods for these problems should also handle cases in which
+the parameter is <code>null</code>, which represents an empty list.</p>
+<p>Note that the linked list in problem 5 <em>does</em> have a dummy
+head node. See that problem for more information.</p>
+</li>
+<li>
+<p><strong>Do we need to use correct Java generics syntax in problem 4?</strong></p>
+<p>No. What is important for problem 4 is that your pseudocode
+clearly demonstrates how the stack push/pop/peek operations can be
+translated into operations on the two queues (where the available
+queue operations are limited to those described by the
+<code>Queue&lt;T&gt;</code> interface). It is not important whether you use
+correct Java generics syntax in your pseudocode&mdash;it&rsquo;s the algorithm
+that matters.</p>
+</li>
+<li>
+<p><strong>In problem 5 (&ldquo;removing the smallest element in a linked
+    list&rdquo;), should our <code>removeSmallest()</code> method return a reference to the
+    <code>IntNode</code> that contained the smallest value and was removed, or should
+    it return the <code>int</code> value inside the <code>IntNode</code> that was removed?</strong></p>
+<p>It should return the <code>int</code> value inside the <code>IntNode</code> that was
+removed (i.e., the return value of your method should be of type <code>int</code>,
+not of type <code>IntNode</code>).</p>
+</li>
+<li>
+<p><strong>For problem 5, what should we return if the linked list
+    only contains the dummy node, or if the value <code>null</code> is passed in
+    for the parameter? Should we throw an exception in those cases?</strong></p>
+<p>Yes.</p>
+</li>
+<li>
+<p><strong>In problem 6, we have to write iterative versions of
+    the existing recursive methods of the <code>StringNode</code> class. Can you
+    give us any general tips on converting recursive methods into
+    iterative methods?</strong></p>
+<p>In general, when writing iterative versions of these methods, a good
+starting point is the template for iterative traversal of a linked
+list given in lecture:</p>
+<div class="codehilite"><pre><span></span><span class="n">StringNode</span> <span class="n">trav</span> <span class="o">=</span> <span class="n">firstNodeInList</span><span class="o">;</span>
+<span class="k">while</span> <span class="o">(</span><span class="n">trav</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// do something here</span>
+    <span class="n">trav</span> <span class="o">=</span> <span class="n">trav</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>     <span class="c1">// advance to next node</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>Then decide what needs to be done inside the loop, and what (if any)
+special cases need to be handled outside the loop. Special cases
+that often need to be handled outside the main loop include an empty
+list, and a list with only one node&mdash;however, there are certainly
+instances where either or both of these cases can be handled within
+the loop itself.</p>
+<p><em>Make sure your methods handle these boundary cases of an empty list
+and a list with only one node correctly!</em> It&rsquo;s very easy to write a
+method that works fine with a list with at least two nodes, but
+fails with a null pointer exception or otherwise behaves incorrectly
+with smaller lists.</p>
+<p>You also need to think carefully about what local variables your
+iterative method will need, and how these locals should
+be initialized. For example, is a single &ldquo;trav&rdquo; reference
+sufficient, or do you need to use a trailing reference as well?</p>
+<p>See the <code>numOccurrences()</code> and <code>read()</code> examples from the section 5
+solutions for two examples of recursive-to-iterative conversion.</p>
+</li>
+<li>
+<p><strong>In problem 7, are we allowed to change the method
+    headers in any way, or to call a helper method to perform the
+    recursion?</strong></p>
+<p>No. You must use the method headers we have given you, and the
+methods themselves must be recursive&mdash;i.e., they must
+call themselves. No helper methods should be used.</p>
+</li>
+<li>
+<p><strong>I&rsquo;m having trouble figuring out how to structure the recursive
+    case of one of the recursive methods for problem 7. Do you have any
+    hints on how to do this?</strong></p>
+<p>One thing that can help is to consider what should happen for one or
+more concrete cases.</p>
+<p>For example, let&rsquo;s say that you needed to write the recursive
+<code>indexOf</code> method given in the <code>StringNode</code> class. As with many
+recursive methods that operate on linked lists, this method should
+make recursive calls on ever shorter linked lists&mdash;i.e., on the
+rest of the list. For example, let&rsquo;s say that we wanted to do
+<code>indexOf([linked list for "recurse"], 's')</code></p>
+<p>This would lead to the following sequence of method calls:</p>
+<div class="codehilite"><pre><span></span>indexOf([linked list for &quot;recurse&quot;], &#39;s&#39;)
+    indexOf([linked list for &quot;ecurse&quot;], &#39;s&#39;)
+        indexOf([linked list for &quot;curse&quot;], &#39;s&#39;)
+            indexOf([linked list for &quot;urse&quot;], &#39;s&#39;)
+                indexOf([linked list for &quot;rse&quot;], &#39;s&#39;)
+                    indexOf([linked list for &quot;se&quot;], &#39;s&#39;)
+</pre></div>
+
+
+<p>where <code>[linked list for ...]</code> represents a reference to the first
+node in the linked list for the specified string. Note that we stop
+the recursion when the first node contains the character for which
+we are searching.</p>
+<p>Then, once you have the sequence of method calls, think about what
+each of these separate method calls should return, treating them as
+if they were independent of each other. For example, what should
+<code>indexOf([linked list for "rse"], 's')</code> return&mdash;i.e., what is the
+index of the first occurrence of <code>'s'</code> in <code>"rse"</code>? Based on these
+return values, you should be able to figure out how a given
+invocation of the method should use the return value from the
+recursive call to form its own return value.</p>
+</li>
+<li>
+<p><strong>One of my recursive methods for problem 7 is not
+    working correctly. Do you have any suggestions?</strong></p>
+<p>Try tracing through some concrete examples of cases in which your
+method is not returning the correct value. You might also want to
+try adding some temporary printlns to see if that helps you to
+diagnose the problem. In particular, you could print what the method
+will return before it actually returns it. That will allow you to
+see when the wrong value is being returned.</p>
+<p>In addition, if your method returns a value, make sure that you
+aren&rsquo;t throwing away the return value of the recursive call. For
+example, consider this incorrect version of a recursive method that
+copies a linked-list string:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="n">StringNode</span> <span class="nf">copy</span><span class="o">(</span><span class="n">StringNode</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="n">StringNode</span> <span class="n">copyFirst</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringNode</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">ch</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+    <span class="c1">// recursive call -- the return value is thrown away</span>
+    <span class="n">copy</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">copyFirst</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>This version of the method makes the correct recursive call&mdash;passing 
+in a reference to the first node in the rest of the linked
+list&mdash;but it throws away the value that is returned.</p>
+<p>To avoid losing the return value of the recursive call, we can do
+one of two things:</p>
+<ul>
+<li>
+<p>assign it to a variable, and then do something with that
+    variable</p>
+</li>
+<li>
+<p>make the recursive call part of a <code>return</code> statement, if doing so
+    makes sense. It may not always make sense&mdash;especially if the
+    value that the current method call should return depends on the
+    value that was returned by the recursive call.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>For the <code>startsWith</code> method (problem 7), what should
+    the method return if the first parameter is <code>null</code>?</strong></p>
+<p>First, recall that a <code>null</code> value for a <code>StringNode</code> variable
+represents an empty string.</p>
+<p>The problem specifies that the method should return <code>true</code> if the
+<em>second</em> parameter (the prefix) is <code>null</code>, regardless of the value
+of the first parameter, so <code>startsWith(null, null)</code> must return
+<code>true</code>. The idea here is that any string&mdash;including the empty
+string&mdash;has the empty string as a prefix.</p>
+<p>If the first parameter is <code>null</code> and the second parameter is not
+<code>null</code>, we would recommend returning <code>false</code>, because it makes sense
+to say that the empty string does not have any other string besides
+itself as a prefix. We will also accept solutions that throw an
+exception in this case.</p>
+</li>
+<li>
+<p><strong>Do you have any hints for the <code>startsWith</code> method (problem 7)?</strong></p>
+<p>You may want to make use of the following insight: if the first
+characters of <code>str</code> and prefix match, then removing the first
+characters of both arguments should not change the return. For
+example, the return value of</p>
+<div class="codehilite"><pre><span></span>startsWith([linked list for &quot;recursion&quot;], [linked list for &quot;recur&quot;])
+</pre></div>
+
+
+<p>is the same as the return value of</p>
+<div class="codehilite"><pre><span></span>startsWith([linked list for &quot;ecursion&quot;], [linked list for &quot;ecur&quot;])
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>When implementing the bag ADT using a linked list for 
+    problem 8, do we need to include only the methods in the <code>Bag</code>
+    interface, or do we also need to code up the supplemental methods
+    that we created in Problem Set 1?</strong></p>
+<p>You only need to implement the methods found in the <code>Bag</code> interface
+and a <code>toString()</code> method. You do not need to implement the
+additional methods you wrote for Problem Set 1.</p>
+</li>
+<li>
+<p><strong>For problem 8, can we use Java&rsquo;s built-in <code>LinkedList</code>
+    class, or do we need to create our own linked list class from
+    scratch?</strong></p>
+<p>You need to write your own code. However, you don&rsquo;t need to write a
+separate class for the list itself. The only additional class that
+you will need is a class for the nodes in the list, which should be
+a private inner class called <code>Node</code> within your <code>LLBag</code> class. See
+the <code>LLList</code>, <code>LLStack</code>, and <code>LLQueue</code> classes for examples of this.</p>
+<p>You should use an instance variable within your <code>LLBag</code> class to
+hold a reference to the first node of the linked list&mdash;or to the
+dummy head node, if you choose to use one&mdash;and you should rewrite
+the <code>Bag</code> methods as needed to manipulate the linked list.</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

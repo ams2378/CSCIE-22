@@ -1,0 +1,550 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 5</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"layout": "assignment", "section": "problem_sets", "hash": "54612611e5cde11238e6a3df7ce45a9b", "title": "Problem Set 5"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer title-colored"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="locator">
+<div class="inner js-stops-parent">
+</div>
+</div>
+
+<div class="title">
+<div class="inner">
+
+<div class="title-content-spacer"></div>
+<div class="title-content">
+
+<h1>Problem Set 5</h1>
+
+</div>
+
+</div>
+</div>
+
+<div class="title-spacer"></div>
+
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+
+<div class="admonition date">
+<p class="admonition-title">Due dates</p>
+<p>This assignment is due before the start of lecture on <strong>Wednesday,
+December 7, 2016</strong>. There will be a 10% late penalty for late
+submissions made by 11:59 p.m. on Sunday, December 11. 
+<font color="blue"><strong><em>No submissions will be accepted after
+Sunday, December 11, at 11:59 p.m. so that we can post solutions
+before the final exam.</em></strong></font></p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#the-problems">The Problems</a><ul>
+<li><a href="#problem-1-heaps-and-heapsort">Problem 1: Heaps and heapsort</a></li>
+<li><a href="#problem-2-hash-tables">Problem 2: Hash tables</a></li>
+<li><a href="#problem-3-informed-state-space-search">Problem 3: Informed state-space search</a></li>
+<li><a href="#problem-4-determining-if-an-array-is-a-heap">Problem 4: Determining if an array is a heap</a></li>
+<li><a href="#problem-5-graph-traversals">Problem 5: Graph traversals</a></li>
+<li><a href="#problem-6-minimal-spanning-tree">Problem 6: Minimal spanning tree</a></li>
+<li><a href="#problem-7-dijkstras-shortest-path-algorithm">Problem 7: Dijkstra’s shortest-path algorithm</a></li>
+<li><a href="#problem-8-comparing-data-structures">Problem 8: Comparing data structures</a></li>
+<li><a href="#problem-9-directed-graphs-and-topological-sort">Problem 9: Directed graphs and topological sort</a></li>
+<li><a href="#problem-10-a-non-recursive-dfs">Problem 10: A non-recursive DFS</a></li>
+<li><a href="#problem-11-determining-if-two-vertices-are-adjacent">Problem 11: Determining if two vertices are adjacent</a></li>
+<li><a href="#problem-12-alternative-mst-algorithm">Problem 12: Alternative MST algorithm</a></li>
+</ul>
+</li>
+<li><a href="#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</div>
+<p>In your work on this assignment, make sure to abide by the policies on academic
+conduct described in the <a href="/~cscie22/files/syllabus.pdf">syllabus</a>.</p>
+<p>If you have questions while working on this assignment, please attend office
+hours, post them on Piazza, or email <code>cscie22@fas.harvard.edu</code>.</p>
+<hr>
+<h2 id="the-problems">The Problems</h2>
+<p><em>100 points total</em></p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>There are no extra grad-credit problems for this problem set.</p>
+</li>
+<li>
+<p>There is only one part to this problem set, and all of your 
+    answers should be submitted in a single file. Although there are
+    several problems that require you to write a Java method,
+    you should submit those methods in the same file as your other work.</p>
+</li>
+<li>
+<p>Because we are asking you to draw diagrams, you may submit <em>either</em> a
+    plain-text file or a PDF file. Give it the name <code>ps5.txt</code> <em>or</em>
+    <code>ps5.pdf</code>.</p>
+</li>
+</ul>
+<h3 id="problem-1-heaps-and-heapsort">Problem 1: Heaps and heapsort</h3>
+<p><em>10 points total</em></p>
+<p>Consider the following complete tree:</p>
+<figure>
+<img src="../files/ps5/completeTree.gif">
+</figure>
+
+<ol>
+<li>
+<p>(3 points) Illustrate the process of turning this tree into a
+    max-at-top heap. Show the tree after each sift operation.</p>
+</li>
+<li>
+<p>(2 points) What is the array representation of the
+    max-at-top heap that you obtain in part 1?</p>
+</li>
+<li>
+<p>(5 points) Heapsort begins by turning the array to be sorted into a
+    heap. Assume that your answer to part 2 is the result of this process of
+    turning the original array into a heap. Illustrate
+    the remaining steps in using heapsort on this array. Show the contents
+    of the array after each element is put into its final position – i.e.,
+    at the end of each iteration of the while loop in the heapSort method
+    from lecture.</p>
+</li>
+</ol>
+<h3 id="problem-2-hash-tables">Problem 2: Hash tables</h3>
+<p><em>12 points total; 4 points each part</em></p>
+<p>The following sequence of keys is to be inserted into an initially
+empty hash table of size 8:</p>
+<div class="codehilite"><pre><span></span>the, my, an, by, do, we, if, to, go
+</pre></div>
+
+
+<p>The hash function assigns to each key the number of characters in the
+key. For example, <code>h("the")</code> is 3, because <code>"the"</code> has 3 characters.</p>
+<ol>
+<li>
+<p>Assume that <em>linear probing</em> is used to insert the keys. Determine
+    which key causes overflow, and show the table at that point.</p>
+</li>
+<li>
+<p>Now assume that <em>quadratic probing</em> is used. Determine which key
+    causes overflow, and show the table at that point.</p>
+</li>
+<li>
+<p>Finally, assume that <em>double hashing</em> is used, with the second hash
+    function assigning 1 to a noun or pronoun (we, my), 2 to a verb (do,
+    go), 3 to an article (the, an), and 4 to any other part of speech (the
+    rest of the words). Determine which key causes overflow, and show the
+    table at that point.</p>
+</li>
+</ol>
+<h3 id="problem-3-informed-state-space-search">Problem 3: Informed state-space search</h3>
+<p><em>8 points total; 4 points each part</em></p>
+<p>Below is a portion of a state-space search tree for the Eight Puzzle
+whose initial configuration is shown at the root of the tree. The
+individual states have been labeled with lower-case letters to make it
+easier to refer to them.</p>
+<figure>
+<img src="../files/ps5/state_space_tree.gif">
+</figure>
+
+<ol>
+<li>
+<p>What are the priorities that greedy search would assign to the
+    following states: state a, state b, state d, and state h? Assume that
+    the Manhattan distance heuristic from lecture is used to estimate the
+    remaining cost.</p>
+</li>
+<li>
+<p>What are the priorities that A* search would assign to the same
+    four states? Assume again that the Manhattan distance heuristic from
+    lecture is used to estimate the remaining cost.</p>
+</li>
+</ol>
+<h3 id="problem-4-determining-if-an-array-is-a-heap">Problem 4: Determining if an array is a heap</h3>
+<p><em>10 points total; 5 points each part</em></p>
+<p>Consider the following static methods, which are meant to determine if
+an array of integers corresponds to a heap:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isHeap</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">arr</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="k">return</span> <span class="n">isHeapTree</span><span class="o">(</span><span class="n">arr</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isHeapTree</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Implement this method.</span>
+
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>Implement the second method so that it uses recursion to process the
+    complete tree/subtree whose root is at position <code>i</code> in the array <code>arr</code> –
+    i.e., the complete tree/subtree given by the array/subarray</p>
+<div class="codehilite"><pre><span></span>{arr[i], arr[i+1], arr[i+2], … arr[arr.length-1]}
+</pre></div>
+
+
+<p>The method should return <code>true</code> if that tree/subtree is a heap, and
+<code>false</code> if it is not a heap. (Note that the first method – which is a
+public wrapper method for the method that you will write – makes the
+initial call to your method with a value of <code>0</code> for <code>i</code>, which means that
+it will determine if the complete tree represented by the full array
+is a heap.) In implementing your method, you may find it helpful to
+review the arithmetic rules for navigating through a complete tree
+that is stored in an array.</p>
+</li>
+<li>
+<p>What is the efficiency of determining if an array of length <code>n</code>
+    represents a heap in the best, worst, and average cases? Use big-O
+    notation, and explain your answers briefly.</p>
+</li>
+</ol>
+<p><em>Questions 5-7 refer to the following graph:</em></p>
+<figure>
+<img src="../files/ps5/highwayGraph.gif">
+</figure>
+
+<h3 id="problem-5-graph-traversals">Problem 5: Graph traversals</h3>
+<p><em>8 points; 2 points each part</em></p>
+<p>Suppose that you have purchased a pass that allows you to fly anywhere
+you wish along the routes that are shown in the diagram above.</p>
+<ol>
+<li>
+<p>List the order in which you will visit the cities if you start from
+    Denver and do a breadth-first traversal. You should assume that the
+    edges of each vertex are stored in order of increasing distance, as we
+    did in the lecture examples.</p>
+</li>
+<li>
+<p>What is the path from Denver to Boston in the breadth-first spanning
+    tree? Give the path in the form A -> B -> C ->  etc., where A, B, and
+    C are vertices.</p>
+</li>
+<li>
+<p>List the order in which you will visit the cities if you start from
+    Denver and do a depth-first traversal. You should assume that the edges
+    of each vertex are stored in order of increasing distance, as we did in
+    the lecture examples.</p>
+</li>
+<li>
+<p>What is the path from Denver to Boston in the depth-first spanning
+    tree? Give the path in the form A -> B -> C ->  etc., where A, B, and
+    C are vertices.</p>
+</li>
+</ol>
+<h3 id="problem-6-minimal-spanning-tree">Problem 6: Minimal spanning tree</h3>
+<p><em>6 points</em></p>
+<p>A cheaper version of the same pass requires that you confine yourself
+to flights that are part of a minimal spanning tree for the graph.
+List the order in which flights/edges will be added to this tree if
+you build it using Prim&rsquo;s algorithm, starting from Denver. Use the
+form (city1, city2) when specifying an edge.</p>
+<h3 id="problem-7-dijkstras-shortest-path-algorithm">Problem 7: Dijkstra’s shortest-path algorithm</h3>
+<p><em>8 points total</em></p>
+<p>Suppose you set out to use Dijkstra’s algorithm to determine the
+shortest distance from Denver to every other city in the graph.</p>
+<ol>
+<li>
+<p>(5 points) Make a table showing the order in which the cities are
+    finalized and the minimum distance to each.</p>
+</li>
+<li>
+<p>(3 points) What path(s) does the algorithm discover from Denver to
+    Boston? Include both the final shortest path and any temporary estimates
+    for the shortest path that are later replaced. Give the paths in the
+    form A -> B -> C -> etc., where A, B, and C are vertices.</p>
+</li>
+</ol>
+<h3 id="problem-8-comparing-data-structures">Problem 8: Comparing data structures</h3>
+<p><em>6 points</em></p>
+<p>A supermarket chain wants you to implement an in-memory database that
+can be used to access facts about the products they sell. Although a
+snapshot of this database will be periodically copied to disk, its
+contents fit in memory, and your component of the application will
+operate only on data stored in memory.</p>
+<p>Here are the requirements specified by the managers of the supermarket
+chain:</p>
+<ul>
+<li>
+<p>They want to be able to retrieve product records by specifying the
+    name of the product.</p>
+</li>
+<li>
+<p>They want to be able to specify the first n characters of a product
+    name and to retrieve all records that begin with those characters.</p>
+</li>
+<li>
+<p>They want the time required to retrieve a record to be as efficient
+    as possible – on the order of 20 operations per retrieval, given a
+    database of approximately one million records.</p>
+</li>
+<li>
+<p>They want to be able to increase the size of the database – adding
+    large sets of new records – without taking the system offline.</p>
+</li>
+</ul>
+<p>Given this list of requirements, which data structure would be the
+better choice for this application, a balanced search tree or a hash
+table – or would these two data structures work equally well? Explain
+your decision, specifying as many reasons as possible for the choice
+that you make.</p>
+<h3 id="problem-9-directed-graphs-and-topological-sort">Problem 9: Directed graphs and topological sort</h3>
+<p><em>10 points total; 5 points each part</em></p>
+<ol>
+<li>
+<p>Is the graph below a directed acyclic graph (a DAG)? 
+<figure>
+<img src="../files/ps5/graph9-1.gif">
+</figure>
+    If it isn’t a DAG, specify <em>all</em> cycles that are present in the
+    graph. If it is a DAG, use topological sort to find <em>one</em> of the
+    possible topological orderings of the vertices in the graph.</p>
+</li>
+<li>
+<p>Repeat the process outlined above on the graph below.</p>
+</li>
+</ol>
+<figure>
+<img src="../files/ps5/graph9-2.gif">
+</figure>
+
+<h3 id="problem-10-a-non-recursive-dfs">Problem 10: A non-recursive DFS</h3>
+<p><em>6 points total</em></p>
+<p>In the <a href="$prefix/code/graphs/Graph.java"><code>Graph</code> class</a> from lecture,
+depth-first search is accomplished using a recursive method. Rewrite
+the <code>dfTrav</code> method so that it does <em>not</em> use recursion. <em>Hint:</em> The
+new method will be somewhat similar to the <strong>bf</strong>Trav method (the one
+for <em>breadth</em>-first search), but you will need to use a different data
+structure to store the yet-to-be visited vertices. In addition, you
+may need to add a given vertex to the data structure more than once if
+you encounter it multiple times before it is visited. As a result, you
+should check if a vertex has been visited twice: once before adding it
+to the data structure, and once when it is removed from the data
+structure (to ensure that you don&rsquo;t visit it twice). You may assume
+that the new method has only one parameter: a <code>Vertex</code> object for the
+origin of the traversal.</p>
+<h3 id="problem-11-determining-if-two-vertices-are-adjacent">Problem 11: Determining if two vertices are adjacent</h3>
+<p><em>10 points total</em></p>
+<ol>
+<li>
+<p>(3 points) Given the graph representation used in the 
+    <a href="../code/graphs/Graph.java"><code>Graph</code> class</a>
+    from lecture, write a simple Java method that takes two <code>Vertex</code>
+    objects as parameters and determines if the vertices are
+    adjacent. The method should return <code>true</code> if the vertices are
+    adjacent, and <code>false</code> if they are not adjacent. Keep in mind that
+    the edges in the graph may be directed, which means that you may
+    need to check both vertices&rsquo; adjacency lists.</p>
+</li>
+<li>
+<p>(3 points) If a graph with <em>n</em> vertices were represented using the
+    <a href="../code/graphs/Graph.java"><code>Graph</code> class</a>
+    from lecture, what would be the worst-case time efficiency
+    of the algorithm from part a? Use big-O notation, and explain your
+    answer briefly.</p>
+</li>
+<li>
+<p>(4 points) We can make the process of determining if two vertices are
+    adjacent more efficient if we modify the representation of the graph.
+    Describe a modification that will achieve this goal, and explain how
+    your algorithm would be changed to take advantage of the changed
+    representation. State the worst-case time efficiency of the more
+    efficient algorithm using big-O notation, and explain your answer
+    briefly.</p>
+</li>
+</ol>
+<h3 id="problem-12-alternative-mst-algorithm">Problem 12: Alternative MST algorithm</h3>
+<p><em>6 points</em></p>
+<p>Prim’s algorithm is just one possible algorithm for finding a minimum
+spanning tree. Another such algorithm was developed by Kruskal:</p>
+<div class="codehilite"><pre><span></span>kruskal_MST(Graph g) {
+    put each of g’s vertices in its own set
+
+    while (there is more than one set) {
+        let e = the minimum-cost edge that hasn’t been considered
+
+        if (e connects vertices that are in different sets) {
+            add e to the MST
+            merge the sets containing the vertices connected by e
+        }
+    }
+}
+</pre></div>
+
+
+<p>Note that this algorithm considers the edges in order of increasing
+cost. In addition, at an intermediate stage of the algorithm, there may
+be multiple trees that are not connected to each other, although they
+will ultimately be joined together to form a single MST.</p>
+<figure>
+<img src="../files/ps5/kruskal.gif">
+</figure>
+
+<p>For example, if we applied Kruskal&rsquo;s algorithm to the graph above, we
+would start out with the following sets: </p>
+<div class="codehilite"><pre><span></span>{A}, {B}, {C}, {D}, {E}, {F}
+</pre></div>
+
+
+<p>We would consider the edge (C, E) first, because it has the lowest
+cost (400). Because it connects vertices in different sets, we would add
+this edge to the tree and merge the sets involved to get: </p>
+<div class="codehilite"><pre><span></span>{A}, {B}, {C, E}, {D}, {F}
+</pre></div>
+
+
+<p>We would next consider the edge (D, F), because it has the smallest
+remaining cost. Because it connects vertices in different sets, we would
+add this edge to the tree and merge the sets involved to get: </p>
+<div class="codehilite"><pre><span></span>{A}, {B}, {C, E}, {D, F}
+</pre></div>
+
+
+<p>We would next consider the edge (D, E), because it has the smallest
+remaining cost. Because it connects vertices in different sets, we would
+add this edge to the tree and merge the sets involved to get: </p>
+<div class="codehilite"><pre><span></span>{A}, {B}, {C, D, E, F}
+</pre></div>
+
+
+<p>We would next consider the edge (C, D), because it has the smallest
+remaining cost. Because it connects vertices that are <em>already</em> <em>in the
+same set</em>, we would <em>not</em> add this edge to the tree.</p>
+<p>We would next consider the edge (A, B), because it has the smallest
+remaining cost. Because it connects vertices in different sets, we would
+add this edge to the tree and merge the sets involved to get: </p>
+<div class="codehilite"><pre><span></span>{A, B}, {C, D, E, F}
+</pre></div>
+
+
+<p>We would next consider the edge (B, C), because it has the smallest
+remaining cost. Because it connects vertices in different sets, we would
+add this edge to the tree and merge the sets involved to get: </p>
+<div class="codehilite"><pre><span></span>{A, B, C, D, E, F}
+</pre></div>
+
+
+<p>Finally, we would consider the edge (B, D). Because it connects
+vertices in the same set, we would <em>not</em> add this edge to the tree.</p>
+<p>Apply Kruskal&rsquo;s algorithm to the airline graph from earlier in the
+problem set, which is reproduced below. List the edges of the MST in the
+order in which the algorithm would add them, using the format (city1,
+city2) for an edge.</p>
+<figure>
+<img src="../files/ps5/highwayGraph.gif">
+</figure>
+
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+<p>You should use <a href="https://canvas.harvard.edu/courses/18366/assignments"
+target="top">Canvas</a> to submit your <code>ps5.txt</code> or <code>ps5.pdf</code> file.</p>
+<p>Here are the steps you should take to submit your work:</p>
+<ul>
+<li>Go to the <a href="https://canvas.harvard.edu/courses/18366/assignments"
+    target="top">page for submitting assignments</a>
+    (logging in as needed using the Login link in the upper-right
+    corner, and entering your Harvard ID and PIN).</li>
+<li>Click on the link for <code>ps5</code>.</li>
+<li>Click on the <em>Submit Assignment</em> link near the upper-right corner of
+    the screen. (If you have already submitted something for this
+    assignment, click on <em>Re-submit Assignment</em> instead.)</li>
+<li>Use the <em>Choose File</em> button to select the file to be submitted.</li>
+<li>If you worked on one or more pair-optional problems with a partner,
+    you should include a comment at the top of the relevant file that
+    specifies the name of your partner and the problems that you
+    worked on together.</li>
+<li>Once you have chosen all of the files that you need to submit, click
+    on the <em>Submit Assignment</em> button.  </li>
+<li>
+<p>After submitting the assignment, you should check your submission
+    carefully. In particular, you should:</p>
+<ul>
+<li>Check to make sure that you have a green checkmark symbol
+    labeled <em>Turned In!</em> in the upper-right corner of the submission
+    page (where the <em>Submit Assignment</em> link used to be), along
+with the names of all of the files from the part of the
+assignment that you are submitting.</li>
+<li><strong>Click on the link for your file to download it, and view the
+    downloaded file so that you can ensure that you submitted the
+    correct file.</strong></li>
+</ul>
+<p>We will not accept any files after the fact, so please check your
+submission carefully.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> If you encounter problems submitting your files, close your
+browser and start again, or try again later if you still have time. If
+you are unable to submit and it is close to the deadline, email your
+homework before the deadline to <code>cscie22@fas.harvard.edu</code>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+<i class="icon material-icons">&#xe5ca;</i>
+<p class="phrase">That&rsquo;s all!</p>
+
+
+
+<p class="updated">Last updated on November 18, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

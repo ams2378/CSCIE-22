@@ -1,0 +1,341 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 1 FAQ</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "problem_sets", "hash": "d0839cdf6c65c633b5ed86acca5dda99", "title": "Problem Set 1 FAQ"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Problem Set 1 FAQ</h1>
+
+<p><a href="/~cscie22/problem_sets/">&larr; Back to Problem Sets</a><br>
+<a href="/~cscie22/problem_sets/ps1.shtml">&larr; To Problem Set 1</a></p>
+<p>In addition, don&rsquo;t forget that there are additional questions and answers on 
+<a href="http://piazza.com/harvard/fall2016/cscie22">Piazza</a>.</p>
+<ol>
+<li>
+<p><strong>Problem 1 requires us to draw a memory diagram. What
+    file format should we submit this diagram in?</strong></p>
+<p>Generally speaking, for the Part I problems 
+you should submit your work in a <a href="plain_text.html">plain-text file</a>. 
+Because we are asking you to draw a diagram, you may submit
+<em>either</em> a plain-text file or a PDF file.</p>
+<p>If you are using a PDF file, you can create the diagram using 
+the tool of your choice and embed it in the PDF. If you are 
+using a plain-text file, you can create the diagram using
+&ldquo;ASCII art&rdquo;. Here is an example of a perfectly good
+ASCII memory diagram:</p>
+<div class="codehilite"><pre><span></span>    Stack:           Heap:
+        ----         -----------------
+    arr | -|--------&gt;| 1 | 2 | 3 | 4 |
+        ----         -----------------
+</pre></div>
+
+
+</li>
+<li>
+<p><strong>When I run one of the recursive methods that I&rsquo;ve written for
+    problem 7, I get a <code>NullPointerException</code>. Do you have
+    any idea of why that might be happening?</strong></p>
+<p>A <code>NullPointerException</code> occurs when you try to call a method using
+a reference variable with a value of <code>null</code>. For example, if you
+have a variable named <code>str</code> with a value of <code>null</code> and you call
+<code>str.length()</code>, you will get this exception because there is no
+object on which the <code>length()</code> method can be invoked. You may need
+to check first if the value of a reference variable is <code>null</code> before
+attempting to use it to call a method.</p>
+</li>
+<li>
+<p><strong>In one of my recursive methods for problem 7, I&rsquo;m getting a
+    <code>StringIndexOutOfBoundsException</code>. What am I doing wrong?</strong></p>
+<p>Don&rsquo;t forget that the characters in a string have index values that
+go from 0 to length - 1. The exception means that your code is using
+an index from outside that range.</p>
+</li>
+<li>
+<p><strong>In one of my recursive methods for problem 7, I&rsquo;m using the
+    <code>substring</code> method to create a substring that has everything but the
+    first character from the original string. I&rsquo;m using the expression
+    <code>str.substring(1, str.length() - 1)</code>, but I seem to be losing
+    characters at the end of the string as well.</strong></p>
+<p>Don&rsquo;t forget that the second parameter to the <code>substring</code> method is
+non-inclusive. So if you want the last character to be included in
+the substring, your should use the expression
+<code>str.substring(1, str.length())</code> &ndash; without the &ldquo;- 1&rdquo;.
+Alternatively, you could use the version of <code>substring</code> that only
+takes a start index: <code>str.substring(1)</code>.</p>
+</li>
+<li>
+<p><strong>I&rsquo;m having trouble figuring out how to structure the recursive
+    case of one of the recursive methods for problem 7. Do you have any
+    hints on how to do this?</strong></p>
+<p>One thing that can help is to consider what should happen for one or
+more concrete cases &ndash; as we did in the example problem that we
+covered in lecture.</p>
+<p>For example, let&rsquo;s say that you needed to write a recursive
+<code>removeVowels</code> method. As
+with many recursive methods that operate on strings, this method
+should make recursive calls on ever smaller substrings. For example,
+let&rsquo;s say that we wanted to do <code>removeVowels("movies")</code></p>
+<p>This would lead to the following sequence of method calls:</p>
+<div class="codehilite"><pre><span></span><span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;movies&quot;</span><span class="o">)</span>
+    <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;ovies&quot;</span><span class="o">)</span>
+        <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;vies&quot;</span><span class="o">)</span>
+            <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;ies&quot;</span><span class="o">)</span>
+                <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;es&quot;</span><span class="o">)</span>
+                    <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;s&quot;</span><span class="o">)</span>
+                        <span class="n">removeVowels</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">)</span>
+</pre></div>
+
+
+<p>(The last call might not be needed. It depends on which base cases
+you choose to include.)</p>
+<p>Then, once you have the sequence of method calls, you should think
+about what each of these separate method calls should return,
+treating them as if they were independent of each other. For
+example, what should <code>removeVowels("ies")</code> return &ndash; i.e., what
+string will result if the vowels in <code>"ies"</code> were removed? Based on
+these return values, you should be able to figure out how a given
+invocation of the method should use the return value from the
+recursive call to form its own return value.</p>
+</li>
+<li>
+<p><strong>One of my recursive methods for problem 7 is not working
+    correctly. Do you have any suggestions?</strong></p>
+<p>Try tracing through some concrete examples of cases in which the
+your method is not returning the correct value. You might want to
+try adding some temporary printlns to see if that helps you to
+diagnose the problem. In particular, you could print what the method
+will return before it actually returns it. That will allow you to
+see when the wrong value is being returned.</p>
+<p>In addition, if your method returns a value, make sure that you
+aren&rsquo;t throwing away the return value of the recursive call. For
+example, consider this incorrect version of a recursive method that
+determines if a string is a palindrome &ndash; i.e., if it is a word like
+&ldquo;radar&rdquo; that reads the same in either direction:  </p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isPalindrome</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>  
+    <span class="k">if</span> <span class="o">(</span><span class="n">str</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">str</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span> <span class="o">{</span>  
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>  
+    <span class="o">}</span>
+
+    <span class="c1">// recursive call -- the return value is thrown away</span>
+    <span class="n">isPalindrome</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">));</span>
+
+    <span class="kt">char</span> <span class="n">first</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+    <span class="kt">char</span> <span class="n">last</span> <span class="o">=</span> <span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">first</span> <span class="o">!=</span> <span class="n">last</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>This version of the method makes the correct recursive call &ndash;
+looking at the substring consisting of everything except the first
+and last characters &ndash; but it throws away the value that is
+returned.</p>
+<p>To avoid losing the return value of the recursive call, we can do
+one of two things:</p>
+<ol>
+<li>assign it to a variable, and then do something with that
+    variable</li>
+<li>make the recursive call part of a return statement, if doing so
+    makes sense. It may not always make sense &ndash; especially if the
+    value that the current method call should return depends on the
+    value that was returned by the recursive call.</li>
+</ol>
+</li>
+<li>
+<p><strong>I&rsquo;m having trouble with the Lagrange problem. Can you give us any 
+    hints on how to get started?</strong></p>
+<p>Carefully read over the example that we&rsquo;ve given you in the
+problem itself (the one in which we break up 140). It should give
+you some insight about how to structure your method &ndash; including
+what base case(s) you will need, and what your recursive call
+should look like.</p>
+<p>Don&rsquo;t forget that a given call of the recursive method is responsible
+for determining the value of one of the variables that you are working
+with (in this case, one of the terms of the sum), and that the method
+should use a loop to try all possible values for that variable.</p>
+</li>
+<li>
+<p><strong>I am struggling to apply the backtracking template from the
+    lecture notes to the Lagrange problem. I&rsquo;m confused about what <code>n</code>
+    and <code>val</code> in the template should mean in the context of this
+    problem. Also, is an <code>isValid()</code> method needed here?</strong></p>
+<p>The template is useful, but you shouldn&rsquo;t get too bogged down in
+the details of it. Focus first on the basics of recursive
+backtracking and on the example given in the problem itself. You
+should see that the template fits pretty well &ndash; although your
+solution may end up differing from the exact structure shown in
+the template.</p>
+<p>As we said in lecture, recursive backtracking is a method for
+assigning values to a set of variables in light of a set of
+constraints. In the template, <code>n</code> tells you the variable that you&rsquo;re
+currently trying to assign a value to, and <code>val</code> iterates over the set
+of possible values for that variable. (Note that <code>n</code> is not the variable
+itself - it is simply a parameter that allows you to determine the
+variable. For example, in the Queens problem, <code>n</code> was the number of row
+in which we were trying to place a queen, but we stored the actual
+values&mdash;i.e., the locations of the queens&mdash;in other data structures.)</p>
+<p>The <code>isValid()</code> method in our template simply checks if <code>val</code> is a valid
+value for the <code>n</code>th variable (in other words, does it fit the
+constraints?). Depending on how you structure your solution, you may
+not need to actually write a method for this.</p>
+<p>Another detail of the template that can vary is the way that the
+parameters to the method are modified in the recursive call. In the
+template, <code>n</code> is incremented by 1 to indicate that the recursive call
+will focus on the next variable. However, if you take the approach
+that we have recommended in the problem (and illustrated in the
+example), you will need to modify the parameters in some other way
+when you make the recursive call. The important thing is that the new
+parameters should reflect the subproblem that you&rsquo;re trying to solve
+by making the recursive call, and the parameters should eventually
+reach one of the values that constitute a base case of the recursion.</p>
+</li>
+<li>
+<p><strong>I&rsquo;m still struggling on the Lagrange problem. Do you have any
+    additional suggestions?</strong></p>
+<p>Here are four things that may help:</p>
+<ul>
+<li>
+<p>If you look the example that we&rsquo;ve given you in the problem
+    set, you&rsquo;ll notice that a given call of <code>findSumRB()</code> is
+    responsible for determining the value of just one of the terms
+    of the sum. For example, <code>findSumRB(140,4)</code> is responsible for the
+    first term in the sum (<code>terms[0]</code>), and <code>findSumRB(19,3)</code> is
+    responsible for the second term in the sum (<code>terms[1]</code>). There is
+    an easy piece of arithmetic that you can use to determine which
+    term a given call of the method is responsible for, based on
+    its parameters.</p>
+</li>
+<li>
+<p>In attempting to determine the value of a given term, you need
+    to try the perfect squares that could work for that term, and
+    we&rsquo;ve recommended that you start with the largest perfect
+    square that would work. For example, say you are looking to
+    break up 29 (i.e., <code>num</code> is 29). The sequence of squares that
+    you would try is 25, 16, 9, 4, 1; i.e., those are the numbers
+    you should loop over in that method frame. Because it may not
+    be immediately clear how to set up a loop such that that
+    sequence of squares is tried, you may want to consider looping
+    over the roots of the squares instead of the squares
+    themselves. In that case, the loop would iterate over: 5, 4,
+    3, 2, 1.</p>
+</li>
+<li>
+<p>You may find it helpful to have more than one base-case test at
+    the start of <code>findSumRB</code>: one to handle the case in which you
+    have found a solution, and one to handle the case in which you
+    have run out of terms and need to backtrack. (Note that this
+    instance of backtracking is in addition to the backtracking
+    that occurs once you have tried all possible values for a
+    given term.)</p>
+</li>
+<li>
+<p>Although you want the recursive call to have modified parameter
+    values, you need to make sure that you don&rsquo;t modify the values
+    of the parameters in the current stack frame. For example, in
+    the nQueens example from lecture, we make a recursive call
+    with a parameter of <code>row+1</code>. That gives the recursive call a
+    parameter that is one more than the current call&rsquo;s parameter,
+    but it does so in a way that doesn&rsquo;t change the value of <code>row</code>
+    in the current stack frame. If we had instead done <code>row++</code> or
+    <code>++row</code>, we would have modified the value of <code>row</code> in the current
+    stack frame, and that would have caused problems when we
+    returned to that frame during backtracking.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>I&rsquo;m not really sure how to approach the final problem (&ldquo;making it
+    smarter&rdquo;). Should I be looking out for specific numbers when the
+    recursion reaches the 3rd term? Or is there some sort of more general
+    formula that I can use?</strong></p>
+<p>For the final problem, we&rsquo;re only looking for a simple enhancement
+(e.g., a single <code>if</code> statement) that causes the backtracking to
+happen sooner than it otherwise would in certain impossible
+situations.</p>
+<p>There are multiple approaches you could take that fit this
+description. Obviously, your enhancement does <strong><em>not</em></strong> need to detect
+<em>all</em> impossible situations, but it should ideally be a bit
+more general than just looking out for specific numbers when you
+reach the 3rd term.</p>
+<p>Think about how you can use the information you have in a given
+recursive invocation (the number of terms remaining, the amount of the
+original number remaining, the perfect square you&rsquo;re considering
+placing in the current position, etc.) to detect at least one class of
+impossible situations...</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

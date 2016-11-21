@@ -1,0 +1,240 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 4 FAQ</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "problem_sets", "hash": "7d8409c262e6923295a78d2e1121c5c5", "title": "Problem Set 4 FAQ"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Problem Set 4 FAQ</h1>
+
+<p><a href="/~cscie22/problem_sets/">&larr; Back to Problem Sets</a><br>
+<a href="/~cscie22/problem_sets/ps4.shtml">&larr; To Problem Set 4</a></p>
+<ol>
+<li>
+<p><strong>In problem 3 (tree traversal puzzles) can you recommend a
+    systematic way of attacking the problem, or is trial-and-error the
+    only viable approach?</strong></p>
+<p>As mentioned in lecture, there is certain information about the tree
+that you can immediately glean by looking at the pairs of traversals
+we give you. For example, what must be true of the <em>last</em> node
+listed in a postorder traversal? The <em>first</em> node in a postorder
+traversal? What can you say about the node listed just before the
+root node in an inorder traversal? By asking such questions you
+should be able to get at least a rough idea of what the tree looks
+like, and you can then use trial-and-error to fill in the missing
+pieces.</p>
+<p>Also, don&rsquo;t forget that whatever applies to the tree as a whole must
+also apply recursively to any subtree of the tree. See if you can
+use what you know about the traversals to determine the left and
+right subtrees of the root, and then apply the same reasoning to
+each subtree.</p>
+</li>
+<li>
+<p><strong>Problem 3, part 1 seems to be incorrect. Shouldn&rsquo;t the inorder
+    traversal have visited the keys in alphabetical order?</strong></p>
+<p>The tree in this question isn&rsquo;t a binary search tree, so an inorder
+traversal won&rsquo;t necessarily visit the nodes according to the values
+of their keys.</p>
+</li>
+<li>
+<p><strong>For problem 4, part 1, do we need to show each step in the
+    construction of the Huffman tree from the frequency data?</strong></p>
+<p>No, you only need to show the <em>final</em> Huffman tree.</p>
+<p>However, for problem 6, you <em>do</em> need to show each step
+involved in inserting the keys into the trees, following the
+guidelines specified in the problems.</p>
+</li>
+<li>
+<p><strong>In the Huffman tree that we specify for problem 4, part 1, do we need to
+    include the frequencies in the nodes?</strong></p>
+<p>No, it isn&rsquo;t strictly necessary to do so, although you may include
+them if you prefer.</p>
+</li>
+<li>
+<p><strong>For problem 8 (range search), we need to avoid
+    &ldquo;visiting nodes unnecessarily.&rdquo; But it seems as though in many cases
+    there&rsquo;s no way to avoid visiting nodes that fall outside the range.
+    Can you give us a more precise definition of what constitutes
+    &ldquo;unnecessarily&rdquo; visiting a node?</strong></p>
+<p>You should avoid visiting nodes that <em>definitely</em> could not lead you
+to nodes that are in range. That is, you should avoid visiting nodes
+that are out of range themselves <em>and</em> none of whose descendants
+could possibly be in range.</p>
+<p>But it&rsquo;s perfectly acceptable to traverse out-of-range nodes that
+<em>could</em> lead you to in-range nodes. For example, consider the
+following binary search tree:</p>
+<div class="codehilite"><pre><span></span>         8
+        / \
+       /   \
+      6     9
+     / \
+    /   \
+   4     7
+  / \
+ /   \
+3     5
+</pre></div>
+
+
+<p>Assume that you&rsquo;re looking for nodes in the range 7-9. It&rsquo;s ok to
+pass through the &lsquo;6&rsquo; node on the way to the &lsquo;7&rsquo; node, even though
+the &lsquo;6&rsquo; node itself is out of range. However, it would <em>not</em> be ok
+to visit the &lsquo;4&rsquo; node, since we know (due to the inherent properties
+of binary search trees) that the subtree rooted at &lsquo;4&rsquo; could not
+possibly contain any in-range nodes.</p>
+<p>A good way to approach this problem is to base your code on the
+single-key search code that is already in the <code>LinkedTree</code> class.</p>
+</li>
+<li>
+<p><strong>In problem 9, I&rsquo;m having difficulty with part 1 of the
+    suggested approach &ndash; initializing and maintaining the new <code>parent</code>
+    fields in the <code>Node</code> objects. Do you have any suggestions?</strong></p>
+<p>Try asking yourself few questions:</p>
+<ul>
+<li>When (in what method) does a <code>Node</code> first get a parent? In other
+    words, when does a <code>Node</code> first become part of the tree? Add the
+    appropriate code to set the value of the <code>parent</code> field in that
+    method.</li>
+<li>When (in what method) does a <code>Node</code>&lsquo;s parent change? Add the
+    appropriate code to update the <code>parent</code> field in that method.</li>
+</ul>
+<p>Note that the lines of code that you will write will just involve
+setting a single field in the <code>Node</code> object. For example, if <code>n</code> is
+the <code>Node</code> object, you will do something like:</p>
+<div class="codehilite"><pre><span></span><span class="n">n</span><span class="o">.</span><span class="na">parent</span> <span class="o">=</span> <span class="n">expression</span><span class="o">;</span>
+</pre></div>
+
+
+<p>where <em>expression</em> is replaced with an appropriate expression for
+the parent of <code>n</code>.</p>
+<p>One caution: some of the existing <code>LinkedTree</code> methods actually use
+a variable called <code>parent</code>. This variable is a local variable, and
+it is <em>not</em> the same thing as the <code>parent</code> field in the <code>Node</code>
+object. However, you may find that our use of this variable is
+helpful when determining what changes you need to make to maintain
+the <code>parent</code> fields!</p>
+</li>
+<li>
+<p><strong>In problem 9, I&rsquo;m having difficulty implementing the
+    class for the postorder iterator. Can you give us any hints?</strong></p>
+<p>You should start by studying the code for the <code>PreorderIterator</code>
+inner class we&rsquo;ve given you, and reviewing the analysis of
+that code that we performed in section. You should use the
+<code>PreorderIterator</code> class as a template for the overall structure of
+your postorder iterator class.</p>
+<p>The constructor for your postorder
+iterator will be more complicated than the constructor for the
+preorder iterator, since an postorder traversal doesn&rsquo;t necessarily
+begin with the root of the tree. You&rsquo;ll need to iteratively navigate
+to the appropriate first node for a postorder traversal, and
+initialize your instance variable(s) so that that node&rsquo;s key will be
+returned by the first call to <code>next()</code>.</p>
+<p>Your <code>next()</code> method itself should have the same basic structure as
+the <code>next()</code> method in the preorder iterator class. However, the
+cases you&rsquo;ll need to consider in your <code>if</code> statement may be
+different. For a preorder traversal, we determined that there were 3
+cases to consider:</p>
+<ol>
+<li>the current node has a left child (in which case the next node
+    to visit is the left child)</li>
+<li>the current node has no left child, but has a right child (in
+    which case the next node to visit is the right child)</li>
+<li>the current node is a leaf node (in which case we need to back
+    up the tree and find a node with a right child not on the path
+    to the current node)</li>
+</ol>
+<p>When trying to determine what cases need to be dealt with in the
+<em>postorder</em> version of <code>next()</code>, it might help to trace through a
+postorder traversal of some example binary trees on paper. At each
+node in the traversal, ask yourself what operations need to be
+performed to get to the next node in the traversal. You should soon
+find that these operations fall into a relatively small number of
+categories. These will become the branches of the if statement you
+write for the <code>next()</code> method.</p>
+<p>If you find that you have a large number of cases, or your class is
+substantially longer than the <code>PreorderIterator</code> class, you&rsquo;re
+probably on the wrong track.</p>
+</li>
+<li>
+<p><strong>For problem 9, does our <code>next()</code> method need to have a
+    time complexity of O(1)?</strong></p>
+<p>No. It will sometimes be necessary to follow one or more parent
+links back up the tree in your <code>next()</code> method, something that can&rsquo;t
+be done in O(1) time since it depends on the height of the tree.
+However, your <code>next()</code> method should be as time-efficient as you can
+make it, and your iterator class as a whole should have a <em>space</em>
+complexity of O(1). And as the problem states, your <code>hasNext()</code>
+method <em>does</em> need to run in O(1) time. Efficiency will be a
+non-trivial part of your grade for this problem.</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on November  6, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

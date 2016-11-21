@@ -1,0 +1,900 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 2</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"layout": "assignment", "section": "problem_sets", "hash": "ee2a7440ddbf6a969e9515c6574774a3", "title": "Problem Set 2"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer title-colored"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="locator">
+<div class="inner js-stops-parent">
+</div>
+</div>
+
+<div class="title">
+<div class="inner">
+
+<div class="title-content-spacer"></div>
+<div class="title-content">
+
+<h1>Problem Set 2</h1>
+
+</div>
+
+</div>
+</div>
+
+<div class="title-spacer"></div>
+
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+
+<div class="admonition date">
+<p class="admonition-title">Due dates</p>
+<p>This assignment is due before the start of lecture on <strong>Wednesday,
+October 5, 2016</strong>. There will be a 10% late penalty for late
+submissions made by 11:59 p.m. on Sunday, October 9, and a 20%
+late penalty for submissions made after that Sunday and before the
+start of lecture on Wednesday, October 12.  <strong><em>We will not
+accept any homework that is more than seven days late.</em></strong></p>
+</div>
+<p>In your work on this assignment, make sure to abide by the policies on academic
+conduct described in the <a href="/~cscie22/files/syllabus.pdf">syllabus</a>.</p>
+<p>If you have questions while working on this assignment, please attend office
+hours, post them on Piazza, or email <code>cscie22@fas.harvard.edu</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Important</p>
+<p>When big-<em>O</em> expressions are called for, please use them
+to specify tight bounds, as explained in the lecture notes.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#part-i">Part I</a><ul>
+<li><a href="#problem-1-sorting-practice">Problem 1: Sorting practice</a></li>
+<li><a href="#problem-2-comparing-two-algorithms">Problem 2: Comparing two algorithms</a></li>
+<li><a href="#problem-3-counting-comparisons">Problem 3: Counting comparisons</a></li>
+<li><a href="#problem-4-sum-generator">Problem 4: Sum generator</a></li>
+<li><a href="#problem-5-stable-and-unstable-sorting">Problem 5: Stable and unstable sorting</a></li>
+<li><a href="#problem-6-practice-with-references">Problem 6: Practice with references</a></li>
+</ul>
+</li>
+<li><a href="#part-ii">Part II</a><ul>
+<li><a href="#problem-7-searching-an-array-for-pairs-that-sum-to-k">Problem 7: Searching an array for pairs that sum to k</a></li>
+<li><a href="#problem-8-a-merge-like-approach-to-finding-the-intersection-of-two-arrays">Problem 8: A merge-like approach to finding the intersection of two arrays</a></li>
+<li><a href="#problem-9-combining-bubble-and-shell">Problem 9: Combining bubble and Shell</a></li>
+</ul>
+</li>
+<li><a href="#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</div>
+<hr>
+<h2 id="part-i">Part I</h2>
+<p><em>55 points total</em></p>
+<p>Submit your answers to part I in a <a href="plain_text.html">plain-text file</a>
+called <code>ps2_partI.txt</code>, and put your name and email address at the top
+of the file.</p>
+<h3 id="problem-1-sorting-practice">Problem 1: Sorting practice</h3>
+<p><em>14 points; 2 points for each part</em></p>
+<p>Given the following array:</p>
+<div class="codehilite"><pre><span></span>{14, 7, 27, 13, 24, 20, 10, 33}
+</pre></div>
+
+
+<ol>
+<li>
+<p>If the array were sorted using selection sort, what would the array
+    look like after the <em>third</em> pass of the algorithm (i.e., after the
+    third time that the algorithm performs a pass or partial pass through
+    the elements of the array)?</p>
+</li>
+<li>
+<p>If the array were sorted using insertion sort, what would the array
+    look like after the <em>fourth</em> iteration of the outer loop of the
+    algorithm?</p>
+</li>
+<li>
+<p>If the array were sorted using Shell sort, what would the array look
+    like after the initial phase of the algorithm, if you assume that it
+    uses an increment of 3?
+    (The method presented in lecture and in <code>Sort.java</code> would start
+    with an increment of 7, but you should assume that it uses an increment
+    of 3 instead.)</p>
+</li>
+<li>
+<p>If the array were sorted using bubble sort, what would the array look
+    like after the <em>second</em> pass of the algorithm?</p>
+</li>
+<li>
+<p>If the array were sorted using the version of quicksort presented in
+    lecture, what would the array look like after the <em>second</em> call
+    to the partition method?</p>
+</li>
+<li>
+<p>If the array were sorted using radix sort, what would the array look
+    like after the initial pass of the algorithm?</p>
+</li>
+<li>
+<p>If the array were sorted using the version of mergesort presented in
+    lecture, what would the array look like after the completion of the
+    <em>third</em> call to the <code>merge()</code> method&mdash;the method that merges two
+    subarrays? Note: the <code>merge</code> method is the helper method; is <em>not</em> the
+    recursive <code>mSort</code> method.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Important</p>
+<p>There will be no partial credit on the above questions, so please
+<em>check your answers carefully</em>!</p>
+</div>
+<h3 id="problem-2-comparing-two-algorithms">Problem 2: Comparing two algorithms</h3>
+<p><em>10 points</em></p>
+<p>The Fibonacci sequence begins as follows:</p>
+<div class="codehilite"><pre><span></span>1, 1, 2, 3, 5, 8, 13, 21, ...
+</pre></div>
+
+
+<p>The first two elements in the sequence are both 1, and all other
+elements are the sum of the previous two elements. For example:</p>
+<div class="codehilite"><pre><span></span>2 = 1 + 1
+3 = 1 + 2
+5 = 2 + 3
+8 = 3 + 5
+</pre></div>
+
+
+<p>Below are two algorithms for printing the first <code>n</code> numbers in this
+sequence:</p>
+<p><strong>Algorithm A:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printFibA</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">prev</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">curr</span><span class="o">;</span>
+            <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">curr</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p><strong>Algorithm B:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printFibB</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">prev</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">curr</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">curr</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="o">);</span>
+        <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="n">prev</span> <span class="o">+</span> <span class="n">curr</span><span class="o">;</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+        <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>What is the time efficiency of algorithm A as a function of the
+parameter <code>n</code>? What is the time efficiency of algorithm B? Make use of
+big-<em>O</em> notation, and explain briefly how you came up with the big-<em>O</em>
+expressions that you use.</p>
+<h3 id="problem-3-counting-comparisons">Problem 3: Counting comparisons</h3>
+<p><em>6 points total; 2 points each part</em></p>
+<p>Given an <em>already sorted</em> array of 5 elements, how many comparisons of
+array elements would each of the following algorithms perform?</p>
+<ol>
+<li>
+<p>selection sort</p>
+</li>
+<li>
+<p>Shell sort</p>
+</li>
+<li>
+<p>mergesort (Reminder: When an array has an odd length, the left
+    subarray ends up with one more element than the right subarray.)</p>
+</li>
+</ol>
+<p>Explain each answer briefly.</p>
+<h3 id="problem-4-sum-generator">Problem 4: Sum generator</h3>
+<p><em>12 points total; 3 points each part</em></p>
+<p>Let&rsquo;s say that you want to implement a method <code>generateSums(n)</code> that
+takes an integer <code>n</code> and generates and prints the following series of
+sums:</p>
+<div class="codehilite"><pre><span></span>1
+1 + 2
+1 + 2 + 3
+...
+1 + 2 + ... + n
+</pre></div>
+
+
+<p>For example, <code>generateSums(4)</code> should print the following:</p>
+<div class="codehilite"><pre><span></span>1
+3
+6
+10
+</pre></div>
+
+
+<p>One possible implementation of this method is:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">generateSums</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">+</span> <span class="n">j</span><span class="o">;</span> <span class="c1">// how many times is this executed?</span>
+        <span class="o">}</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sum</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>Derive an exact formula for the number of times that the line that
+    increases the sum is executed, as a function of the parameter <code>n</code>.</p>
+</li>
+<li>
+<p>What is the time efficiency of the method shown above as a function
+    of the parameter <code>n</code>? Use big-<em>O</em> notation, and explain your answer
+    briefly.</p>
+</li>
+<li>
+<p>Create an alternative, non-recursive implementation of this method
+    that has a better time efficiency.</p>
+</li>
+<li>
+<p>What is the time efficiency of your alternative implementation as a
+    function of the parameter <code>n</code>? Use big-<em>O</em> notation, and explain your
+    answer briefly.</p>
+</li>
+</ol>
+<h3 id="problem-5-stable-and-unstable-sorting">Problem 5: Stable and unstable sorting</h3>
+<p><em>5 points</em></p>
+<p>Sorting algorithms can be applied to <em>records</em> of data, where each
+record consists of multiple fields. In such contexts, the sorting
+algorithm orders the records according to one of the fields, which is
+known as the <em>key</em> field. The value of that field is referred to as
+the <em>key</em> of the record.</p>
+<p>A sorting algorithm is <em>stable</em> if it preserves the order of
+elements with equal keys. For example, given the following array:</p>
+<div class="codehilite"><pre><span></span>{32, 12a, 4, 12b, 39, 19}
+</pre></div>
+
+
+<p>where <code>12a</code> and <code>12b</code> represent records that both have a key of <code>12</code>, a
+stable sorting algorithm would produce the following sorted array:  </p>
+<div class="codehilite"><pre><span></span>{4, 12a, 12b, 19, 32, 39}
+</pre></div>
+
+
+<p>Note that <code>12a</code> comes before <code>12b</code>, just as it did in the original,
+unsorted array. Insertion sort is an example of a stable sorting
+algorithm.</p>
+<p>Stability can be useful if you want to sort on the basis of two
+different keys&mdash;for example, if you want records sorted by last name
+and then, within a given last name, by first name. You could
+accomplish this in two steps: (1) use any sorting algorithm to sort
+the records by first name, and (2) use a stable sorting algorithm to
+sort the records by last name. Because the second algorithm is stable,
+it would retain the order of records with the same last name, and thus
+those records would remain sorted by first name.</p>
+<p>By contrast, an <em>unstable</em> sorting algorithm may end up reversing the
+order of elements with equal keys. For example, given the same
+starting array shown above, an unstable sorting algorithm could
+produce either of the following arrays:</p>
+<div class="codehilite"><pre><span></span>{4, 12a, 12b, 19, 32, 39}
+
+{4, 12b, 12a, 19, 32, 39}
+</pre></div>
+
+
+<p>Shell sort is an example of an unstable sorting algorithm.
+Construct an example of an input array containing two elements with
+equal keys whose order is reversed by Shell sort. Show the effect
+of the algorithm, step by step, on this array, labeling the elements
+with equal keys as we did in our example in order to keep them
+straight.</p>
+<h3 id="problem-6-practice-with-references">Problem 6: Practice with references</h3>
+<p><em>10 points total</em></p>
+<p><em>Note:</em> We will cover the material needed for this problem in unit 8-1,
+so you may want to wait until after that lecture to complete it.</p>
+<p>As discussed in lecture, a <em>doubly linked list</em> consists of nodes that
+include two references: one called <code>next</code> to the next node in the linked
+list, and one called <code>prev</code> to the previous node in the linked list. The
+first node in such a list has a <code>prev</code> field whose value is <code>null</code>, and the
+last node has a <code>next</code> field whose value is <code>null</code>.</p>
+<p>The top portion of the diagram below shows a doubly linked list of
+characters that could be used to represent the string <code>"set"</code>.</p>
+<p><img alt="" src="/~cscie22/files/ps2/DNodeDiagram.svg"></p>
+<p>Each of the nodes shown is an instance of the following class:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DNode</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">char</span> <span class="n">ch</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">DNode</span> <span class="n">next</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">DNode</span> <span class="n">prev</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>(In the diagram, we have labeled the individual fields of the <code>DNode</code>
+object that contains the character <code>'s'</code>.)</p>
+<p>In addition to the list representing <code>"set"</code>, the diagram shows an extra
+node containing the character <code>'a'</code>, and two reference variables: <code>n</code>, which
+holds a reference to the second node in the list (the <code>'e'</code> node); and <code>m</code>,
+which holds a reference to the <code>'a'</code> node. The diagram also shows memory
+addresses of the start of the variables and objects. For example, the
+<code>'s'</code> node begins at address <code>0x180</code>.</p>
+<ol>
+<li>
+<p>(6 points) Complete the table below, filling in the address and
+    value of each expression from the left-hand column. You should
+    assume the following: the address of the <code>ch</code> field of a <code>DNode</code> is the
+    same as the address of the <code>DNode</code> itself, the address of the <code>next</code>
+    field of a <code>DNode</code> is 2 more than the address of the <code>DNode</code> itself, and
+    the address of the <code>prev</code> field of a <code>DNode</code> is 6 more than the address
+    of the <code>DNode</code> itself.</p>
+<div class="codehilite"><pre><span></span>Expression         Address       Value
+------------------ ------------- -----------
+n                  
+n.ch               
+n.prev             
+n.prev.next        
+n.next.prev        
+n.next.prev.prev
+</pre></div>
+
+
+</li>
+<li>
+<p>(4 points) Write a Java code fragment that inserts the <code>'a'</code> node
+    between the <code>'e'</code> node and the <code>'t'</code> node, producing a linked list that
+    represents the string <code>"seat"</code>. Your code fragment should consist of a
+    series of assignment statements. You should not make any method
+    calls, and you should not use any variables other than the ones
+    provided in the diagram. Make sure that the resulting doubly linked
+    list has correct values for the <code>next</code> and <code>prev</code> fields in all nodes.</p>
+</li>
+</ol>
+<hr>
+<h2 id="part-ii">Part II</h2>
+<p><em>45-55 points total</em></p>
+<h3 id="problem-7-searching-an-array-for-pairs-that-sum-to-k">Problem 7: Searching an array for pairs that sum to k</h3>
+<p><em>15-25 points total</em></p>
+<p>Suppose you are given an array of <code>n</code> integers, and you need to find all
+pairs of values in the array (if any) that sum to a given integer <code>k</code>. In
+a class named <code>PairSums</code> (implemented in a file named <code>PairSums.java</code>),
+write code that performs this task for you and outputs all of the pairs
+that it finds. For example, if <code>k</code> is 12 and the array is <code>{10, 4, 7, 7, 8,
+5, 15}</code>, your code should output something like the following:</p>
+<div class="codehilite"><pre><span></span>4 + 8 = 12
+7 + 5 = 12
+7 + 5 = 12
+</pre></div>
+
+
+<p>Note that we get two <code>7 + 5</code> sums because <code>7</code> appears twice in the array.
+However, while the method or methods that you write <em>may</em> print a given
+pair of values more than once in such cases, it is <em>not</em> necessary to do
+so. In addition, the order in which the sums (and the terms within each
+sum) are printed does <em>not</em> matter.</p>
+<ol>
+<li>
+<p>(15 points) Implement a static method named <code>findPairs()</code> that
+    requires <em>O</em>(n&sup2;) steps to solve this problem. The method should
+    have the following header:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">findPairs</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span>
+</pre></div>
+
+
+<p>In the comments that accompany the method, include a brief argument
+showing that your algorithm is <em>O</em>(<em>n</em>&sup2;). In addition, you should add
+test code for it to a <code>main</code> method. You may find it helpful to call
+the <code>randomArray</code> method from our 
+<a href="../files/ps2/SortCount.java"><code>SortCount</code> class</a>
+to generate test arrays.</p>
+</li>
+<li>
+<p>(10 points; <em>required of grad-credit students; &ldquo;partial&rdquo; extra credit
+    for others</em>) Implement a static method named <code>findPairsFaster()</code> that
+    takes the same parameters as <code>findPairs</code>, but that requires only 
+    <em>O</em>(<em>n</em> log <em>n</em>) steps in the average case to solve this problem.
+    (<em>Hint</em>: you should begin by sorting the array using one of the
+    methods from our <a href="/~cscie22/files/ps2/Sort.java"><code>Sort</code> class</a>.
+    Once you have done so, only <em>O</em>(<em>n</em>)
+    additional steps are needed to find the pairs.) Here again, you
+    should include a brief argument showing that your algorithm is
+    <em>O</em>(<em>n</em> log <em>n</em>), and add test code to the <code>main</code> method.</p>
+</li>
+</ol>
+<h3 id="problem-8-a-merge-like-approach-to-finding-the-intersection-of-two-arrays">Problem 8: A merge-like approach to finding the intersection of two arrays</h3>
+<p><em>15 points</em></p>
+<p>In a file named <code>Intersect.java</code>, implement a static method named
+intersect that takes two arrays of integers as parameters and uses an
+approach based on merging to find and return the intersection of the
+two arrays.</p>
+<p>More specifically, you should begin by creating a new array for the
+intersection, giving it the length of the smaller of the two arrays.
+Next, you should use one of the more efficient sorting algorithms from
+<a href="/~cscie22/files/ps2/Sort.java"><code>Sort.java</code></a> to sort both of the
+arrays. Finally, you should find the
+intersection of the two arrays by employing an approach that is
+similar to the one that we used to merge two sorted subarrays (i.e.,
+the approach taken by the <code>merge</code> method in <code>Sort.java</code>). Your method
+should <strong>not</strong> actually merge the two arrays, but it should take a
+similar approach&mdash;using indices to &ldquo;walk down&rdquo; the two arrays, and
+making use of the fact that the arrays are sorted. As the elements of
+the intersection are found, put them in the array that you created at
+the start of the method. At the end of the method, return a reference
+to the array containing the intersection.  </p>
+<p>For full credit, the intersection that you create should not have any
+duplicates, and <strong><em>your algorithm should be as efficient as
+possible.</em></strong> In particular, you should perform at most one complete
+pass through each of the arrays. Add test code for your method to the
+main method. You may find it helpful to call the <code>randomArray</code> method
+from our <a href="/~cscie22/files/ps2/SortCount.java"><code>SortCount</code> class</a> to
+generate test arrays.</p>
+<h3 id="problem-9-combining-bubble-and-shell">Problem 9: Combining bubble and Shell</h3>
+<p><em>15 points total</em></p>
+<p>One of the problems with bubble sort is that it only swaps adjacent
+elements. In the same way that Shell sort improves on insertion sort by
+allowing for elements to make larger jumps, we can improve bubble sort
+by modifying it to operate on pairs of elements that are separated by
+some increment. Like Shell sort, the algorithm would begin a large
+increment, and successive stages of the algorithm would use smaller and
+smaller increments, with a final increment of 1.</p>
+<p>In order for this approach to produce efficiency gains, we also need
+to modify bubble sort so that it keeps track of how many swaps that it
+performs during a given pass through the array. If the algorithm
+performs no swaps for an entire pass, or if there are no more passes
+to perform at that increment, the algorithm should move on to the next
+smaller increment. If the algorithm performs no swaps for an entire
+pass when the increment is 1, the algorithm terminates.</p>
+<p>For example, consider the following array:</p>
+<table class="plain square sort-trace">
+<tr>
+<td> 20 </td><td>  7 </td><td> 14 </td>
+<td> 18 </td><td>  2 </td><td> 30 </td>
+<td>  6 </td><td> 23 </td><td> 11 </td>
+<td>  5 </td>
+</tr>
+</table>
+
+<p>Assume that we begin with an increment of 3, which effectively divides
+the array into three subarrays: <code>{20, 18, 6, 5}</code>, <code>{7, 2, 23}</code>, <code>{14, 30,
+11}</code>. At the start of its first pass at that increment, the algorithm
+compares 20 and 18 and swaps them because they are out of order with
+respect to each other:</p>
+<table class="plain square sort-trace">
+<tr>
+<td> <u>18</u> </td><td>      7     </td><td>    14     </td>
+<td> <u>20</u> </td><td>      2     </td><td>    30     </td>
+<td>     6     </td><td>     23     </td><td>    11     </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<p>It next compares 7 and 2 and swaps them:</p>
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td> <u>  2</u> </td><td>    14     </td>
+<td>    20     </td><td> <u>  7</u> </td><td>    30     </td>
+<td>     6     </td><td>     23     </td><td>    11     </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<p>Then it compares 14 and 30 and does <em>not</em> swap them, because they are
+already in order with respect to each other:</p>
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td>      2     </td><td> <u>14</u> </td>
+<td>    20     </td><td>      7     </td><td> <u>30</u> </td>
+<td>     6     </td><td>     23     </td><td>    11     </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<p>It continues comparing and swapping as needed until it reaches the end
+of the array:</p>
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td>      2     </td><td>    14     </td>
+<td> <u> 6</u> </td><td>      7     </td><td>    30     </td>
+<td> <u>20</u> </td><td>     23     </td><td>    11     </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td>      2     </td><td>    14     </td>
+<td>     6     </td><td> <u>  7</u> </td><td>    30     </td>
+<td>    20     </td><td> <u> 23</u> </td><td>    11     </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td>      2     </td><td>    14     </td>
+<td>     6     </td><td>      7     </td><td> <u>11</u> </td>
+<td>    20     </td><td>     23     </td><td> <u>30</u> </td>
+<td>     5     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>    18     </td><td>      2     </td><td>    14     </td>
+<td>     6     </td><td>      7     </td><td>    11     </td>
+<td> <u> 5</u> </td><td>     23     </td><td>    30     </td>
+<td> <u>20</u> </td>
+</tr>
+</table>
+
+<p>At this point, we know that the largest element of each subarray has
+bubbled to the end of its subarray. Thus, the next pass does not need to
+reconsider those elements&ndash;the final 3 elements of the array&ndash;on the
+next pass at this increment. This is similar to the way that regular
+bubble sort does not consider the last element on its second pass.</p>
+<p>Here is a summary of the second pass with an increment of 3, with
+italics showing the elements that should not be reconsidered at this stage:</p>
+<table class="plain square sort-trace">
+<tr>
+<td> <u> 6</u> </td><td>      2     </td><td>    14     </td>
+<td> <u>18</u> </td><td>      7     </td><td>    11     </td>
+<td>     5     </td><td>  <i>23</i> </td><td> <i>30</i> </td>
+<td> <i>20</i> </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     6     </td><td>  <u> 2</u> </td><td>    14     </td>
+<td>    18     </td><td>  <u> 7</u> </td><td>    11     </td>
+<td>     5     </td><td>  <i>23</i> </td><td> <i>30</i> </td>
+<td> <i>20</i> </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     6     </td><td>      2     </td><td> <u>11</u> </td>
+<td>    18     </td><td>      7     </td><td> <u>14</u> </td>
+<td>     5     </td><td>  <i>23</i> </td><td> <i>30</i> </td>
+<td> <i>20</i> </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     6     </td><td>      2     </td><td>    11     </td>
+<td> <u> 5</u> </td><td>      7     </td><td>    14     </td>
+<td> <u>18</u> </td><td>  <i>23</i> </td><td> <i>30</i> </td>
+<td> <i>20</i> </td>
+</tr>
+</table>
+
+<p>At this point, we know that the largest <em>two</em> elements of each subarray
+have bubbled to the end of their respective subarrays. Thus, the next
+pass does not need to reconsider those elements&mdash;the final 6 elements
+of the array&mdash;on the next pass at this increment. As a result, there is
+only one comparison/swap to perform on the third pass:</p>
+<table class="plain square sort-trace">
+<tr>
+<td> <u> 5</u> </td><td>      2     </td><td>    11     </td>
+<td> <u> 6</u> </td><td>  <i> 7</i> </td><td> <i>14</i> </td>
+<td> <i>18</i> </td><td>  <i>23</i> </td><td> <i>30</i> </td>
+<td> <i>20</i> </td>
+</tr>
+</table>
+
+<p>At this point, because the final nine elements are in the appropriate
+places in their subarrays, there is nothing left to do at an increment
+of 3, and the algorithm moves to an increment of 1, which is equivalent
+to regular bubble sort. However, it stops as soon as an entire pass
+performs no swaps.</p>
+<p>Here&rsquo;s the first pass at increment 1:</p>
+<table class="plain square sort-trace">
+<tr>
+<td> <u> 2</u> </td><td>  <u> 5</u> </td><td>    11     </td>
+<td>     6     </td><td>      7     </td><td>    14     </td>
+<td>    18     </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>  <u> 5</u> </td><td> <u>11</u> </td>
+<td>     6     </td><td>      7     </td><td>    14     </td>
+<td>    18     </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td> <u> 6</u> </td>
+<td> <u>11</u> </td><td>      7     </td><td>    14     </td>
+<td>    18     </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td> <u> 7</u> </td><td>  <u>11</u> </td><td>    14     </td>
+<td>    18     </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>  <u>11</u> </td><td> <u>14</u> </td>
+<td>    18     </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td> <u>14</u> </td>
+<td> <u>18</u> </td><td>     23     </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td>    14     </td>
+<td> <u>18</u> </td><td>  <u>23</u> </td><td>    30     </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td>    14     </td>
+<td>    18     </td><td>  <u>23</u> </td><td> <u>30</u> </td>
+<td>    20     </td>
+</tr>
+</table>
+
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td>    14     </td>
+<td>    18     </td><td>     23     </td><td> <u>20</u> </td>
+<td> <u>30</u> </td>
+</tr>
+</table>
+
+<p>The second pass at that increment compares the elements in the same
+pairs of positions&mdash;except the final pair&mdash;but only performs one swap:</p>
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td>    14     </td>
+<td>    18     </td><td>  <u>20</u> </td><td> <u>23</u> </td>
+<td> <i>30</i> </td>
+</tr>
+</table>
+
+<p>The third pass at that increment compares the same pairs of
+positions&mdash;except the final <em>two</em> pairs&mdash;but performs <em>no</em> swaps: </p>
+<table class="plain square sort-trace">
+<tr>
+<td>     2     </td><td>      5     </td><td>     6     </td>
+<td>     7     </td><td>     11     </td><td>    14     </td>
+<td>    18     </td><td>     20     </td><td> <i>23</i> </td>
+<td> <i>30</i> </td>
+</tr>
+</table>
+
+<p>As a result, the algorithm terminates.</p>
+<ol>
+<li>
+<p>(7 points) Implement this combination of Shell sort and bubble sort,
+    adding it to the file
+    <a href="/~cscie22/files/ps2/SortCount.java"><code>SortCount.java</code></a>.
+    Your method should be as
+    efficient as possible. In particular, it should not perform any
+    unnecessary passes over the elements of the array, and you should
+    not consider pairs of elements unnecessarily.</p>
+<p>Call the new method <code>shellBubbleSort</code>. Its only parameter should
+be a reference to an array of integers. Like the other methods in
+this file, your <code>shellBubbleSort</code> method must make use of the
+<code>compare()</code>, <code>move()</code>, and <code>swap()</code> helper methods so that you can
+keep track of the total number of comparisons and moves that it
+performs. If you need to compare two array elements, you should
+make the method call <code>compare(</code><em>comparison</em><code>);</code> for example,
+<code>compare(arr[0] &lt; arr[1])</code>. This method will return the result of
+the comparison (true or false), and it will increment the count of
+comparisons that the class maintains.  If you need to move element
+<code>j</code> of <code>arr</code> to position <code>i</code>, instead of writing <code>arr[i] = arr[j]</code>, you
+should write <code>move(arr, i, j)</code>.</p>
+</li>
+<li>
+<p>(8 points) Determine the big-<em>O</em> time efficiency of <code>shellBubbleSort</code>
+    when it is applied to two types of arrays: arrays that are fully
+    sorted, and arrays that are randomly ordered. You should determine
+    the big-<em>O</em> expressions <em>by experiment</em>, rather than by analytical
+    argument.</p>
+<p>To do so, run the algorithm on arrays of different sizes (for example,
+<em>n</em> = 1000, 2000, 4000, 8000 and 16000). Modify the test code in the
+main() method so that it runs <code>shellBubbleSort</code> on the arrays that are
+generated, and use this test code to gather the data needed to make
+your comparisons. (Note: you can also test the correctness of your
+method by running it on arrays of 10 or fewer items; the sorted array
+will be printed in such cases.)</p>
+<p>For each type of array, you should perform at least ten runs for each
+value of <em>n</em> and compute the average numbers of comparisons and moves
+for each set of runs. Based on these results, determine the big-<em>O</em>
+efficiency class to which shellBubbleSort belongs for each type of
+array (<em>O</em>(<em>n</em>), <em>O</em>(log <em>n</em>), <em>O</em>(<em>n</em> log <em>n</em>), <em>O</em>(<em>n</em>&sup2;), etc.).
+Explain clearly how
+you arrived at your conclusions. If the algorithm does not appear to
+fall neatly into one of the standard efficiency classes, explain your
+reasons for that conclusion, and state the two efficiency classes that
+it appears to fall between. See the section notes for more information
+about how to analyze the results. <strong><em>Put the results of your
+experiments, and your accompanying analysis and conclusions, in a
+plain-text file called</em></strong> <code>ps2_experiments.txt</code>.</p>
+</li>
+</ol>
+<hr>
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+<p>You should use <a href="https://canvas.harvard.edu/courses/18366/assignments"
+target="top">Canvas</a> to submit the following files:</p>
+<ul>
+<li><strong>for part I:</strong> your <code>ps2_partI.txt</code> file. Make sure that this 
+    file is a <a href="plain_text.html">plain-text file</a>.</li>
+<li><strong>for part II:</strong><ul>
+<li>your <code>PairSums.java</code> file</li>
+<li>your <code>Intersect.java</code> file</li>
+<li>your modified <code>SortCount.java</code> file</li>
+<li>your <code>ps2_experiments.txt</code> file, which should be a
+    <a href="plain_text.html">plain-text file</a>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Make sure to use these exact file names for your files.</strong> If you need
+to change the name of a Java file so that it corresponds to the name we
+have specified, make sure to also change the name of your class and
+check that it still compiles.</p>
+<p>Here are the steps you should take to submit your work:</p>
+<ul>
+<li>
+<p>Go to the <a href="https://canvas.harvard.edu/courses/18366/assignments"
+    target="top">page for submitting assignments</a>
+    (logging in as needed)</p>
+</li>
+<li>
+<p>Click on the appropriate link: either <em>ps2, part I</em> or
+    <em>ps2, part II</em>.</p>
+</li>
+<li>
+<p>Click on the <em>Submit Assignment</em> link near the upper-right corner of
+    the screen. (If you have already submitted something for this
+    assignment, click on <em>Re-submit Assignment</em> instead.)</p>
+</li>
+<li>
+<p>Use the <em>Choose File</em> button to select a file to be submitted. If
+    you have multiple files to submit, click <em>Add Another File</em> as needed,
+    and repeat the process for each file. <strong><em>Important:</em></strong> You must
+    submit all of the files for a given part of the assignment
+    (Part I or Part II) at the same time. If you need to resubmit a
+    file for some reason, you should also resubmit any other files from
+    that part of the assignment.</p>
+</li>
+<li>
+<p>Once you have chosen all of the files that you need to submit, click
+    on the <em>Submit Assignment</em> button.</p>
+</li>
+<li>
+<p>After submitting the assignment, you should check your submission
+    carefully. In particular, you should:</p>
+<ul>
+<li>
+<p>Check to make sure that you have a green checkmark symbol
+    labeled <em>Turned In!</em> in the upper-right corner of the submission
+    page (where the <em>Submit Assignment</em> link used to be), along
+    with the names of all of the files from the part of the
+    assignment that you are submitting.</p>
+</li>
+<li>
+<p><strong>Click on the link for each file to download it, and view the
+    downloaded file so that you can ensure that you submitted the
+    correct file.</strong></p>
+</li>
+</ul>
+<p>We will not accept any files after the fact, so please check your
+submission carefully.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> If you encounter problems submitting your files, close your
+browser and start again, or try again later if you still have time. If
+you are unable to submit and it is close to the deadline, email your
+homework before the deadline to <code>cscie22@fas.harvard.edu</code>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+<i class="icon material-icons">&#xe5ca;</i>
+<p class="phrase">That&rsquo;s all!</p>
+
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 3</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"layout": "assignment", "section": "problem_sets", "hash": "1ce530f4d15f7e8d54dce9d743d2e5fa", "title": "Problem Set 3"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer title-colored"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="locator">
+<div class="inner js-stops-parent">
+</div>
+</div>
+
+<div class="title">
+<div class="inner">
+
+<div class="title-content-spacer"></div>
+<div class="title-content">
+
+<h1>Problem Set 3</h1>
+
+</div>
+
+</div>
+</div>
+
+<div class="title-spacer"></div>
+
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+
+<div class="admonition date">
+<p class="admonition-title">Due dates</p>
+<p>This assignment is due before the start of lecture on <strong>Wednesday,
+October 26, 2016</strong>. There will be a 10% late penalty for late
+submissions made by 11:59 p.m. on Sunday, October 30, and a 20%
+late penalty for submissions made after that Sunday and before the
+start of lecture on Wednesday, November 2.  <strong><em>We will not
+accept any homework that is more than seven days late.</em></strong></p>
+</div>
+<p>In your work on this assignment, make sure to abide by the policies on academic
+conduct described in the <a href="/~cscie22/files/syllabus.pdf">syllabus</a>.</p>
+<p>If you have questions while working on this assignment, please attend office
+hours, post them on Piazza, or email <code>cscie22@fas.harvard.edu</code>.</p>
+<div class="toc">
+<ul>
+<li><a href="#part-i">Part I</a><ul>
+<li><a href="#problem-1-comparing-two-algorithms">Problem 1: Comparing two algorithms</a></li>
+<li><a href="#problem-2-initializing-a-doubly-linked-list">Problem 2: Initializing a doubly linked list</a></li>
+<li><a href="#problem-3-reversing-a-doubly-linked-list">Problem 3: Reversing a doubly-linked list</a></li>
+<li><a href="#problem-4-implementing-a-stack-using-two-queues">Problem 4: Implementing a stack using two queues</a></li>
+<li><a href="#problem-5-removing-the-smallest-element-from-a-linked-list">Problem 5: Removing the smallest element from a linked list</a></li>
+</ul>
+</li>
+<li><a href="#part-ii">Part II</a><ul>
+<li><a href="#problem-6-from-recursion-to-iteration">Problem 6: From recursion to iteration</a></li>
+<li><a href="#problem-7-more-practice-with-recursion">Problem 7: More practice with recursion</a></li>
+<li><a href="#problem-8-implementing-the-bag-adt-using-a-linked-list">Problem 8: Implementing the Bag ADT using a linked list</a></li>
+</ul>
+</li>
+<li><a href="#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</div>
+<hr>
+<h2 id="part-i">Part I</h2>
+<p><em>40-50 points total</em></p>
+<p>Submit your answers to Part I in a <a href="plain_text.html">plain-text file</a> called
+<code>ps3_partI.txt</code>.</p>
+<h3 id="problem-1-comparing-two-algorithms">Problem 1: Comparing two algorithms</h3>
+<p><em>10 points</em></p>
+<p>Suppose that you want to add an <code>LLList</code> constructor that takes a
+reference to an <code>ArrayList</code> as its only parameter and constructs an
+<code>LLList</code> object that represents the same list as the <code>ArrayList</code> –
+i.e., that has the same items in the same positions in the list. You
+have two versions to choose from, both of which are shown below.  Both
+algorithms construct the list correctly, but one is more efficient
+than the other.  <em>Compare</em> the time efficiency of these two
+algorithms, making use of big-<em>O</em> notation. Make sure to explain
+briefly how you came up with the big-<em>O</em> expressions that you use, and
+to say explicitly which algorithm is more efficient.</p>
+<p><strong>Algorithm A:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">LLList</span><span class="o">(</span><span class="n">ArrayList</span> <span class="n">aList</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// initialize an empty list</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>     <span class="c1">// dummy head node</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// add the items from aList to this list</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">aList</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">item</span> <span class="o">=</span> <span class="n">aList</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="n">addItem</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p><strong>Algorithm B:</strong></p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="nf">LLList</span><span class="o">(</span><span class="n">ArrayList</span> <span class="n">aList</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// initialize an empty list</span>
+    <span class="n">head</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Node</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>     <span class="c1">// dummy head node</span>
+    <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="c1">// add the items from aList to this list</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">aList</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">item</span> <span class="o">=</span> <span class="n">aList</span><span class="o">.</span><span class="na">getItem</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+        <span class="n">addItem</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="mi">0</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<h3 id="problem-2-initializing-a-doubly-linked-list">Problem 2: Initializing a doubly linked list</h3>
+<p><em>10 points</em></p>
+<p>Suppose you have a doubly linked list (implemented using the <code>DNode</code>
+class described in <a href="ps2.html#problem-6-practice-with-references">Problem 6</a> 
+of <a href="ps2.html">Problem Set 2</a>) in which the <code>next</code> references have the
+correct values but the <code>prev</code> references have not yet been
+initialized. Write a method that takes one parameter, a reference to
+the first node of the linked list, and traverses the linked list,
+filling in the <code>prev</code> references. The method should <em>not</em> return a
+value.</p>
+<p>You do <em>not</em> need to code up this method as part of a class; simply
+include it in the same file as your other problems for Part I.  You
+may assume that the method you write is a static method of the <code>DNode</code>
+class.</p>
+<h3 id="problem-3-reversing-a-doubly-linked-list">Problem 3: Reversing a doubly-linked list</h3>
+<p><em>10 points</em></p>
+<p>Write an iterative method named <code>reverse()</code> that reverses a
+doubly-linked list (implemented using the <code>DNode</code> class described in 
+<a href="ps2.html#problem-6-practice-with-references">Problem 6</a> 
+of <a href="ps2.html">Problem Set 2</a>). Your method should take a
+reference to the first node in the linked list, reverse the order of
+the nodes in the linked list, and return a reference to the new first
+node.</p>
+<p>Your method should use no more than a constant amount of storage space
+beyond that needed for the linked list itself (i.e., no more than a
+few extra variables). You can accomplish this by using the same nodes
+as the ones in the original linked list and simply adjusting
+references so that the linked list goes in the opposite direction.</p>
+<p><em>Hint:</em> we encourage you to use a &ldquo;trailing reference&rdquo; of the type
+mentioned near the end of the lecture notes on linked lists.</p>
+<p>Here again, you do <em>not</em> need to code up this method as part of a
+class; simply include it in the same file as your other problems for
+Part I.  You may assume that the method you write is a static method
+of the <code>DNode</code> class.</p>
+<h3 id="problem-4-implementing-a-stack-using-two-queues">Problem 4: Implementing a stack using two queues</h3>
+<p><em>10 points</em></p>
+<p><em>We will cover the material needed for this problem on October 12.</em></p>
+<p>In lecture, we discussed two implementations of the stack ADT: one using
+an array and one using a linked list. Devise a third implementation of
+the stack ADT that uses two queues, <code>Q1</code> and <code>Q2</code>. Use pseudocode to
+describe how you would use <code>Q1</code> and <code>Q2</code> to implement the stack operations 
+<code>push</code>, <code>pop</code>, and <code>peek</code>, and give the running time of each operation using
+big-<em>O</em> notation. Explain briefly how you came up with the big-<em>O</em>
+expressions that you use.</p>
+<p>Your algorithms for these methods may use <code>Q1</code>, <code>Q2</code>, and a constant number
+of additional variables (either fields of the stack object or local
+variables of the method). It may <em>not</em> use an array, linked list, or
+other data structure. You may assume that the queues support the
+operations in our <code>Queue&lt;T&gt;</code> interface, and that they can store an
+arbitrary number of objects of any type.</p>
+<h3 id="problem-5-removing-the-smallest-element-from-a-linked-list">Problem 5: Removing the smallest element from a linked list</h3>
+<p><em>10 points; required of grad-credit students; &ldquo;partial&rdquo; extra credit for others</em></p>
+<p>Suppose that you have an unsorted linked list of integers containing
+nodes that are instances of the following class:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IntNode</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">val</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">IntNode</span> <span class="n">next</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<p>The linked list includes a dummy head node that is not used to store an
+actual data value; it is similar to the dummy head node found in the
+<code>LLList</code> class discussed in lecture. The dummy head node in the linked
+list of integers is also of type <code>IntNode</code>, and its val field always has a
+value of <code>0</code>. The diagram below shows an example of such a linked list.</p>
+<p><img alt="problem 5, example 1" src="/~cscie22/files/ps3/prob5_1.gif"></p>
+<p>Write a method named <code>removeSmallest()</code> that takes a reference to the
+dummy head node in such a linked list and (1) removes the node
+containing the smallest value and (2) returns the smallest value. If
+there are multiple occurrences of the smallest value, the method should
+remove the node containing the first occurrence. The method should <em>not</em>
+remove the dummy head node.</p>
+<p>For example, given the linked list shown above, <code>removeSmallest(head)</code>
+should return the value <code>5</code> and change the linked list to look like the
+one shown below.</p>
+<p><img alt="problem 5, example 1" src="/~cscie22/files/ps3/prob5_2.gif"></p>
+<p><strong><em>The method must not perform more than one traversal of the listed
+list.</em></strong> <em>Hint:</em> The method will need several reference variables to 
+accomplish this task.</p>
+<p>You do <em>not</em> need to code up this method as part of a class; simply
+include it in the same file as your other problems for Part I.  You
+may assume that the method you write is a static method of the <code>IntNode</code> 
+class.</p>
+<hr>
+<h2 id="part-ii">Part II</h2>
+<p><em>60 points total</em></p>
+<h3 id="problem-6-from-recursion-to-iteration">Problem 6: From recursion to iteration</h3>
+<p><em>30 points total</em></p>
+<p>In the file <a href="/~cscie22/files/ps3/StringNode.java"><code>StringNode.java</code></a>, 
+rewrite the recursive methods of the
+<code>StringNode</code> class so that they use iteration (<code>for</code>, <code>while</code>, or <code>do..while</code>
+loops) instead of recursion. You do <em>not</em> need to rewrite the <code>read()</code>
+or <code>numOccurrences()</code> methods; they will be covered in section.
+Leave the <code>main()</code> method intact, and use it to test your new versions 
+of the methods.</p>
+<p><strong>Notes: </strong></p>
+<ul>
+<li>
+<p>Before you get started, we recommend that you put a copy of the
+    original <code>StringNode</code> class in a different directory, so that you can
+    compare the behavior of the original methods to the behavior of your
+    revised methods.</p>
+</li>
+<li>
+<p>The revised methods should have the same method headers as the
+    original ones. Do not rename them or change their headers in any
+    other way.</p>
+</li>
+<li>
+<p>Make sure to read the comments accompanying the methods to see how
+    they should behave.</p>
+</li>
+<li>
+<p>Make your revised methods as efficient as possible. For example, you
+    should <em>not</em> write a method that traverses a linked list by
+    repeatedly calling <code>getNode()</code>. Rather, you should follow the approach
+    discussed in lecture for iteratively traversing the nodes in a
+    linked list.</p>
+</li>
+<li>
+<p>Because our <code>StringNode</code> class includes a <code>toString()</code> method, you can
+    print a StringNode <code>s</code> in order to see the portion of the linked-list
+    string that begins with <code>s</code>. You may find this helpful for testing and
+    debugging.</p>
+</li>
+<li>
+<p>Another useful method for testing is the <code>convert()</code> method, which
+    converts a Java <code>String</code> object into the corresponding linked-list
+    string.</p>
+</li>
+</ul>
+<p><strong>Suggested approach:</strong></p>
+<ol>
+<li>
+<p>Begin by rewriting the following methods, all of which do not
+    create <code>StringNode</code> objects or return references to existing
+    <code>StringNode</code> objects: <code>length()</code>, <code>indexOf()</code>, and
+    <code>print()</code>. You may need to define a local variable of type
+    <code>StringNode</code> in each case, but otherwise these should be
+    relatively easy. Your <code>print()</code> method must print one character at
+    a time&mdash;it may not use the <code>toString()</code> method!</p>
+</li>
+<li>
+<p>Next, rewrite <code>getNode()</code>, which is the easiest of the methods that
+    return a reference to a <code>StringNode</code>.</p>
+</li>
+<li>
+<p>Next, rewrite <code>removeAllSpaces()</code>.</p>
+</li>
+<li>
+<p>Next, rewrite <code>copy()</code>. The trick here is to keep one reference to the
+    beginning of the new string and another reference to the place at
+    which the next new character will be inserted.</p>
+</li>
+<li>
+<p>Finally, rewrite <code>concat()</code> and <code>replace()</code>. You may be able to make
+    use of one or more of the other methods here, although doing so is
+    <em>not</em> required. However, you may <em>not</em> use the <code>getNode()</code> method.</p>
+</li>
+<li>
+<p>The remaining methods either don&rsquo;t use recursion in the first place
+    or were handled in section (<code>read()</code> and <code>numOccurrences()</code>),
+    so you don&rsquo;t need to touch them.</p>
+</li>
+<li>
+<p>Test everything. Make sure you have at least as much error detection
+    in your new methods as in the original ones!</p>
+</li>
+</ol>
+<p><em>A general hint:</em> Diagrams are a great help in the design process!</p>
+<h3 id="problem-7-more-practice-with-recursion">Problem 7: More practice with recursion</h3>
+<p><em>10 points total; 5 points each part</em></p>
+<p>Now that we&rsquo;ve created some iterative methods, let&rsquo;s return to
+recursion! Add the methods described below to your <code>StringNode</code> class
+from the previous problem.</p>
+<p><strong><em>For full credit, the methods must be fully recursive</em></strong>: they may
+not use any type of loop, and they must call themselves recursively.
+In addition, <strong><em>global variables (variables declared outside of the
+method) are not allowed.</em></strong> </p>
+<!-- Check the reference to the parts below -->
+
+<p>If you are unable to come up with a recursive solution, you may submit
+an iterative one for some partial credit.</p>
+<ol>
+<li>
+<p><code>public static void printEveryOther(StringNode str)</code><br>
+    This method should use recursion to print the string represented
+    by <code>str</code>. For example, let&rsquo;s say that we have used the <code>convert()</code> 
+    method in the <code>StringNode</code> class to create a linked list for the 
+    string &ldquo;method frame&rdquo; as follows:</p>
+<div class="codehilite"><pre><span></span><span class="n">StringNode</span> <span class="n">str</span> <span class="o">=</span> <span class="n">StringNode</span><span class="o">.</span><span class="na">convert</span><span class="o">(</span><span class="s">&quot;method frame&quot;</span><span class="o">);</span>
+</pre></div>
+
+
+<p>Given this <code>str</code>, the call <code>StringNode.printEveryOther(str)</code> should print:</p>
+<div class="codehilite"><pre><span></span>mto rm
+</pre></div>
+
+
+<p>(Note that the space between the two words is treated like any other
+character, and is printed because it is the seventh character in the
+string.) </p>
+<p>If an empty string (i.e., the value <code>null</code>) is passed in as the
+parameter, the method should simply print a blank line.</p>
+<p><em>Hints:</em> When constructing the parameter for the recursive call, you
+will need to take a slightly different approach than the one that we
+have typically used when processing linked-list strings recursively.
+Make sure that your method works correctly for both even-length and
+odd-length strings.</p>
+</li>
+<li>
+<p><code>public static boolean startsWith(StringNode str, StringNode prefix)</code><br>
+    This method should use recursion to determine if the string specified
+    by the parameter <code>str</code> starts with the string specified by the
+    parameter <code>prefix</code>. It should return <code>true</code> if <code>str</code> starts with 
+    <code>prefix</code> and <code>false</code> otherwise.</p>
+<p>For example, let&rsquo;s say that we have used the <code>convert</code>
+method in the <code>StringNode</code> class to create several linked-list strings
+as follows:</p>
+<div class="codehilite"><pre><span></span><span class="n">StringNode</span> <span class="n">str1</span> <span class="o">=</span> <span class="n">convert</span><span class="o">(</span><span class="s">&quot;recursion&quot;</span><span class="o">);</span>
+<span class="n">StringNode</span> <span class="n">str2</span> <span class="o">=</span> <span class="n">convert</span><span class="o">(</span><span class="s">&quot;recur&quot;</span><span class="o">);</span>
+<span class="n">StringNode</span> <span class="n">str3</span> <span class="o">=</span> <span class="n">convert</span><span class="o">(</span><span class="s">&quot;recurse&quot;</span><span class="o">);</span>
+</pre></div>
+
+
+<p>Given these lines of code, the call <code>startsWith(str1, str2)</code> should
+return <code>true</code>, whereas <code>startsWith(str1, str3)</code> should return <code>false</code>. </p>
+<p><em>Special case:</em> If the second parameter is <code>null</code> (representing
+the empty string), the method should return <code>true</code>, regardless of
+the value of the first parameter.</p>
+</li>
+</ol>
+<h3 id="problem-8-implementing-the-bag-adt-using-a-linked-list">Problem 8: Implementing the Bag ADT using a linked list</h3>
+<p><em>20 points</em></p>
+<p>Earlier in the course, we worked with the 
+<a href="/~cscie22/code/bag/ArrayBag.java"><code>ArrayBag</code> class</a>, which implements 
+the <a href="/~cscie22/code/bag/Bag.java"><code>Bag</code> interface</a> using an array.</p>
+<p>In a file named <code>LLBag.java</code>, write a class called <code>LLBag</code> that
+implements the <code>Bag</code> interface using a linked list instead of an
+array. You may use a linked list with or without a dummy head node. In
+designing your implementation, you may find it helpful to compare the 
+<a href="/~cscie22/code/sequences/LLList.java"><code>LLList</code> class</a>, our linked-list
+implementation of the <code>List</code> ADT, to the 
+<a href="/~cscie22/code/sequences/ArrayList.java"><code>ArrayList</code> class</a>, our 
+array-based implementation of that same ADT. In the same way that 
+<code>LLList</code> uses a linked list instead of an array to implement a list, 
+your <code>LLBag</code> class should use a linked list instead of an array to 
+implement a bag.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>
+<p>Make sure that your class exlicitly indicates that it implements 
+    the <a href="/~cscie22/code/bag/Bag.java"><code>Bag</code> interface</a>. To allow your 
+    new class to compile, you will need to put our <code>Bag.java</code> file 
+    in the same folder as your <code>LLBag.java</code> file.</p>
+</li>
+<li>
+<p>Like the <code>LLList</code> class, your <code>LLBag</code> class should use a
+    private inner class called <code>Node</code> for the nodes in the linked list.</p>
+</li>
+<li>
+<p>In addition to the methods in the <code>Bag</code> interface, your <code>LLBag</code> class 
+    should also have a <code>toString()</code> method that overrides the default 
+    <code>toString()</code> method inherited from the <code>Object</code> class. Consult the 
+    <code>ArrayBag</code> <code>toString()</code> method to see what the string returned by 
+    this method should look like.</p>
+</li>
+<li>
+<p>One of the benefits of using a linked list is that there is no need to
+    specify a maximum size&mdash;the bag can effectively grow without limit.
+    Therefore, you will <em>not</em> need to provide a constructor that specifies
+    a maximum size, and your <code>add()</code> method can always return <code>true</code>. </p>
+</li>
+<li>
+<p>Because the order of the items in a bag doesn’t matter, you can add 
+    items to either end of the linked list; however, make sure that your 
+    method adds items in <em>O</em>(1) time. </p>
+</li>
+<li>
+<p><strong><em>In general, you should make your methods as efficient as possible.</em></strong>
+    For example, when implementing the <code>remove()</code> method, you should make 
+    sure that you don&rsquo;t traverse the list more than once.</p>
+</li>
+<li>
+<p>Copy over the <code>main()</code> method from the <code>ArrayBag</code> class, and make
+    whatever modifications are necessary to allow it to test your <code>LLBag</code> 
+    class.</p>
+</li>
+</ul>
+<hr>
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+<p>You should use <a href="https://canvas.harvard.edu/courses/18366/assignments"
+target="top">Canvas</a> to submit the following files:</p>
+<ul>
+<li><strong>for part I:</strong> your <code>ps3_partI.txt</code> file</li>
+<li><strong>for part II:</strong><ul>
+<li>your modified <code>StringNode.java</code> file</li>
+<li>your modified <code>LLBag.java</code> file</li>
+</ul>
+</li>
+</ul>
+<p><strong>Make sure to use these exact file names for your files.</strong> If you need
+to change the name of a Java file so that it corresponds to the name we
+have specified, make sure to also change the name of your class and
+check that it still compiles.</p>
+<p>Here are the steps you should take to submit your work:</p>
+<ul>
+<li>
+<p>Go to the <a href="https://canvas.harvard.edu/courses/18366/assignments"
+    target="top">page for submitting assignments</a>
+    (logging in as needed)</p>
+</li>
+<li>
+<p>Click on the appropriate link: either <em>ps3, part I</em> or
+    <em>ps3, part II</em>.</p>
+</li>
+<li>
+<p>Click on the <em>Submit Assignment</em> link near the upper-right corner of
+    the screen. (If you have already submitted something for this
+    assignment, click on <em>Re-submit Assignment</em> instead.)</p>
+</li>
+<li>
+<p>Use the <em>Choose File</em> button to select a file to be submitted. If
+    you have multiple files to submit, click <em>Add Another File</em> as needed,
+    and repeat the process for each file. <strong><em>Important:</em></strong> You must
+    submit all of the files for a given part of the assignment
+    (Part I or Part II) at the same time. If you need to resubmit a
+    file for some reason, you should also resubmit any other files from
+    that part of the assignment.</p>
+</li>
+<li>
+<p>Once you have chosen all of the files that you need to submit, click
+    on the <em>Submit Assignment</em> button.  </p>
+</li>
+<li>
+<p>After submitting the assignment, you should check your submission
+    carefully. In particular, you should:</p>
+<ul>
+<li>
+<p>Check to make sure that you have a green checkmark symbol
+    labeled <em>Turned In!</em> in the upper-right corner of the submission
+    page (where the <em>Submit Assignment</em> link used to be), along
+    with the names of all of the files from the part of the
+    assignment that you are submitting.</p>
+</li>
+<li>
+<p><strong>Click on the link for each file to download it, and view the
+    downloaded file so that you can ensure that you submitted the
+    correct file.</strong></p>
+</li>
+</ul>
+<p>We will not accept any files after the fact, so please check your
+submission carefully.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> If you encounter problems submitting your files, close your
+browser and start again, or try again later if you still have time. If
+you are unable to submit and it is close to the deadline, email your
+homework before the deadline to <code>cscie22@fas.harvard.edu</code>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+<i class="icon material-icons">&#xe5ca;</i>
+<p class="phrase">That&rsquo;s all!</p>
+
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

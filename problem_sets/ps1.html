@@ -1,0 +1,720 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 1</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"layout": "assignment", "section": "problem_sets", "hash": "45f3f8e253203418400ca31ec9a0a7f2", "title": "Problem Set 1"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer title-colored"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+<div class="locator">
+<div class="inner js-stops-parent">
+</div>
+</div>
+
+<div class="title">
+<div class="inner">
+
+<div class="title-content-spacer"></div>
+<div class="title-content">
+
+<h1>Problem Set 1</h1>
+
+</div>
+
+</div>
+</div>
+
+<div class="title-spacer"></div>
+
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+
+<div class="admonition date">
+<p class="admonition-title">Due dates</p>
+<p>This assignment is due before the start of lecture on Wednesday,
+September 21, 2016. There will be a 10% late penalty for late
+submissions made by 11:59 p.m. on Sunday, September 25, and a 20%
+late penalty for submissions made after that Sunday and before the
+start of lecture on Wednesday, September 28.  <strong><em>We will not
+accept any homework that is more than seven days late.</em></strong></p>
+</div>
+<p>In your work on this assignment, make sure to abide by the policies on academic
+conduct described in the <a href="/~cscie22/files/syllabus.pdf">syllabus</a>.</p>
+<p>If you have questions while working on this assignment, please attend office
+hours, post them on Piazza, or email <code>cscie22@fas.harvard.edu</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Java built-in classes</p>
+<p>In your work on this and subsequent problem sets, you
+should not use any of Java&rsquo;s built-in collection classes
+(e.g., <code>ArrayList</code>) or utility classes (e.g., <code>Arrays</code>),
+unless a problem explicitly states that you may do so.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#part-i-short-answer-problems">Part I: Short-answer problems</a><ul>
+<li><a href="#problem-1-memory-management-and-arrays">Problem 1: Memory management and arrays</a></li>
+<li><a href="#problem-2-array-practice">Problem 2: Array practice</a></li>
+<li><a href="#problem-3-recursion-and-the-runtime-stack">Problem 3: Recursion and the runtime stack</a></li>
+<li><a href="#problem-4-tracing-a-recursive-palindrome-tester">Problem 4: Tracing a recursive palindrome tester</a></li>
+<li><a href="#problem-5-rewriting-a-method">Problem 5: Rewriting a method</a></li>
+</ul>
+</li>
+<li><a href="#part-ii-programming-problems">Part II: Programming problems</a><ul>
+<li><a href="#problem-6-adding-methods-to-the-arraybag-class">Problem 6: Adding methods to the ArrayBag class</a></li>
+<li><a href="#problem-7-recursion-and-strings">Problem 7: Recursion and strings</a></li>
+<li><a href="#problem-8-lagranges-theorem">Problem 8: Lagrange&rsquo;s theorem</a></li>
+<li><a href="#problem-9-make-it-smarter">Problem 9: Make it smarter</a></li>
+</ul>
+</li>
+<li><a href="#submitting-your-work">Submitting Your Work</a></li>
+</ul>
+</div>
+<hr>
+<h2 id="part-i-short-answer-problems">Part I: Short-answer problems</h2>
+<p><em>35-40 points total</em></p>
+<p>Answers to Part I problems should typically be submitted as
+<a href="plain_text.html">plain-text files</a>, with no formatting of any
+kind. However, because we are asking you to draw a diagram, you may
+submit <em>either</em> a plain-text file or a PDF file. Give it the name
+<code>ps1_partI.txt</code> or <code>ps1_partI.pdf</code>.</p>
+<h3 id="problem-1-memory-management-and-arrays">Problem 1: Memory management and arrays</h3>
+<p><em>5 points</em></p>
+<p>Consider the following lines of Java code:</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="o">{</span><span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">12</span><span class="o">};</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">6</span><span class="o">];</span>
+<span class="kt">int</span><span class="o">[]</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">6</span><span class="o">];</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">c</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="o">}</span>
+
+<span class="n">a</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="n">c</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+<span class="n">c</span><span class="o">[</span><span class="mi">2</span><span class="o">]++;</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">b</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">c</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+</pre></div>
+
+
+<ol>
+<li>(3 pts.) Draw a single memory diagram that shows the final result of
+    these lines. Include both the stack and the heap in your diagram. You
+    may assume that these lines are part of the <code>main</code> method.</li>
+<li>(2 pts.) Indicate what will be printed by the final line
+    of code shown above.</li>
+</ol>
+<h3 id="problem-2-array-practice">Problem 2: Array practice</h3>
+<p><em>5-10 points total; 5 points each part</em></p>
+<p>In this problem, you will write static methods that operate on arrays.
+These methods do <em>not</em> need to use recursion, and they do not need to
+be implemented as part of a class. Simply include the methods with
+your answers for the other problems from Part I.</p>
+<ol>
+<li>
+<p>Write a method with the header</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isSorted</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span>
+</pre></div>
+
+
+<p>that takes a reference to an array of integers and returns <code>true</code> if the
+array is sorted (i.e., if the elements are in increasing order), and
+<code>false</code> otherwise. </p>
+<p><em>Special cases:</em>  </p>
+<ul>
+<li>
+<p>If the method is passed a value of <code>null</code>, it should throw an 
+    <code>IllegalArgumentException</code>. </p>
+</li>
+<li>
+<p>If the method is passed an array of length 0 or an array with
+    one element, the method should return <code>true</code>. </p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>(required for grad-credit students; &ldquo;partial&rdquo; extra credit for others)</em><br>
+    Write a method with the header</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">mostFrequentValue</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span>
+</pre></div>
+
+
+<p>that takes a reference to a <em>sorted</em> array of integers and returns the
+value that occurs most frequently in the array. For example, consider
+this array:</p>
+<div class="codehilite"><pre><span></span><span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">8</span><span class="o">,</span> <span class="mi">11</span><span class="o">,</span> <span class="mi">11</span><span class="o">,</span> <span class="mi">11</span><span class="o">,</span> <span class="mi">14</span><span class="o">,</span> <span class="mi">19</span><span class="o">,</span> <span class="mi">19</span><span class="o">};</span>
+</pre></div>
+
+
+<p>The method call <code>mostFrequentValue(arr)</code> should return <code>8</code>, because <code>8</code> is
+the most frequently occurring value in the array, appearing four
+times.</p>
+<p>If two or more values tie for the most occurrences, return the one
+that comes first. For example, if we added an extra <code>11</code> to the array
+shown above – giving that value four occurrences as well – the method
+should still return <code>8</code>, because <code>8</code> comes before <code>11</code> in the array. If all
+of the values occur exactly once, the first element should be
+returned.</p>
+<p>The array is guaranteed to be in sorted order, and you may assume that
+it has at least one element. If there is only one element, it is the
+value that should be returned. <strong><em>For full credit, you should</em></strong> <strong>not</strong>
+<strong><em>use another array as part of your solution, and you should</em></strong> <strong>not</strong>
+<strong><em>perform more than one scan through the array from left to right.</em></strong></p>
+</li>
+</ol>
+<h3 id="problem-3-recursion-and-the-runtime-stack">Problem 3: Recursion and the runtime stack</h3>
+<p><em>10 points</em></p>
+<p>Consider the following recursive method:</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">mystery</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">mystery</span><span class="o">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">,</span> <span class="n">b</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>(3 pts.) Trace the execution of <code>mystery(20, 6)</code>. Use indentation to
+    indicate which statements are performed by a given invocation of
+    the method, following the approach used in the lecture notes to
+    trace the <code>sum</code> method.</p>
+</li>
+<li>
+<p>(2 pts.) What is the value returned by <code>mystery(20, 6)</code>?</p>
+</li>
+<li>
+<p>(2 pts.) During the execution of <code>mystery(20, 6)</code>, method frames are
+    added and then removed from the stack. How many method frames are
+    on the stack when the base case is reached? You should assume that
+    the initial call to <code>mystery(20, 6)</code> is made from within the <code>main</code>
+    method, and you should include the stack frame for <code>main</code> in
+    your count.</p>
+</li>
+<li>
+<p>(3 pts.) Give an example of values of <code>a</code> and <code>b</code> that would produce
+    infinite recursion, and explain why it would occur.</p>
+</li>
+</ol>
+<h3 id="problem-4-tracing-a-recursive-palindrome-tester">Problem 4: Tracing a recursive palindrome tester</h3>
+<p><em>5 points</em></p>
+<p>A <em>palindrome</em> is a string that reads the same in both directions. For
+example, <code>"dad"</code>, <code>"radar"</code>, and <code>"gohangasalamiimalasagnahog"</code> are all
+palindromes. The following is pseudocode for a method that tests if a
+string is a palindrome:</p>
+<div class="codehilite"><pre><span></span>palindrome(str) {
+    if (str is the empty string or str is of length 1)
+        return true;
+    else if (str&#39;s first and last characters are the same)
+        return palindrome(str minus its first and last characters);
+    else
+        return false
+}
+</pre></div>
+
+
+<p>Trace the execution of this method on the string <code>"racecar"</code>. Show the
+value of <code>str</code> in each invocation of the method, and indicate the return
+value as each call of the method completes.</p>
+<h3 id="problem-5-rewriting-a-method">Problem 5: Rewriting a method</h3>
+<p><em>10 points</em></p>
+<p>Consider the following method, which uses iteration (a <code>for</code> loop) to
+search for an item in an array of integers. The method returns <code>true</code> if
+the item is found in the array, and <code>false</code> if it is not.</p>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">search</span><span class="o">(</span><span class="kt">int</span> <span class="n">item</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span> <span class="n">arr</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+
+<ol>
+<li>
+<p>(4 points) Rewrite this method so that it searches for an item an
+    array that can contain <em>any type of object</em>. Change the types of the
+    parameters accordingly, and make whatever changes are needed to the body
+    of the method.</p>
+</li>
+<li>
+<p>(6 points) Rewrite your answer to part 1 so that it uses recursion
+    instead of iteration. You will need to add a third parameter (call it <code>i</code>)
+    that keeps track of where you are in the array. More precisely, <code>i</code> will
+    specify the position in the array where the search for item should
+    begin. For example, <code>search("hello", arr, 0)</code> should search for &ldquo;hello&rdquo; in
+    the full array (beginning at position <code>0</code>), whereas <code>search("hello", arr, 2)</code> 
+    should search for <code>"hello"</code> in the subarray that begins at position <code>2</code>
+    and goes to the end of the array.</p>
+</li>
+</ol>
+<hr>
+<h2 id="part-ii-programming-problems">Part II: Programming problems</h2>
+<p><em>65-70 points total</em></p>
+<h3 id="problem-6-adding-methods-to-the-arraybag-class">Problem 6: Adding methods to the <code>ArrayBag</code> class</h3>
+<p><em>25 points total; 5 points each part</em></p>
+<p>Begin by downloading the following files:</p>
+<ul>
+<li><a href="/~cscie22/files/ps6/Bag.java"><code>Bag.java</code></a></li>
+<li><a href="/~cscie22/files/ps6/ArrayBag.java"><code>ArrayBag.java</code></a></li>
+</ul>
+<p>Use the File&rarr;Save As (or equivalent) option in your browser
+to put these files in the folder that you&rsquo;re using for your work on
+this assignment.</p>
+<p>In <code>ArrayBag.java</code>, add the methods described below to the <code>ArrayBag</code>
+class, and then add code to the <code>main()</code> method to test these
+methods. <strong>In addition, you should update the <code>Bag</code> interface that we
+have given you in <code>Bag.java</code> to include these new methods.</strong> These
+methods should be publicly accessible. <strong>You should <em>not</em> add any new
+fields to the class.</strong></p>
+<ol>
+<li>
+<p><code>public int roomLeft()</code><br>
+    This method should return the number of additional items that the
+    called <code>ArrayBag</code> has room to store. For example, if the maximum size of the
+    bag is 10 and there are currently 7 items in the bag, this method
+    should return 3, since the bag has room for 3 more items. <em>Hint:</em> This
+    method should only need one or two lines of code.</p>
+</li>
+<li>
+<p><code>public boolean isEmpty()</code><br>
+    This method should return <code>true</code> if the called <code>ArrayBag</code> is empty, 
+    and <code>false</code> otherwise.</p>
+</li>
+<li>
+<p><code>public void increaseCapacity(int amount)</code><br>
+    This method should increase the maximum capacity of the called
+    <code>ArrayBag</code> by the specified <code>amount</code>. For example, if <code>b</code> has a
+    maximum capacity of <code>10</code>, then <code>b.increaseCapacity(5)</code> should give
+    <code>b</code> a maximum capacity of <code>15</code>. As part of your implementation,
+    you will need to create a new array with room to support the new
+    maximum capacity, copy any existing items into that array, and
+    replace the original array with the new one by storing its
+    reference in the called object. </p>
+<p><em>Special cases:</em>  </p>
+<ul>
+<li>
+<p>If the parameter is <code>0</code>, the method should just return without 
+    making any changes to the called object. </p>
+</li>
+<li>
+<p>If the parameter is negative, the method should throw an 
+    <code>IllegalArgumentException</code>. See our second <code>ArrayBag</code>
+    constructor for an example of throwing an exception.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>public boolean addItems(Bag other)</code><br>
+    This method should attempt to add to the called <code>ArrayBag</code> all of the
+    items found in the parameter <code>other</code>. If there is room for all of the
+    items to be added, the items are added and the method returns <code>true</code>. If
+    there isn’t enough room for all of the items to be added, <em>none</em> of
+    them are added and the method returns <code>false</code>. </p>
+<p>Note that the parameter is of type <code>Bag</code>. As a result, your method
+should use method calls to access the internals of that bag. See
+our implementation of the <code>containsAll()</code> method for an example of
+this.</p>
+<p><em>Special cases:</em></p>
+<ul>
+<li>The method should return <code>true</code> if the bag represented by <code>other</code> 
+    is empty. </li>
+<li>If the parameter is <code>null</code>, the method should throw an 
+    <code>IllegalArgumentException</code>. </li>
+</ul>
+</li>
+<li>
+<p><code>public Bag intersectionWith(Bag other)</code><br>
+    This method should create and return an <code>ArrayBag</code> containing <em>one
+    occurrence</em> of any item that is found in both the called object
+    and the parameter <code>other</code>. For full credit, the resulting bag
+    should not include any duplicates. For example, if <code>b1</code> represents
+    the bag {2, 2, 3, 5, 7, 7, 7, 8} and <code>b2</code> represents the bag {2,
+    3, 4, 5, 5, 6, 7}, then <code>b1.intersectionWith(b2)</code> should return an
+    <code>ArrayBag</code> representing the bag <code>{2, 3, 5, 7}</code>. Give the new
+    <code>ArrayBag</code> a maximum size that is equal to the number of items in
+    the bag with the smaller number of items. </p>
+<p>Note that the parameter is of type <code>Bag</code>.  As a result, your
+method should use method calls to access the internals of that
+bag. See our implementation of the <code>containsAll()</code> method for an
+example of this. The return type is also <code>Bag</code>, but polymorphism
+allows you to just return the <code>ArrayBag</code> that you create, because
+<code>ArrayBag</code> implements <code>Bag</code>.</p>
+<p><em>Special cases:</em></p>
+<ul>
+<li>
+<p>If there are no items that occur in both bags&mdash;including cases
+    in which one or both of the bags are empty&mdash;the method should
+    return an empty <code>ArrayBag</code>. </p>
+</li>
+<li>
+<p>If the parameter is <code>null</code>, the method should throw an 
+    <code>IllegalArgumentException</code>.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="problem-7-recursion-and-strings">Problem 7: Recursion and strings</h3>
+<p><em>10 points total; 5 points each part</em></p>
+<p>In a file named <code>StringRecursion.java</code>, implement the methods described
+below, and then create a <code>main()</code> method to test these methods. Your
+methods <em>must</em> be recursive; <strong><em>no credit will be given for methods that
+employ iteration</em></strong>. In addition, <strong><em>global variables (variables declared
+outside of the method) are not allowed.</em></strong> You may find it helpful to
+employ the <code>substring</code>, <code>charAt</code>, and <code>length</code> methods of the <code>String</code>
+class as part of your solutions.</p>
+<ol>
+<li>
+<p><code>public static void printReverse(String str)</code><br>
+    This method should use recursion to print the individual characters in
+    the string <code>str</code> in reverse order. For example, <code>printReverse("Harvard")</code> 
+    should print</p>
+<div class="codehilite"><pre><span></span>dravraH
+</pre></div>
+
+
+<p>The method should <strong>not</strong> return a value.</p>
+<p><em>Special cases:</em> If the parameter is <code>null</code> or the empty string
+(<code>""</code>), the method should not print anything.</p>
+</li>
+<li>
+<p><code>public static String trim(String str)</code><br>
+    This method should take a string <code>str</code> and use recursion to
+    <strong><em>return</em></strong> a string in which any leading and/or trailing spaces
+    in the original string are removed. For example:</p>
+<ul>
+<li><code>trim(" hello world     ")</code> should return the string <code>"hello world"</code></li>
+<li><code>trim("recursion  ")</code> should return the string <code>"recursion"</code></li>
+</ul>
+<p>The <code>String</code> class comes with a built-in <code>trim()</code> method that does
+the same thing as the method that we&rsquo;re asking you to write; you
+may <em>not</em> use that method in your solution!</p>
+<p><em>Special cases:</em></p>
+<ul>
+<li>
+<p>If the parameter is <code>null</code>, the method should return <code>null</code>. </p>
+</li>
+<li>
+<p>If the parameter is the empty string, the method should return 
+    the empty string.</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="problem-8-lagranges-theorem">Problem 8: Lagrange&rsquo;s theorem</h3>
+<p><em>30 points</em></p>
+<p>A perfect square is an integer than can be written as the square of
+another integer. For example:</p>
+<ul>
+<li>
+<p>25 is a perfect square, because it is the square of 5 (i.e., 5&sup2; = 25)</p>
+</li>
+<li>
+<p>64 is a perfect square, because it is the square of 8 (i.e., 8&sup2; = 64)</p>
+</li>
+</ul>
+<p>Lagrange proved that any positive integer can be expressed as the sum
+of at most 4 positive perfect squares. For example:</p>
+<div class="codehilite"><pre><span></span>1 = 1
+2 = 1 + 1
+3 = 1 + 1 + 1
+4 = 4
+5 = 4 + 1
+6 = 4 + 1 + 1
+7 = 4 + 1 + 1 + 1
+8 = 4 + 4
+9 = 9
+10 = 9 + 1
+11 = 9 + 1 + 1
+12 = 9 + 1 + 1 + 1
+13 = 9 + 4
+14 = 9 + 4 + 1
+</pre></div>
+
+
+<p>In the file <a href="/~cscie22/files/ps1/Lagrange.java"><code>Lagrange.java</code></a>,
+add the code needed to create a program that takes a positive integer
+and uses recursive backtracking to break the integer into a sum of at
+most 4 perfect squares.</p>
+<p>In addition to having a <code>main</code> method, the <code>Lagrange</code> class will also
+serve as a blueprint for objects that represent a specific Lagrange
+problem – i.e., the problem of breaking a particular integer into a
+sum of perfect squares. We have provided you with skeleton code for
+this class, including:</p>
+<ul>
+<li>
+<p>a field called <code>number</code> that stores the integer that we want to
+    express as a sum of perfect squares.</p>
+</li>
+<li>
+<p>the complete implementation of a private helper method
+    called <code>largestSquare()</code> that takes a positive integer <code>n</code> and returns
+    the largest perfect square less than or equal to <code>n</code>.</p>
+</li>
+<li>
+<p>a partial implementation of a constructor. If you add one or more
+    fields to the class, you should include code to initialize
+    them here.</p>
+</li>
+<li>
+<p>a partial implementation of a method called <code>printSolution()</code> that is
+    used to print the solution to the problem once it is found. For
+    example, for the <code>Lagrange</code> problem of breaking up the number <code>21</code>,
+    the method should print</p>
+<div class="codehilite"><pre><span></span>21 = 16 + 4 + 1
+</pre></div>
+
+
+<p>You will need to complete this method. Don&rsquo;t forget that it is a
+non-static method, so it has access to the fields of the called
+<code>Lagrange</code> object.</p>
+</li>
+<li>
+<p>the skeleton of a method called <code>findSumRB()</code> that you will implement.
+    This is the key recursive-backtracking method, and it should
+    return <code>true</code> if a solution to the problem is found and <code>false</code> if no
+    solution has been found (i.e., if the method is backtracking). If
+    there is more than one solution, your method should stop after
+    finding one of them.</p>
+<p>We have given the <code>findSumRB()</code> method two parameters: the
+integer that you are trying to express as a sum of perfect squares,
+and the maximum number of terms that can be included in the sum.</p>
+<p>To see how this would work, consider the following illustration of one
+possible procedure for breaking up the number 140; it assumes that
+there is a field called <code>terms</code> that refers to the array in which the
+terms of the sum are stored.</p>
+<p><em>We’re trying to break 140 into the sum of <strong>at most 4</strong> perfect
+squares, so we call</em> findSumRB(140, <strong>4</strong>)<em>.</em></p>
+<p><em>The largest perfect square less than or equal to 140 is 121 = 11&sup2;,
+so we try using it as the first term:</em> terms[0] = 121</p>
+<p><em>140 – 121 = 19, and we’ve already used up one of our four terms, so
+we need to break 19 into the sum of <strong>at most 3</strong> perfect squares. We
+make a recursive call to</em> findSumRB(19, <strong>3</strong>) <em>to solve this smaller
+problem.</em></p>
+<p><em>The largest perfect square less than or equal to 19 is 16, so we try
+using it as the second term:</em> terms[1] = 16</p>
+<p><em>19 – 16 = 3, and we’ve already used up two of our four terms, so we
+need to break 3 into the sum of <strong>at most 2</strong> perfect squares. We make
+a recursive call to</em> findSumRB(3, <strong>2</strong>) <em>to solve this smaller
+problem.</em></p>
+<p><em>The largest perfect square less than or equal to 3 is 1, so we try
+using it as the third term:</em> terms[2] = 1</p>
+<p><em>3 – 1 = 2, and we’ve already used up three of our four terms, so we
+need to break 2 into the sum of <strong>at most 1</strong> perfect square. We make
+a recursive call to
+</em>findSumRB(2, <strong>1</strong>) <em>to solve this smaller problem.</em></p>
+<p><em>The largest perfect square less than or equal to 2 is 1, so we try
+using it as the fourth term:</em> terms[3] = 1</p>
+<p><em>2 – 1 = 1, and we’ve already used up all four of our four terms, so
+we backtrack. (Note: You could also make another call to</em> 
+findSumRB(1, 0), <em>and let that call be the one that causes us to begin
+backtracking.)</em></p>
+<p><em>We’re back to trying to break 3 into at most 2 perfect squares (i.e.,
+to the call</em> findSumRB(3, 2)<em>). We already tried including 1 in the sum.
+There are no positive perfect squares less than 1, so we backtrack
+again.</em></p>
+<p><em>We’re back to the trying to break 19 into at most 3 perfect squares
+(i.e., to the call</em> findSumRB(19, 3)<em>). We already tried including 16 in
+the sum. The next smallest perfect square is 9, so we try using it as
+the second term:</em> terms[1] = 9</p>
+<p><em>19 – 9 = 10, so we need to break 10 into the sum of at most 2 perfect
+squares. We make a recursive call to</em> findSumRB(10, 2) <em>to solve this
+smaller problem.</em></p>
+<p><em>The largest perfect square less than or equal to 10 is 9, so we try
+using it as the third term:</em> terms[2] = 9</p>
+<p><em>10 – 9 = 1, so we need to break 1 into the sum of at most 1 perfect
+square. We make a recursive call to</em> findSumRB(1, 1) <em>to solve this
+smaller problem.</em></p>
+<p><em>1 is a perfect square itself, so we use it as the fourth term:</em>
+terms[3] = 1</p>
+<p><em>1 – 1 = 0. Success!</em></p>
+<p><em>140 = 121 + 9 + 9 + 1</em></p>
+<p>Although the two parameters that we&rsquo;ve given you for <code>findSumRB()</code> are
+sufficient, you may add one or more additional parameters if doing so
+helps you to solve problem. Don&rsquo;t forget that this method is a
+non-static method, so it has access to the fields of the called
+<code>Lagrange</code> object.</p>
+</li>
+<li>
+<p>the complete implementation of a &ldquo;wrapper&rdquo; method called <code>findSum()</code>
+    that makes the initial call to the key recursive-backtracking
+    method (the <code>findSumRB</code> method described above), and that returns
+    the same value that <code>findSumRB</code> returns. If you choose to modify 
+    the signature of <code>findSumRB()</code> or to change the meaning of its parameters,
+    you should also change the call to <code>findSumRB</code> made in this method.
+    Otherwise, this method can be left unchanged.</p>
+</li>
+<li>
+<p>the complete implementation of a <code>main()</code> method that gets a positive
+    integer from the user, constructs a <code>Lagrange</code> object for that
+    integer, and calls the <code>findSum()</code> and <code>printSolution()</code> methods to
+    solve the problem and print the solution. When the user enters -1,
+    the program will quit. Here is a sample run:</p>
+<div class="codehilite"><pre><span></span>Enter a positive integer (-1 to quit): 13
+13 = 9 + 4
+
+Enter a positive integer (-1 to quit): 140
+140 = 121 + 9 + 9 + 1
+
+Enter a positive integer (-1 to quit): -1
+Goodbye!
+</pre></div>
+
+
+<p>You should <strong><em>not</em></strong> change the <code>main</code> method in any way, and your 
+other methods should be implemented so that running the program will 
+produce behavior like that shown in the sample run.</p>
+</li>
+</ul>
+<p><strong>Other fields and methods</strong><br>
+In addition to completing the methods mentioned above, you should also
+add any other fields and methods that are needed to maintain the state
+of your solution to the problem, and to solve it using recursive
+backtracking. </p>
+<p><strong>Efficiency</strong><br>
+Try to make your recursive-backtracking code as efficient as possible.
+In particular, it is much more efficient to start with the largest
+possible perfect square for the current term of the sum and work down
+(as illustrated in the example above) than it is to start with the
+smallest possible perfect square and work up. The <code>largestSquare()</code>
+helper method that we have given you should make it easier to take
+this more efficient approach.</p>
+<h3 id="problem-9-make-it-smarter">Problem 9: Make it smarter</h3>
+<p><em>5 points; required for grad-credit; &ldquo;partial&rdquo; extra credit for others</em></p>
+<p>Make your <code>findSumRB()</code> method smarter about when to give up. For
+instance, in the process of breaking up 140, we could have backtracked
+as soon as we realized that we needed to break 3 into at most two
+perfect squares.</p>
+<hr>
+<h2 id="submitting-your-work">Submitting Your Work</h2>
+<p>You should use <a href="https://canvas.harvard.edu/courses/18366/assignments"
+target="top">Canvas</a> to submit the following files:</p>
+<ul>
+<li><strong>for part I:</strong> your <code>ps1_partI.txt</code> or <code>ps1_partI.pdf</code> file.</li>
+<li><strong>for part II:</strong><ul>
+<li>your modified <code>Bag.java</code> file</li>
+<li>your modified <code>ArrayBag.java</code> file</li>
+<li>your <code>StringRecursion.java</code> file</li>
+<li>your modified <code>Lagrange.java</code> file</li>
+</ul>
+</li>
+</ul>
+<p><strong>Make sure to use these exact file names for your files.</strong> If you need
+to change the name of a Java file so that it corresponds to the name we
+have specified, make sure to also change the name of your class and
+check that it still compiles.</p>
+<p>Here are the steps you should take to submit your work:</p>
+<ul>
+<li>Go to the <a href="https://canvas.harvard.edu/courses/18366/assignments"
+    target="top">page for submitting assignments</a>
+    (logging in as needed)</li>
+<li>Click on the appropriate link: either <code>ps1, part I</code> or
+    <code>ps1, part II</code>.</li>
+<li>Click on the <code>Submit Assignment</code> link near the upper-right corner of
+    the screen. (If you have already submitted something for this
+    assignment, click on <code>Re-submit Assignment</code> instead.)</li>
+<li>Use the <code>Choose File</code> button to select a file to be submitted. If
+    you have multiple files to submit, click <code>Add Another File</code> as needed,
+    and repeat the process for each file. <strong><em>Important:</em></strong> You must
+    submit all of the files for a given part of the assignment
+    (Part I or Part II) at the same time. If you need to resubmit a
+    file for some reason, you should also resubmit any other files from
+    that part of the assignment.</li>
+<li>Once you have chosen all of the files that you need to submit, click
+    on the <code>Submit Assignment</code> button.  </li>
+<li>
+<p>After submitting the assignment, you should check your submission
+    carefully. In particular, you should:</p>
+<ul>
+<li>Check to make sure that you have a green checkmark symbol
+    labeled <em>Turned In!</em> in the upper-right corner of the submission
+    page (where the <code>Submit Assignment</code> link used to be), along
+    with the names of all of the files from the part of the
+    assignment that you are submitting.</li>
+<li><strong>Click on the link for each file to download it, and view the
+    downloaded file so that you can ensure that you submitted the
+    correct file.</strong></li>
+</ul>
+<p>We will not accept any files after the fact, so please check your
+submission carefully.</p>
+</li>
+</ul>
+<p><strong>Note:</strong> If you encounter problems submitting your files, close your
+browser and start again, or try again later if you still have time. If
+you are unable to submit and it is close to the deadline, email your
+homework before the deadline to <code>cscie22@fas.harvard.edu</code>.</p>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+<i class="icon material-icons">&#xe5ca;</i>
+<p class="phrase">That&rsquo;s all!</p>
+
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>

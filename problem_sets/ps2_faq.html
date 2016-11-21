@@ -1,0 +1,238 @@
+<!doctype html>
+<html>
+
+<head>
+<title>E-22: Problem Set 2 FAQ</title>
+<link href="/~cscie22/css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i|Fira+Sans:500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<meta charset="UTF-8">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<meta name="viewport" content="width=device-width">
+<script>
+window.app = {
+  metadata: {"section": "problem_sets", "hash": "9631fd954121973c64b8754213179217", "title": "Problem Set 2 FAQ"},
+  config: {"prefix": "/~cscie22"}
+};
+</script>
+
+<script src="/~cscie22/js/require.js"></script>
+</head>
+
+<body>
+<div class="hoverbar-spacer"></div>
+
+
+<div class="hoverbar">
+<div class="inner">
+
+<ul class="nav">
+  <li><a class="home " href="/~cscie22/">E-22</a></li>
+  <li><a class="syllabus" href="/~cscie22/files/syllabus.pdf" target="_blank">Syllabus</a></li>
+  <li><a class="" href="/~cscie22/policies.shtml">Policies</a></li>
+  <li><a class="" href="/~cscie22/distance.shtml">Distance Ed.</a></li>
+  <li><a class="" href="/~cscie22/schedule.shtml">Schedule</a></li>
+  <li><a class="" href="/~cscie22/staff.shtml">Staff</a></li>
+  <li><a class="" href="/~cscie22/lectures/">Lectures</a></li>
+  <li><a class="current
+" href="/~cscie22/problem_sets/">Problem Sets</a></li>
+  <li><a class="" href="/~cscie22/sections/">Sections</a></li>
+</ul>
+<ul class="nav external">
+  <li><a href="http://piazza.com/harvard/fall2016/cscie22" target="_blank">Piazza</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366" target="_blank">Canvas</a></li>
+  <li><a href="https://canvas.harvard.edu/courses/18366/files/folder/solutions" target="_blank">Solutions</a></li>
+</ul>
+
+</div>
+</div>
+
+
+<a id="top"></a>
+
+<div class="content">
+<div class="inner">
+<h1>Problem Set 2 FAQ</h1>
+
+<p><a href="/~cscie22/problem_sets/">&larr; Back to Problem Sets</a><br>
+<a href="/~cscie22/problem_sets/ps2.shtml">&larr; To Problem Set 2</a></p>
+<ol>
+<li>
+<p><strong>For problem 1, could you define more precisely what
+    constitutes a &ldquo;pass&rdquo; or &ldquo;phase&rdquo; of each of the sorting algorithms?</strong></p>
+<ul>
+<li>
+<p>A pass of selection sort consists of a single iteration of the
+    for loop in the selectionSort() method:</p>
+<div class="codehilite"><pre><span></span>        public static void selectionSort(int[] arr) {
+            for (int i = 0; i &lt; arr.length-1; i++) {
+                int j = indexSmallest(arr, i, arr.length-1);
+                swap(arr, i, j);
+            }
+        }
+</pre></div>
+
+
+</li>
+<li>
+<p>A pass of insertion sort consists of a single iteration of the
+    <em>outer</em> for loop in the insertionSort() method:</p>
+<div class="codehilite"><pre><span></span>        public static void insertionSort(int[] arr) {
+            for (int i = 1; i &lt; arr.length; i++) {
+                // statements inside outer for loop omitted
+            }
+        }
+</pre></div>
+
+
+</li>
+<li>
+<p>A &ldquo;phase&rdquo; of Shell sort in the sense used in problem 1 is a
+    single iteration of the outer while loop that controls the
+    sequence of increments. For problem 1, we are interested in the
+    <em>initial</em> iteration of this loop (the &ldquo;phase&rdquo; in which incr ==
+    3):</p>
+<div class="codehilite"><pre><span></span>        while (incr &gt;= 1) {
+            // statements omitted
+            incr = incr/2;
+        }
+</pre></div>
+
+
+</li>
+<li>
+<p>A pass of bubble sort is a single iteration of the <em>outer</em> for
+    loop in the bubbleSort() method:</p>
+<div class="codehilite"><pre><span></span>        public static void bubbleSort(int[] arr) {
+            for (int i = arr.length - 1; i &gt; 0; i--) {
+                // statements inside outer loop omitted
+            }
+        }
+</pre></div>
+
+
+</li>
+<li>
+<p>A &ldquo;pass&rdquo; of radix sort is the complete process of distributing
+    values into separate bins based on the value of the <em>current
+    element</em> in the sequence (eg., current digit, current char,
+    etc.), and then reassembling them back together into the
+    original array after distribution.</p>
+</li>
+<li>To get a sense of the order in which the calls to merge() happen
+    in mergesort, see the series of slides entitled &ldquo;Tracing the
+    Calls to Mergesort&rdquo; in the sorting lecture notes.</li>
+</ul>
+</li>
+<li>
+<p><strong>For problem 3 (&ldquo;counting comparisons&rdquo;), do you want the
+    exact number of comparisons performed by each algorithm, or a big-O
+    expression for the number of comparisons?</strong></p>
+<p>You should give the <em>exact number</em> of comparisons that would be
+performed by each algorithm for an already-sorted array of length 5.</p>
+</li>
+<li>
+<p><strong>In problem 6, part 1, when we&rsquo;re calculating the addresses of the
+    various fields within each node, do we need to perform addition in
+    base-16 (hexadecimal), or is base-10 (decimal) addition ok?</strong></p>
+<p>We will accept either. For example, if you had a <code>DNode</code> located at
+address <code>0x109</code> and you wanted to determine the address of the
+<code>next</code> field within that node (at an offset of 2 bytes from the
+start address of the node), we would accept <em>either</em> <code>0x10B</code> (using
+base-16 addition) or <code>0x111</code> (using base-10 addition) for the answer
+to <code>0x109 + 2</code>.</p>
+</li>
+<li>
+<p><strong>For problem 6, part 2, should we assume that the private instance
+    variables <code>ch</code>, <code>next</code>, and <code>prev</code> have corresponding public getter
+    and setter methods?</strong></p>
+<p>No, you should assume that the code you&rsquo;re writing has <em>direct</em>
+access to the private instance variables - either because the code
+is within the <code>DNode</code> class, or because it&rsquo;s within a class that has
+the <code>DNode</code> class as a nested class. Therefore, you won&rsquo;t need
+getter and setter methods for this problem.</p>
+</li>
+<li>
+<p><strong>For problem 7, part 2 (<code>findPairsFaster</code>), our algorithm needs
+    to run in O(n log n) time in the average case, and we need to begin
+    by sorting the array using one of the sorting algorithms from the
+    <code>Sort</code> class. Does the time complexity of the sorting algorithm we
+    choose count towards the overall time complexity of our
+    <code>findPairsFaster()</code> method?</strong></p>
+<p>Yes! This means that you need to choose a sorting algorithm that
+runs in O(n log n) time or better, in the average case. Once the
+array is sorted, you should perform only O(n) additional steps to
+find all the pairs that sum to k.</p>
+</li>
+<li>
+<p><strong>Do you have any hints for problem 7, part 2
+    (<code>findPairsFaster</code>)?</strong> </p>
+<p>You might want to draw some inspiration from
+the approach quicksort takes in its <code>partition()</code> method &ndash; starting
+with two indices outside the array, and moving them gradually
+towards the center.</p>
+</li>
+<li>
+<p><strong>For problem 8, you specify that the array used for the
+    intersection should have the same size as the smaller of the two
+    arrays. What should we do with the unused elements in this array?
+    Can we leave them with a value of 0, or do we need to fill them with
+    a special value?</strong></p>
+<p>You can leave them with a value of 0 (the default initial value).</p>
+</li>
+<li>
+<p><strong>For problem 8, you mention that we should use a
+    merge-based approach. Does this mean that we should be dividing up
+    the arrays and then merging them somehow, as in mergesort?</strong></p>
+<p>Your approach should be based on the <code>merge</code> helper method used by
+mergesort, not on mergesort itself. The <code>merge</code> method uses indices
+to walk down the arrays and merge them; it doesn&rsquo;t do any dividing
+up of the arrays. Your <code>intersect</code> method should also use indices to
+walk down the arrays, but it should form the intersection, rather
+than the merge.</p>
+</li>
+<li>
+<p><strong>Do you have any guidelines for determining time efficiency by
+    experiment for problem 9, part 2?</strong></p>
+<p>For an example of how to determine time efficiency by experiment,
+see the section 4 notes and solutions.</p>
+<p>Be sure that you include both some kind of table showing the results
+of your experimental runs of the algorithm (including at least 10
+runs for <em>each</em> value of n: 1000, 2000, 4000, 8000 and 16000, first
+with random, then with fully sorted data), and a few paragraphs
+containing your analysis of the time complexity of the algorithm in
+each case.</p>
+<p>Your time analysis should include six big-O expressions: three for
+the comparisons, moves, and overall time complexity of <code>shellBubbleSort</code>
+with random data, and three for the comparisons, moves, and overall
+time complexity of <code>shellBubbleSort</code> with fully sorted data. You also need
+to justify each of these big-O expressions using your experimental
+data. If the algorithm does not appear to fall neatly into one of
+the standard efficiency classes, explain your reasons for that
+conclusion, and state the two efficiency classes that it appears to
+fall between.</p>
+</li>
+</ol>
+
+</div>
+</div>
+
+<div class="footer">
+<div class="inner">
+
+
+<p class="updated">Last updated on October 26, 2016.</p>
+
+<div class="footer-toggles">
+  <button class="toggle material-icons js-dark">&#xe3a7;</button>
+</div>
+
+</div>
+</div>
+
+<script src="/~cscie22/js/main.js"></script>
+
+
+</body>
+</html>
