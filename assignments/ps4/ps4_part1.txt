@@ -1,0 +1,303 @@
+Adil Sadik
+sadik.adil@gmail.com
+Extension student
+
+Problem 1
+1. 
+a, b, i, c, d, j
+2. 
+a, i, b, d, c, e
+3. 
+a | 			-> depth = 0
+a, i, b | 		-> depth = 1
+a, i, b, d, c, e	-> depth = 2
+
+
+Problem 2
+
+1. 
+Best case: O(1)
+In best case there is only one node in the tree.
+
+Worst case: O(n)
+We have to visit each and every node in the tree. So, complexity is O(n).
+
+2.
+public int maxKey() {
+    if (root == null)      // root is the root of the entire tree
+        throw new IllegalStateException(“the tree is empty”);
+
+    return maxKeyTree(root);
+}
+
+private static int maxKeyTree(Node root) {
+    int max = root.key;
+
+    if (root.right != null) {
+        int maxRight = maxKeyTree(root.right);
+        if (maxRight > max)
+            max = maxRight;
+    }
+
+    return max;
+}
+
+3.
+Best case: O(n)
+Worst case: O(h) where h is the height of the tree.
+In binary search tree the rightmost element will have the max key. So 
+we only need to search in right subtree. For a balanced tree, the worst case
+efficiency will be O(logn). However in general if tree is not balanced, the 
+worst case efficiency will be O(h) where h is the height of tree. In each level
+of the tree, there will be only one comparison. This is why the complexity is O(h).
+
+Problem 3
+1.				
+				 Q
+			       /  \	
+			      A    C
+			     / \    \
+			     I H     B
+			       /     /\
+			      K     L  M
+				    /
+				   F
+
+
+2.
+
+				 B
+			       /  \
+			      A     D
+			     / \     \
+			    F   C      G
+				 \     / 	
+ 				  I   E   
+				     / \
+				     H  J	
+
+Problem 4
+1.
+
+		(-, 95)
+		0 /  \ 1
+	  (i,40)   (-,55)
+		  0  /  \ 1
+	       (d,20)	(-,35)
+		      0  /  \ 1
+	          (e,17)   (-,18)
+		          0  /  \ 1
+	               (l,8)   (f,10)
+
+2.
+i -> 0
+d -> 1 0
+e -> 1 1 0
+l -> 1 1 1 0
+f -> 1 1 1 1
+
+Problem 5
+
+1.
+37,26,13,35,30,42,56,47,70
+2.
+13,30,35,26,47,70,56,42,37
+3.
+
+				37
+				/\
+			      26 42
+			      /\   \	
+			     13	35  56
+			     /	/   /\
+			    10   30 47 70
+				   \
+			  	   50
+4.
+After removing 37:
+				42
+				/ \
+			      26   56
+			      /\   /\  
+			    13 35 47 70
+			       /
+			      30
+
+After removing 26:
+				42
+				/ \
+			      30  56
+			      /\   /\  
+			    13 35 47 70
+			       
+
+Problem 6
+
+1. 
+
+
+J, E, I, H, C, F, B, G, D, A
+
+    +----+                    +---------+
+    | J  |     ->             | E  | J  |
+    +----+                    +---------+
+
+ ->     		     +————+
+      			     |  I |
+    		             +----+
+                            /    \
+                           /      \
+                        +----+  +----+
+                        |E,H |  | J  |
+                        +----+  +----+
+
+ ->     		     +————+
+      			     |  I |
+    		             +----+
+                            /    \
+                           /      \
+                        +----+   +----+
+                        |C,E,H|  | J  |
+                        +----+   +----+
+
+ ->     		     +————+
+      			     |E,I |
+    		             +----+
+                            /  |  \
+                           /   |   \
+                     +----+  +---+  +---+
+                     | C  |  | H |  | J |
+                     +----+  +---+  +---+
+
+ ->     		     +————+
+      			     |E,I |
+    		             +----+
+                            /  |  \
+                           /   |   \
+                     +----+  +---+  +---+
+                     | B,C|  |F,H|  | J |
+                     +----+  +---+  +---+
+
+ ->     		     +————+
+      			     |E,I |
+    		             +----+
+                            /  |  \
+                           /   |   \
+                     +----+  +————+   +---+
+                     | B,C|  |F,G,H|  | J |
+                     +----+  +————+   +---+
+
+
+ ->     		     +—-—+
+      			     | G |
+    		             +——-+
+                            /    \
+                           /      \
+                     +----+   	   +---+
+                     |  E |   	   | I |
+                     +----+  	   +---+
+		      /  \         / \
+		     /    \       /   \
+             +----+      +-+	  +-+  +-+
+             |B,C,D|     |F|	  |H|  |J|
+             +----+      +-+	  +-+  +-+
+
+ ->     		     +—-—+
+      			     | G |
+    		             +——-+
+                            /    \
+                           /      \
+                     +----+   	   +---+
+                     |C,E |   	   | I |
+                     +----+  	   +---+
+		      / | \        / \
+		     /  |  \      /   \
+             +----+  +-+  +-+	  +-+  +-+
+             | B  |  |D|  |F|	  |H|  |J|
+             +----+  +-+  +-+	  +-+  +-+
+
+
+
+ ->     		     +—-—+
+      			     | G |
+    		             +——-+
+                            /    \
+                           /      \
+                     +----+   	   +---+
+                     |C,E |   	   | I |
+                     +----+  	   +---+
+		      / | \        / \
+		     /  |  \      /   \
+             +----+  +-+  +-+	  +-+  +-+
+             | A,B|  |D|  |F|	  |H|  |J|
+             +----+  +-+  +-+	  +-+  +-+
+
+
+2.
+
+J, E, I, H, C, F, B, G, D, A
+
+
+           -----------
+           | E H I J |
+           -----------
+
+              ------------
+ ->          | C E H I J |
+              -----^------
+
+               ------
+ ->          	| H |
+               ------
+		/   \
+	       /     \
+           -------   ----
+           |C E F |  | I J |
+           -------    ----
+
+               ------
+ ->          	| H |
+               ------
+		/   \
+	       /     \
+          ————————     ----
+          |B C E F|   | I J |
+          ————————     ----
+
+
+               ------
+ ->          	| H |
+               ------
+		/   \
+	       /     \
+          ——————————     ----
+          |B C E F G|   | I J |
+          —————^————     ----
+
+           ------
+ ->       | E,H |
+          ------
+	 /	/     \
+       /      /       \
+     ————   ————     ----
+    |B C|   |F G|   | I J |
+    —————   ————    —----
+
+
+          ------
+ ->       | E,H |
+          ------
+	/	/     \
+       /      /       \
+     ————     ————     ----
+    |B C D|   |F G|   | I J |
+    —————     ————    —----
+
+          ------
+ ->       | E,H |
+          ------
+	/	/     \
+       /      /       \
+     ————     ————     ----
+  |A B C D|   |F G|   | I J |
+    —————     ————    —----

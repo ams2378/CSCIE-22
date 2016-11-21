@@ -1,0 +1,107 @@
+Problem 1 : Sorting practice
+
+1. { 7, 10, 13, 27, 24, 20, 14, 33 }
+2. { 7, 13, 14, 24, 27, 20, 10, 33 }
+3. { 10, 7, 20, 13, 24, 27, 14, 33 }
+4. { 7, 13, 14, 20, 10, 24, 27, 33 }
+5. { 7, 10, 13, 27, 24, 20, 14, 33 }
+6. {10, 20, 13, 33, 14, 24,  7, 27 }
+7. { 7, 13, 14, 27, 24, 20, 10, 33 }
+
+Problem 2 : Comparing two algorithms
+
+1. 
+Efficiency of algorithm A : O(n^2)
+There are two nested for loops in algorithm A. Outer for loop 
+will be used n times and inner loop will be executed (n-1) times.
+So, the efficiency of this also is O(n^2). There are 3 operations in 
+inner for loop but for simplicity we ignore the constant 3 and only 
+care about the problem size n.
+
+Efficiency of algorithm A : O(n)
+Algorithm B has only one for loop. We will iterate this loop n times.
+Inside for loop there are 3 operations (ignoring print statement). So 
+efficiency of this algorithm is O(3n) ~ O(n).
+
+Problem 3 : Counting comparisons
+
+1. 10
+Comparisons in 1st pass : 4
+Comparisons in 2nd pass : 3
+Comparisons in 3rd pass : 2
+Comparisons in 4th pass : 1
+
+2. 6
+We start with increment=3. So in first pass there will be 4 comparisons (2 for if and 2 for while condition in do-while loop)
+After first pass, increment will be 1 and there will be only two comparisons (1 for if and 2 for while condition in do-while loop)
+
+3. merge sort
+Let’s take an sorted array = {1 2 3 4 5} for example and count the number of comparisons. 
+
+			1 2 3 4 5
+		1 2 3			4 5
+	1 2	3			4	5
+     1	  2	3			4 5 ——> Merge 4 and 5 : 1 comparison
+	1 2     3	——> merge 1 and 2 : 1 comparison
+	1 2 3		——> merge 1 2 and 3 : 2 comparisons 
+     			1 2 3 4 5	——> merge 1 2 3 and 4 5 : 3 comparisons
+
+Total number of comparisons : 1 + 1 + 2 + 3 =7
+
+
+Problem  4 : Sum Generator
+1. 1+2+3+4+5……+n = (n*(n+1))/2
+2. O(n^2)
+3.
+    public static void generateSums2(int n) {
+        int sum=0;
+        int i=1;
+        
+        do {
+            sum = sum + i;
+            System.out.println(sum);
+            i++;
+        } while (i<=n);
+    }
+4. O(n). 
+The comparison inside while will be executed n times. So C(n)=n. There are 2 adders inside do{} loop. So number of add will be executed 2*(n+1) times. We have to add extra 1 because the first add will occur even if the condition inside while is false. 
+So the efficiency of this program is O(n).
+
+Problem 5 : Stable and unstable sorting
+
+Let’s take following array:
+{1b, 12, 13, 1a, 14}
+
+incr 	 final array	
+ 3      {1a, 12, 13, 1b, 14}
+ 1      {1a, 1b, 12, 13, 14}
+
+Here two elements- 1a and 1b - has equal key (1). After end of shell sort the order will be reversed as shown in above table. 
+
+Problem 6 : Practice with references
+1.
+
+Expression         Address       Value
+------------------ ------------- -----------
+n               	0x128	    0x832
+n.ch               	0x832	     e
+n.prev             	0x838	    0x186		
+n.prev.next        	0x182	    0x832
+n.next.prev        	0x25C       0x832
+n.next.prev.prev	0x838       0x180
+
+2.
+
+public class DNode {
+    private char ch;
+    private DNode next;
+    private DNode prev;
+}
+
+Code fragment:
+
+	m.next = n.next;
+	m.next.prev = m; 
+	n.next = m;
+	m.prev = n;
+	

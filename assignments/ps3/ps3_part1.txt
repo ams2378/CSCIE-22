@@ -1,0 +1,142 @@
+Adil Sadik
+sadik.adil@gmail.com
+Extension student
+
+
+Problem 1
+
+Algorithm A
+
+Complexity = O(n^2)
+Each call to aList.getItem(i) will call getNode(i). There is a while loop in getNode() implementation and for getNode(N), the 
+complexity of getNode() is O(N). Due to outer for loop, the total complexity of this algorithm is O(n^2). The addItem(item,i) also
+calls getNode() function and it’s complexity is O(n). However for simplicity we can only consider one O(n) function inside outer for loop. 
+
+Algorithm B
+
+The only difference of this algorithm is, addItem(item, 0) inside for loop has complexity of O(1). However similar to algorithm A, the overall complexity of this
+algorithm is O(n^2). 
+
+Algorithm B is more efficient. Even though they both have same complexity (O(n^2)), the inner functions of algorithm B is more efficient than algorithm A due to O(1)
+complexity of addItems(item, 0).v
+
+Problem 2
+
+//public class DNode {
+//    private char ch;
+//    private DNode next;
+//    private DNode prev;
+//}
+
+public static void initialisePrev(DNode firstNode) {
+
+	firstNode.prev = null;
+
+	DNode prevNode;
+	DNode nextNode;
+
+	prevNode = firstNode;
+	nextNode = firstNode;
+	
+	while (nextNode.next != null) {
+		nextNode = nextNode.next;
+		nextNode.prev = prevNode;
+		prevNode = nextNode;
+	}
+}
+
+Problem 3
+
+public static swap (DNode node) {
+	DNode temp = node.next;
+	node.next = node.prev;
+	node.prev = temp;
+
+}
+
+public static DNode reverse(DNode firstNode) {
+
+	node = firstNode;
+
+	do {
+		nextNode = node.next;
+		swap(node);
+		node = nextNode;
+	} while (nextNode != null);
+
+	return nextNode;
+}
+
+Problem 4
+
+push:
+	if (q1.isEmpty)
+		q1.insert(data);
+	else 
+		while (!q1.isEmpty())
+			q2.insert(q1.remove());
+		end-while
+
+		q1.insert(data)
+
+		while (!q2.isEmpty())
+			q1.insert(q2.remove())
+		end-while
+	end if-else
+
+pop:
+	return q1.remove()
+
+peek
+	return q1.peek()
+
+Running time:
+
+push:  O(n); Efficiency of insert() and remove() is O(1) in queue. 
+	Here each insert() and remove() operation is wrapped around a while loop. 
+	So total complexity of push is O(n) where n is the number of data
+	inserted into the queue.
+	
+pop:	O(1)
+	Complexity of remove() is O(1) in queue. 
+
+peek:	O(1)
+	Complexity of peek() is O(1) in queue. 
+
+
+Problem 5 (partial credit)
+
+public static int removeSmallest (IntNode head) {
+
+	IntNode prevNode, selNextNode, selPrevNode;
+	int smallestVal;
+
+	if (head.next == null) {
+		return 0;
+	}
+
+	boolean foundSmallest = false;
+	IntNode trav = head.next;
+	smallestVal = trav.val;
+	prevNode = trav;
+
+	trav = trav.next;
+
+	while (trav != null) {
+		if (trav.val < smallestVal) {
+			foundSmallest = true;
+			smallestVal = trav.val;
+			selNextNode = trav.next;
+			selPrevNode = prevNode;
+		}
+		prevNode = trav;
+		trav = trav.next;
+	}
+
+	if (foundSmallest==true) {
+		selPrevNode.next = selNextNode;
+	}
+	return smallestVal;
+}
+
+
